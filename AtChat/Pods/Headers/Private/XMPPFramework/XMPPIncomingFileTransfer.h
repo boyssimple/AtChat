@@ -1,0 +1,1 @@
+../../../XMPPFramework/Extensions/FileTransfer/XMPPIncomingFileTransfer.h

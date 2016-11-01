@@ -13,19 +13,23 @@
 		2917B43F1DC886B100B1C9E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917B43D1DC886B100B1C9E7 /* Main.storyboard */; };
 		2917B4411DC886B100B1C9E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2917B4401DC886B100B1C9E7 /* Assets.xcassets */; };
 		2917B4441DC886B100B1C9E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2917B4421DC886B100B1C9E7 /* LaunchScreen.storyboard */; };
+		D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2917B4311DC886AF00B1C9E7 /* AtChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2917B4351DC886B000B1C9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2917B4371DC886B000B1C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2917B4381DC886B000B1C9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2917B43A1DC886B100B1C9E7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2917B43B1DC886B100B1C9E7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2917B4371DC886B000B1C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
+		2917B4381DC886B000B1C9E7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
+		2917B43A1DC886B100B1C9E7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../../ViewController.h; sourceTree = "<group>"; };
+		2917B43B1DC886B100B1C9E7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../../ViewController.m; sourceTree = "<group>"; };
 		2917B43E1DC886B100B1C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2917B4401DC886B100B1C9E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2917B4431DC886B100B1C9E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2917B4451DC886B100B1C9E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AtChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
+		F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				2917B4331DC886AF00B1C9E7 /* AtChat */,
 				2917B4321DC886AF00B1C9E7 /* Products */,
+				B5E8190A6AE543800228B4E9 /* Pods */,
+				D601C9B7944CCF2E80ECF41C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,14 +65,7 @@
 		2917B4331DC886AF00B1C9E7 /* AtChat */ = {
 			isa = PBXGroup;
 			children = (
-				2917B4371DC886B000B1C9E7 /* AppDelegate.h */,
-				2917B4381DC886B000B1C9E7 /* AppDelegate.m */,
-				2917B43A1DC886B100B1C9E7 /* ViewController.h */,
-				2917B43B1DC886B100B1C9E7 /* ViewController.m */,
-				2917B43D1DC886B100B1C9E7 /* Main.storyboard */,
-				2917B4401DC886B100B1C9E7 /* Assets.xcassets */,
-				2917B4421DC886B100B1C9E7 /* LaunchScreen.storyboard */,
-				2917B4451DC886B100B1C9E7 /* Info.plist */,
+				295715871DC88C7200AAEE1F /* Class */,
 				2917B4341DC886B000B1C9E7 /* Supporting Files */,
 			);
 			path = AtChat;
@@ -74,9 +74,233 @@
 		2917B4341DC886B000B1C9E7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2917B4401DC886B100B1C9E7 /* Assets.xcassets */,
+				2917B4451DC886B100B1C9E7 /* Info.plist */,
 				2917B4351DC886B000B1C9E7 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		295715871DC88C7200AAEE1F /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				295715881DC88C7200AAEE1F /* Friends */,
+				2957158D1DC88C7200AAEE1F /* Message */,
+				295715911DC88C7200AAEE1F /* Mine */,
+				295715961DC88C7200AAEE1F /* Timeline */,
+				2957159F1DC88CB400AAEE1F /* Base */,
+				295715951DC88C7200AAEE1F /* Other */,
+				2957158C1DC88C7200AAEE1F /* Lib */,
+				2957159A1DC88C7200AAEE1F /* Tools */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		295715881DC88C7200AAEE1F /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				295715891DC88C7200AAEE1F /* Controller */,
+				2957158A1DC88C7200AAEE1F /* Model */,
+				2957158B1DC88C7200AAEE1F /* View */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		295715891DC88C7200AAEE1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2957158A1DC88C7200AAEE1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2957158B1DC88C7200AAEE1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2957158C1DC88C7200AAEE1F /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		2957158D1DC88C7200AAEE1F /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				2957158E1DC88C7200AAEE1F /* Controller */,
+				2957158F1DC88C7200AAEE1F /* Model */,
+				295715901DC88C7200AAEE1F /* View */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		2957158E1DC88C7200AAEE1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2957158F1DC88C7200AAEE1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		295715901DC88C7200AAEE1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		295715911DC88C7200AAEE1F /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				295715921DC88C7200AAEE1F /* Controller */,
+				295715931DC88C7200AAEE1F /* Model */,
+				295715941DC88C7200AAEE1F /* View */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		295715921DC88C7200AAEE1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		295715931DC88C7200AAEE1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		295715941DC88C7200AAEE1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		295715951DC88C7200AAEE1F /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				2917B4371DC886B000B1C9E7 /* AppDelegate.h */,
+				2917B4381DC886B000B1C9E7 /* AppDelegate.m */,
+				2917B43D1DC886B100B1C9E7 /* Main.storyboard */,
+				2917B4421DC886B100B1C9E7 /* LaunchScreen.storyboard */,
+				2917B43A1DC886B100B1C9E7 /* ViewController.h */,
+				2917B43B1DC886B100B1C9E7 /* ViewController.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		295715961DC88C7200AAEE1F /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				295715971DC88C7200AAEE1F /* Controller */,
+				295715981DC88C7200AAEE1F /* Model */,
+				295715991DC88C7200AAEE1F /* View */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		295715971DC88C7200AAEE1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		295715981DC88C7200AAEE1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		295715991DC88C7200AAEE1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2957159A1DC88C7200AAEE1F /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				2957159B1DC88C7200AAEE1F /* Const */,
+				2957159C1DC88C7200AAEE1F /* DataBase */,
+				2957159D1DC88C7200AAEE1F /* Macros */,
+				2957159E1DC88C7200AAEE1F /* Network */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		2957159B1DC88C7200AAEE1F /* Const */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		2957159C1DC88C7200AAEE1F /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		2957159D1DC88C7200AAEE1F /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Macros;
+			sourceTree = "<group>";
+		};
+		2957159E1DC88C7200AAEE1F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		2957159F1DC88CB400AAEE1F /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B5E8190A6AE543800228B4E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */,
+				E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D601C9B7944CCF2E80ECF41C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,9 +310,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2917B4481DC886B100B1C9E7 /* Build configuration list for PBXNativeTarget "AtChat" */;
 			buildPhases = (
+				2569FA6EE20628E7EEC62983 /* Check Pods Manifest.lock */,
 				2917B42D1DC886AF00B1C9E7 /* Sources */,
 				2917B42E1DC886AF00B1C9E7 /* Frameworks */,
 				2917B42F1DC886AF00B1C9E7 /* Resources */,
+				8334C3B394F84F794D999BA4 /* Embed Pods Frameworks */,
+				58B0168A9B55490F6D2F784C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -145,6 +372,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2569FA6EE20628E7EEC62983 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		58B0168A9B55490F6D2F784C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AtChat/Pods-AtChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8334C3B394F84F794D999BA4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AtChat/Pods-AtChat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2917B42D1DC886AF00B1C9E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -165,6 +440,7 @@
 				2917B43E1DC886B100B1C9E7 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		2917B4421DC886B100B1C9E7 /* LaunchScreen.storyboard */ = {
@@ -173,6 +449,7 @@
 				2917B4431DC886B100B1C9E7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -268,10 +545,12 @@
 		};
 		2917B4491DC886B100B1C9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AtChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.AtChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -280,10 +559,12 @@
 		};
 		2917B44A1DC886B100B1C9E7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AtChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.AtChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -309,6 +590,7 @@
 				2917B44A1DC886B100B1C9E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

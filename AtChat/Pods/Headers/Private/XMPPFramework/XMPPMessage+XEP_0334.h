@@ -1,0 +1,1 @@
+../../../XMPPFramework/Extensions/XEP-0334/XMPPMessage+XEP_0334.h

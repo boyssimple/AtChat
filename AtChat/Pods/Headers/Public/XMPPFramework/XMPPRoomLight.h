@@ -1,0 +1,1 @@
+../../../XMPPFramework/Extensions/XMPPMUCLight/XMPPRoomLight.h
