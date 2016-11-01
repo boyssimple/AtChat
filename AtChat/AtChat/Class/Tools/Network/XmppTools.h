@@ -1,0 +1,44 @@
+//
+//  XmppTools.h
+//  ChatMPP
+//
+//  Created by zhouMR on 16/10/14.
+//  Copyright © 2016年 luowei. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef void(^SuccessBlock)(void);
+typedef void(^FailureBlock)(NSString *error);
+
+@interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate>
+@property (nonatomic, strong) XMPPStream *xmppStream;
+
+@property (nonatomic,strong)XMPPPresence *receivePresence;
+@property (nonatomic,strong)XMPPRoster *xmppRoster;
+@property (nonatomic,strong)XMPPRosterMemoryStorage *xmppRosterMemoryStorage;
+
+//群
+@property (nonatomic, strong) XMPPRoomCoreDataStorage *roomStorage;
+@property (nonatomic, strong) XMPPRoom *xmppRoom;
+//自动重连
+@property (nonatomic,strong)XMPPReconnect *xmppReconnect;
+
+/** 定时发送心跳包 */
+@property (nonatomic, strong) XMPPAutoPing *xmppAutoPing;
+@property (nonatomic, strong) NSString *userPassword;
+@property (nonatomic, strong) NSString *userName;
+
+@property (nonatomic, copy)   SuccessBlock successBlack;
+@property (nonatomic, copy)   FailureBlock failureBlack;
+
++ (instancetype)sharedManager;
+
+- (void)loginWithUser:(NSString*)userName withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
+
+- (XMPPJID*)getJIDWithUserId:(NSString *)userId;
+
+//用户名+HOST
+- (NSString *)idAndHost:(NSString*)userId;
+
+@end

@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@import KissXML;
+#import "DDXML.h"
 
 
 @interface NSXMLElement (XMPP)

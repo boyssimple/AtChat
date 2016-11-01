@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "VCLogin.h"
+#import "VCNavBase.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +18,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    VCLogin *vc = [[VCLogin alloc]init];
+    VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
+    self.window.rootViewController = nvc;
     return YES;
 }
 

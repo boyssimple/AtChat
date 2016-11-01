@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "XMPPJID.h"
 
-@import KissXML;
+#import "DDXML.h"
 
 
 /**

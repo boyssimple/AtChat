@@ -5,5 +5,9 @@
 
 target 'AtChat' do
 pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
+pod 'SDWebImage', '~> 3.8.1'
+pod 'YYKit'
+pod 'MJRefresh', '~> 3.1.12'
+pod 'MBProgressHUD'
 end
 

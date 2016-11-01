@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@import KissXML;
+#import "DDXML.h"
 
 /**
  * The XMPPResultSet class represents an <set xmlns='http://jabber.org/protocol/rsm'> element form XEP-0059.

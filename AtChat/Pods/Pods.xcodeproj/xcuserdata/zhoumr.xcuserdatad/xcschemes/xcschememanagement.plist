@@ -19,12 +19,32 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-AtChat.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>XMPPFramework.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>YYKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>393D2B3A59798D1D780249C5D0526C53</key>
+		<key>2E6DFE9C4269B6A34350F4C7F87D9AE7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,12 +67,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B32BCE8088319B63DCD6BA8488784966</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EFDC9419B1A4131110F3AC669ABA2073</key>
+		<key>B49B2656060C39BB7439B14EF96AA755</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DCA2A9492DD203FCC5B6DFF4FFC2DD55</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F69C5B58270BAB3C0FF7B3433D976602</key>
 		<dict>
 			<key>primary</key>
 			<true/>
