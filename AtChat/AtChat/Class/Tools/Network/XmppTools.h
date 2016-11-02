@@ -11,7 +11,15 @@
 typedef void(^SuccessBlock)(void);
 typedef void(^FailureBlock)(NSString *error);
 
+// 枚举
+typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
+{
+    ConnectToServerPurposeLogin,
+    ConnectToServerPurposeRegister
+};
+
 @interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate>
+@property (nonatomic, assign) ConnectToServerPurpose connectToServerPurpose;
 @property (nonatomic, strong) XMPPStream *xmppStream;
 
 @property (nonatomic,strong)XMPPPresence *receivePresence;
@@ -34,8 +42,12 @@ typedef void(^FailureBlock)(NSString *error);
 
 + (instancetype)sharedManager;
 
+//登录方法
 - (void)loginWithUser:(NSString*)userName withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
+//注册方法
+- (void)registerWithUser:(NSString *)userName password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
 
+//根据userid返回   xmppjid
 - (XMPPJID*)getJIDWithUserId:(NSString *)userId;
 
 //用户名+HOST

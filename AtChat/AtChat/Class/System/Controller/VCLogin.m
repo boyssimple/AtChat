@@ -12,6 +12,8 @@
 #import "XmppTools.h"
 
 @interface VCLogin ()<UITextFieldDelegate>
+@property (nonatomic, strong) UIView *vPhone;
+@property (nonatomic, strong) UIView *vPassword;
 @property (nonatomic, strong) UITextField *tfPhone;
 @property (nonatomic, strong) UITextField *tfPassword;
 @property (nonatomic, strong) UIButton *btnLogin;
@@ -28,8 +30,8 @@
 }
 
 - (void)initUI{
-    [self.view addSubview:self.tfPhone];
-    [self.view addSubview:self.tfPassword];
+    [self.view addSubview:self.vPhone];
+    [self.view addSubview:self.vPassword];
     [self.view addSubview:self.btnLogin];
     [self.view addSubview:self.btnRegister];
     [self.view addSubview:self.btnForgot];
@@ -81,14 +83,34 @@
 
 #pragma mark - Getter Setter
 
+- (UIView *)vPhone{
+    if (!_vPhone) {
+        _vPhone = [[UIView alloc]initWithFrame:CGRectMake(10, 20, DEVICEWIDTH-20, 45)];
+        _vPhone.layer.borderColor = BASE_COLOR.CGColor;
+        _vPhone.layer.borderWidth = 1;
+        _vPhone.layer.cornerRadius = 5;
+        _vPhone.layer.masksToBounds = YES;
+        [_vPhone addSubview:self.tfPhone];
+    }
+    return _vPhone;
+}
+
+- (UIView *)vPassword{
+    if (!_vPassword) {
+        _vPassword = [[UIView alloc]initWithFrame:CGRectMake(10, self.vPhone.bottom+10, DEVICEWIDTH-20, 45)];
+        _vPassword.layer.borderColor = BASE_COLOR.CGColor;
+        _vPassword.layer.borderWidth = 1;
+        _vPassword.layer.cornerRadius = 5;
+        _vPassword.layer.masksToBounds = YES;
+        [_vPassword addSubview:self.tfPassword];
+    }
+    return _vPassword;
+}
+
 - (UITextField *)tfPhone{
     if (!_tfPhone) {
-        _tfPhone = [[UITextField alloc]initWithFrame:CGRectMake(10, 20+NAV_STATUS_HEIGHT, DEVICEWIDTH-20, 45)];
-        _tfPhone.layer.borderColor = BASE_COLOR.CGColor;
-        _tfPhone.layer.borderWidth = 1;
+        _tfPhone = [[UITextField alloc]initWithFrame:CGRectMake(10, 2.5, DEVICEWIDTH-40, 40)];
         _tfPhone.placeholder = @"手机号码";
-        _tfPhone.layer.cornerRadius = 5;
-        _tfPhone.layer.masksToBounds = YES;
         _tfPhone.delegate = self;
     }
     return _tfPhone;
@@ -97,13 +119,9 @@
 
 - (UITextField *)tfPassword{
     if (!_tfPassword) {
-        _tfPassword = [[UITextField alloc]initWithFrame:CGRectMake(10, self.tfPhone.bottom+10, DEVICEWIDTH-20, 45)];
-        _tfPassword.layer.borderColor = BASE_COLOR.CGColor;
-        _tfPassword.layer.borderWidth = 1;
+        _tfPassword = [[UITextField alloc]initWithFrame:CGRectMake(10, 2.5, DEVICEWIDTH-40, 40)];
         _tfPassword.placeholder = @"请输入密码";
         _tfPassword.secureTextEntry = YES;
-        _tfPassword.layer.cornerRadius = 5;
-        _tfPassword.layer.masksToBounds = YES;
         _tfPassword.delegate = self;
     }
     return _tfPassword;
@@ -111,7 +129,7 @@
 
 - (UIButton*)btnLogin{
     if (!_btnLogin) {
-        _btnLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, self.tfPassword.bottom+10, DEVICEWIDTH-20, 45)];
+        _btnLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, self.vPassword.bottom+10, DEVICEWIDTH-20, 45)];
         _btnLogin.backgroundColor = BASE_COLOR;
         [_btnLogin setTitle:@"登录" forState:UIControlStateNormal];
         [_btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

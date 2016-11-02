@@ -63,13 +63,33 @@
 /**
  *  登录方法
  *  @prarm userName 用户名
- *  @prarm userPwd 密码
+ *  @prarm userPwd  密码
  */
 - (void)loginWithUser:(NSString*)userName withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock{
+    self.connectToServerPurpose = ConnectToServerPurposeLogin;
     self.successBlack = sblock;
     self.failureBlack = fblock;
     self.userPassword = userPwd;
     self.userName = userName;
+    [self connection:userName];
+}
+
+/**
+ * 注册方法
+ *  @prarm userName 用户名
+ *  @prarm userPwd  密码
+ */
+- (void)registerWithUser:(NSString *)userName password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock
+{
+    self.connectToServerPurpose = ConnectToServerPurposeRegister;
+    self.successBlack = sblock;
+    self.failureBlack = fblock;
+    self.userPassword = password;
+    [self connection:userName];
+}
+
+//连接服务器
+- (void)connection:(NSString*)userName{
     XMPPJID *jid = [XMPPJID jidWithUser:userName domain:XMPP_HOST resource:XMPP_PLATFORM];
     [self.xmppStream setMyJID:jid];
     // 发送请求
@@ -107,8 +127,16 @@
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
     NSLog(@"xmpp正在授权......");
     NSError *error;
-    [self.xmppStream authenticateWithPassword:self.userPassword error:&error];
-    // 客户端xmpp发送auth包，请求授权；服务器返回success；发送xmpp-bind包、xmpp-session包等。
+    switch (self.connectToServerPurpose) {
+        case ConnectToServerPurposeLogin:
+            [self.xmppStream authenticateWithPassword:self.userPassword error:&error];
+            break;
+        case ConnectToServerPurposeRegister:
+            [self.xmppStream registerWithPassword:self.userPassword error:&error];
+            
+        default:
+            break;
+    }
 }
 
 /**
@@ -129,6 +157,30 @@
     //NSLog(@"️xmpp授权失败:%@", error.description);
     self.failureBlack(error.description);
 }
+
+/**
+ *  注册成功
+ */
+- (void)xmppStreamDidRegister:(XMPPStream *)sender{
+    self.successBlack();
+}
+
+/**
+ *  注册失败
+ */
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error{
+    self.failureBlack(error.description);
+}
+
+-(void)goOffLine{
+    //生成网络状态
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
+    //改变通道状态
+    [self.xmppStream sendElement:presence];
+    //断开链接
+    [self.xmppStream disconnect];
+}
+
 
 //接收消息
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message{
