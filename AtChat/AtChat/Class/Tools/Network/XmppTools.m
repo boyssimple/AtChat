@@ -42,7 +42,7 @@
     
     // 2.autoReconnect 自动重连
     _xmppReconnect = [[XMPPReconnect alloc] init];
-    [_xmppReconnect activate:self.xmppStream];
+    [_xmppReconnect activate:_xmppStream];
     [_xmppReconnect setAutoReconnect:YES];
     [_xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
@@ -50,7 +50,7 @@
     // 3.好友模块 支持我们管理、同步、申请、删除好友
     _xmppRosterMemoryStorage = [[XMPPRosterMemoryStorage alloc] init];
     _xmppRoster = [[XMPPRoster alloc] initWithRosterStorage:_xmppRosterMemoryStorage];
-    [_xmppRoster activate:self.xmppStream];
+    [_xmppRoster activate:_xmppStream];
     
     //同时给_xmppRosterMemoryStorage 和 _xmppRoster都添加了代理
     [_xmppRoster addDelegate:self delegateQueue:dispatch_get_main_queue()];
@@ -58,6 +58,15 @@
     [_xmppRoster setAutoFetchRoster:YES]; //自动同步，从服务器取出好友
     //关掉自动接收好友请求，默认开启自动同意
     [_xmppRoster setAutoAcceptKnownPresenceSubscriptionRequests:NO];
+    
+    
+    //使用电子名片
+    XMPPvCardCoreDataStorage *vCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
+    _xmppvCardModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:vCardStorage];
+    [_xmppvCardModule activate:_xmppStream];
+    //头像
+    _xmppAvatarModule = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_xmppvCardModule];
+    [_xmppAvatarModule activate:_xmppStream];
 }
 
 /**
@@ -125,7 +134,6 @@
  *  xmpp连接成功之后走这里
  */
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
-    NSLog(@"xmpp正在授权......");
     NSError *error;
     switch (self.connectToServerPurpose) {
         case ConnectToServerPurposeLogin:
@@ -235,6 +243,24 @@
 }
 
 
+- (NSManagedObjectContext *)vCardContext   //电子名片模块
+{
+    XMPPvCardCoreDataStorage *storage = [XMPPvCardCoreDataStorage sharedInstance];
+    return [storage mainThreadManagedObjectContext];
+}
+
+
+#pragma mark - 获取模块管理对象
+- (XMPPvCardAvatarModule *)avatarModule    //头像模块
+{
+    return _xmppAvatarModule;
+}
+
+- (XMPPvCardTempModule *)vCardModule
+{
+    return _xmppvCardModule;
+}
+
 #pragma  mark --------------------自定义方法
 - (XMPPJID*)getJIDWithUserId:(NSString *)userId{
     XMPPJID *chatJID = [XMPPJID jidWithString:[self idAndHost:userId]];
@@ -244,8 +270,35 @@
 //用户名+HOST
 - (NSString *)idAndHost:(NSString*)userId{
     NSString *baseStr = [NSString stringWithFormat:@"%@@%@/%@",userId,XMPP_HOST,XMPP_PLATFORM];
-    NSLog(@"%@",baseStr);
     return baseStr;
 }
 
+- (NSData*)getImageData:(NSString *)userId;
+{
+    XMPPJID *jid = [XMPPJID jidWithString:[self idAndHost:userId] resource:XMPP_PLATFORM];
+    NSData *photoData = [[self avatarModule] photoDataForJID:jid];
+    return photoData;
+}
+
+/**
+ * 同步结束
+ **/
+//收到好友列表IQ会进入的方法，并且已经存入我的存储器
+- (void)xmppRosterDidEndPopulating:(XMPPRoster *)sender
+{
+    [self changeFriend];
+}
+
+// 如果不是初始化同步来的roster,那么会自动存入我的好友存储器
+- (void)xmppRosterDidChange:(XMPPRosterMemoryStorage *)sender
+{
+    [self changeFriend];
+}
+
+
+-(void)changeFriend{
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.xmppRosterMemoryStorage.unsortedUsers];
+    self.contacts = [array mutableCopy];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_ROSTER_CHANGE object:nil];
+}
 @end

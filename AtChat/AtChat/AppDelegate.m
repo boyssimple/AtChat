@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "VCLogin.h"
 #import "VCNavBase.h"
+#import "VCMain.h"
 #import <SMS_SDK/SMSSDK.h>
 
 //SMSSDK官网公共key
@@ -23,16 +24,35 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [user objectForKey:@"userName"];
+    NSString *userPassword = [user objectForKey:@"userPassword"];
     //注册MOB短信验证
     [SMSSDK registerApp:mob_appkey withSecret:mob_appSecrect];
+    
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    VCLogin *vc = [[VCLogin alloc]init];
-    VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
-    self.window.rootViewController = nvc;
+    if (userName != nil && userPassword != nil) {
+        [self autoLogin:userName withPwd:userPassword];
+        VCMain *vc = [[VCMain alloc]init];
+        self.window.rootViewController = vc;
+    }else{
+        VCLogin *vc = [[VCLogin alloc]init];
+        VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
+        self.window.rootViewController = nvc;
+    }
     return YES;
 }
 
+- (void)autoLogin:(NSString*)phone withPwd:(NSString*)password{
+    [[XmppTools sharedManager] loginWithUser:phone withPwd:password withSuccess:^{
+        
+    } withFail:^(NSString *error) {
+        VCLogin *vc = [[VCLogin alloc]init];
+        VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
+        self.window.rootViewController = nvc;
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

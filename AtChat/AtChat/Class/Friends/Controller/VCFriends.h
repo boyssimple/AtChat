@@ -9,5 +9,4 @@
 #import "VCBase.h"
 
 @interface VCFriends : VCBase
-
 @end

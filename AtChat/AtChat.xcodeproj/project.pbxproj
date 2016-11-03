@@ -42,6 +42,13 @@
 		295715EE1DC989AD00AAEE1F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295715ED1DC989AD00AAEE1F /* JavaScriptCore.framework */; };
 		295715F01DC989BC00AAEE1F /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 295715EF1DC989BC00AAEE1F /* libstdc++.tbd */; };
 		295715F31DC9952600AAEE1F /* VCRegFinish.m in Sources */ = {isa = PBXBuildFile; fileRef = 295715F21DC9952600AAEE1F /* VCRegFinish.m */; };
+		295715F61DC99EDF00AAEE1F /* VCMsgesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 295715F51DC99EDF00AAEE1F /* VCMsgesCell.m */; };
+		295715F91DC9B25700AAEE1F /* VCFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 295715F81DC9B25700AAEE1F /* VCFriendsCell.m */; };
+		295716041DC9D80C00AAEE1F /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716031DC9D80C00AAEE1F /* VCChat.m */; };
+		295716071DC9E1D300AAEE1F /* VCChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716061DC9E1D300AAEE1F /* VCChatCell.m */; };
+		2957160A1DC9E22100AAEE1F /* ChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716091DC9E22100AAEE1F /* ChatInputView.m */; };
+		2957160D1DC9E2CE00AAEE1F /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2957160C1DC9E2CE00AAEE1F /* FaceView.m */; };
+		295716101DC9E9C400AAEE1F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 2957160F1DC9E9C400AAEE1F /* Message.m */; };
 		D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +108,21 @@
 		295715EF1DC989BC00AAEE1F /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		295715F11DC9952600AAEE1F /* VCRegFinish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCRegFinish.h; sourceTree = "<group>"; };
 		295715F21DC9952600AAEE1F /* VCRegFinish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCRegFinish.m; sourceTree = "<group>"; };
+		295715F41DC99EDF00AAEE1F /* VCMsgesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMsgesCell.h; sourceTree = "<group>"; };
+		295715F51DC99EDF00AAEE1F /* VCMsgesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMsgesCell.m; sourceTree = "<group>"; };
+		295715F71DC9B25700AAEE1F /* VCFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCFriendsCell.h; sourceTree = "<group>"; };
+		295715F81DC9B25700AAEE1F /* VCFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCFriendsCell.m; sourceTree = "<group>"; };
+		295715FD1DC9D57400AAEE1F /* Notify.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
+		295716021DC9D80C00AAEE1F /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
+		295716031DC9D80C00AAEE1F /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
+		295716051DC9E1D300AAEE1F /* VCChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChatCell.h; sourceTree = "<group>"; };
+		295716061DC9E1D300AAEE1F /* VCChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChatCell.m; sourceTree = "<group>"; };
+		295716081DC9E22100AAEE1F /* ChatInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInputView.h; sourceTree = "<group>"; };
+		295716091DC9E22100AAEE1F /* ChatInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInputView.m; sourceTree = "<group>"; };
+		2957160B1DC9E2CE00AAEE1F /* FaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceView.h; sourceTree = "<group>"; };
+		2957160C1DC9E2CE00AAEE1F /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceView.m; sourceTree = "<group>"; };
+		2957160E1DC9E9C400AAEE1F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		2957160F1DC9E9C400AAEE1F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AtChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
 		F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +199,7 @@
 			children = (
 				2957159F1DC88CB400AAEE1F /* Base */,
 				295715B01DC88F7800AAEE1F /* System */,
+				295715FE1DC9D7EE00AAEE1F /* Chat */,
 				295715881DC88C7200AAEE1F /* Friends */,
 				2957158D1DC88C7200AAEE1F /* Message */,
 				295715911DC88C7200AAEE1F /* Mine */,
@@ -217,6 +240,8 @@
 		2957158B1DC88C7200AAEE1F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				295715F71DC9B25700AAEE1F /* VCFriendsCell.h */,
+				295715F81DC9B25700AAEE1F /* VCFriendsCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +283,8 @@
 		295715901DC88C7200AAEE1F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				295715F41DC99EDF00AAEE1F /* VCMsgesCell.h */,
+				295715F51DC99EDF00AAEE1F /* VCMsgesCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -357,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				295715C11DC8906100AAEE1F /* NetContants.h */,
+				295715FD1DC9D57400AAEE1F /* Notify.h */,
 			);
 			path = Const;
 			sourceTree = "<group>";
@@ -454,6 +482,47 @@
 				295715E31DC988A600AAEE1F /* SMS_SDK.framework */,
 			);
 			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
+		295715FE1DC9D7EE00AAEE1F /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				295716001DC9D7EE00AAEE1F /* Model */,
+				295716011DC9D7EE00AAEE1F /* View */,
+				295715FF1DC9D7EE00AAEE1F /* Controller */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		295715FF1DC9D7EE00AAEE1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				295716021DC9D80C00AAEE1F /* VCChat.h */,
+				295716031DC9D80C00AAEE1F /* VCChat.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		295716001DC9D7EE00AAEE1F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2957160E1DC9E9C400AAEE1F /* Message.h */,
+				2957160F1DC9E9C400AAEE1F /* Message.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		295716011DC9D7EE00AAEE1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				295716051DC9E1D300AAEE1F /* VCChatCell.h */,
+				295716061DC9E1D300AAEE1F /* VCChatCell.m */,
+				295716081DC9E22100AAEE1F /* ChatInputView.h */,
+				295716091DC9E22100AAEE1F /* ChatInputView.m */,
+				2957160B1DC9E2CE00AAEE1F /* FaceView.h */,
+				2957160C1DC9E2CE00AAEE1F /* FaceView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B5E8190A6AE543800228B4E9 /* Pods */ = {
@@ -609,13 +678,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				295715F31DC9952600AAEE1F /* VCRegFinish.m in Sources */,
+				295715F61DC99EDF00AAEE1F /* VCMsgesCell.m in Sources */,
 				295715D01DC8923800AAEE1F /* VCLogin.m in Sources */,
 				295715C71DC890C000AAEE1F /* VCMessages.m in Sources */,
+				295716071DC9E1D300AAEE1F /* VCChatCell.m in Sources */,
 				2917B43C1DC886B100B1C9E7 /* ViewController.m in Sources */,
+				295716101DC9E9C400AAEE1F /* Message.m in Sources */,
 				295715BB1DC88FED00AAEE1F /* VCMain.m in Sources */,
 				295715C41DC890B300AAEE1F /* VCFriends.m in Sources */,
 				295715DA1DC89A2D00AAEE1F /* VCRegister.m in Sources */,
 				2917B4391DC886B000B1C9E7 /* AppDelegate.m in Sources */,
+				295716041DC9D80C00AAEE1F /* VCChat.m in Sources */,
+				2957160D1DC9E2CE00AAEE1F /* FaceView.m in Sources */,
 				2917B4361DC886B000B1C9E7 /* main.m in Sources */,
 				295715CD1DC890D500AAEE1F /* VCTimeline.m in Sources */,
 				295715DE1DC89ACC00AAEE1F /* XmppTools.m in Sources */,
@@ -623,7 +697,9 @@
 				295715BC1DC88FED00AAEE1F /* VCNavBase.m in Sources */,
 				295715D71DC8965000AAEE1F /* UIImageView+SDWebImage.m in Sources */,
 				295715D31DC8962000AAEE1F /* MJChiBaoZiHeader.m in Sources */,
+				295715F91DC9B25700AAEE1F /* VCFriendsCell.m in Sources */,
 				295715CA1DC890C900AAEE1F /* VCMine.m in Sources */,
+				2957160A1DC9E22100AAEE1F /* ChatInputView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

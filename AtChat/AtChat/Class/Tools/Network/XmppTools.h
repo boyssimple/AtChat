@@ -37,6 +37,14 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 @property (nonatomic, strong) NSString *userPassword;
 @property (nonatomic, strong) NSString *userName;
 
+
+//头像
+@property (nonatomic,strong)XMPPvCardAvatarModule *xmppAvatarModule;     //头像模块
+@property (nonatomic,strong)XMPPvCardTempModule *xmppvCardModule;        //电子身份模块
+
+//好友
+@property(nonatomic,strong)NSMutableArray *contacts;
+
 @property (nonatomic, copy)   SuccessBlock successBlack;
 @property (nonatomic, copy)   FailureBlock failureBlack;
 
@@ -53,4 +61,7 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 //用户名+HOST
 - (NSString *)idAndHost:(NSString*)userId;
 
+- (XMPPvCardAvatarModule *)avatarModule;    //头像模块;
+- (XMPPvCardTempModule *)vCardModule;       //电子名片模块
+- (NSData*)getImageData:(NSString *)userId;
 @end

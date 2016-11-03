@@ -9,7 +9,6 @@
 #import "VCLogin.h"
 #import "VCMain.h"
 #import "VCRegister.h"
-#import "XmppTools.h"
 
 @interface VCLogin ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *vPhone;
@@ -35,6 +34,17 @@
     [self.view addSubview:self.btnLogin];
     [self.view addSubview:self.btnRegister];
     [self.view addSubview:self.btnForgot];
+    
+    //读取沙盒
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [user objectForKey:@"userName"];
+    NSString *userPassword = [user objectForKey:@"userPassword"];
+    if (userName != nil) {
+        self.tfPhone.text = userName;
+    }
+    if (userPassword != nil) {
+        self.tfPassword.text = userPassword;
+    }
 }
 
 
@@ -59,6 +69,12 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = @"登录中...";
         [[XmppTools sharedManager] loginWithUser:phone withPwd:password withSuccess:^{
+            //存储沙盒
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:phone forKey:@"userName"];
+            [userDefaults setObject:password forKey:@"userPassword"];
+            [userDefaults synchronize];
+            
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             VCMain *vc = [[VCMain alloc]init];
             UIWindow *window = [UIApplication sharedApplication].keyWindow;

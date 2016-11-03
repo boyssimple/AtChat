@@ -9,7 +9,6 @@
 #import "VCRegFinish.h"
 #import "VCMain.h"
 #import "VCRegister.h"
-#import "XmppTools.h"
 
 @interface VCRegFinish ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UIView *vPassword;
@@ -23,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"注册";
+    self.title = @"完成注册";
     [self initUI];
 }
 
@@ -63,7 +62,7 @@
             [alert show];
        } withFail:^(NSString *error) {
            [self hideMsg];
-           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册失败或用户已经存在" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册失败" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
            [alert show];
        }];
     }
@@ -118,7 +117,7 @@
 
 - (UIButton*)btnLogin{
     if (!_btnLogin) {
-        _btnLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, self.vPassword.bottom+10, DEVICEWIDTH-20, 45)];
+        _btnLogin = [[UIButton alloc]initWithFrame:CGRectMake(10, self.vConfirmPwd.bottom+10, DEVICEWIDTH-20, 45)];
         _btnLogin.backgroundColor = BASE_COLOR;
         [_btnLogin setTitle:@"完成注册" forState:UIControlStateNormal];
         [_btnLogin setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
