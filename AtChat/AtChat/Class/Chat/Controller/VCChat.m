@@ -11,7 +11,7 @@
 #import "VCChatCell.h"
 #import "ChatInputView.h"
 
-@interface VCChat ()<UITableViewDelegate,UITableViewDataSource>
+@interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ChatInputView *inputText;
@@ -45,10 +45,26 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self hideInput];
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self hideInput];
+}
+
 
 #pragma mark - Message
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
+    int type = TEXT;
+    for (XMPPElement *node in message.children) {
+        if ([node.name isEqualToString:@"MSGTYPE"]) {
+            type = node.stringValueAsInt;
+        }
+    }
+    
     NSString *from = message.from.bare;
     if ([from isEqualToString:XMPP_HOST]) {
         from = @"系统消息";
@@ -57,7 +73,7 @@
         from = [from substringToIndex:range.location];//截取范围类的字符串
     }
     if ([self.toUser isEqualToString:from]) {
-        if ([message.type intValue] == TEXT) {
+        if (type == TEXT) {
             Message *m = [Message new];
             m.content = message.body;
             m.msgType = TEXT;
@@ -66,7 +82,7 @@
             
             [self.dataSource addObject:m];
             [self reload];
-        }else if([message.type intValue] == IMAGE){
+        }else if(type == IMAGE){
             NSString *content;
             for (XMPPElement *node in message.children) {
                 if ([node.name isEqualToString:@"attachment"]) {
@@ -82,7 +98,7 @@
             m.type = OTHER;
             [self.dataSource addObject:m];
             [self reload];
-        }else if([message.type intValue] == RECORD){
+        }else if(type == RECORD){
             NSString *content;
             NSString *time;
             for (XMPPElement *node in message.children) {
@@ -123,6 +139,122 @@
     [self.inputText hide];
 }
 
+#pragma mark - ChatInputViewDelegate
+-(void)send:(NSString *)msg{
+    if (![msg isEqualToString:@""]) {
+        [[XmppTools sharedManager] sendTextMsg:msg withId:self.toUser];
+        Message *m = [Message new];
+        m.content = msg;
+        m.msgType = TEXT;
+        m.type = ME;
+        m.to = self.toUser;
+        m.from = [XmppTools sharedManager].userName;
+        [self.dataSource addObject:m];
+        [self reload];
+    }
+}
+
+-(void)recordFinish:(NSURL *)url withTime:(float)time{
+    self.url = url;
+    NSData *data = [[NSData alloc]initWithContentsOfURL:self.url];
+    [self sendRecordMessageWithData:data bodyName:@"[语音]" withTime:time];
+}
+
+//选择图片
+- (void)selectImg{
+    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    NSData *data = UIImageJPEGRepresentation(image,0.3);
+    [self sendMessageWithData:data bodyName:@"[图片]"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+/** 发送图片 */
+- (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name
+{
+    
+    XMPPJID *jid = [[XmppTools sharedManager] getJIDWithUserId:self.toUser];
+    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:jid];
+    
+    [message addBody:name];
+    
+    // 转换成base64的编码
+    NSString *base64str = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    // 设置节点内容
+    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
+    
+    // 包含子节点
+    [message addChild:attachment];
+    
+    XMPPElement *typeElement = [XMPPElement elementWithName:@"MSGTYPE" stringValue:[NSString stringWithFormat:@"%d",IMAGE]];
+    [message addChild:typeElement];
+    
+    // 发送消息
+    [[XmppTools sharedManager].xmppStream sendElement:message];
+    
+    
+    
+    Message *m = [Message new];
+    m.content = base64str;
+    m.msgType = IMAGE;
+    m.from =  [XmppTools sharedManager].userName;
+    m.type = ME;
+    m.to = self.toUser;
+    [self.dataSource addObject:m];
+    [self reload];
+    
+}
+
+/** 发送录音 */
+- (void)sendRecordMessageWithData:(NSData *)data bodyName:(NSString *)name withTime:(float)time
+{
+    
+    XMPPJID *jid = [[XmppTools sharedManager] getJIDWithUserId:self.toUser];
+    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:jid];
+    
+    [message addBody:name];
+    
+    // 转换成base64的编码
+    NSString *base64str = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    // 设置节点内容
+    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
+    
+    // 包含子节点
+    [message addChild:attachment];
+    
+    // 设置节点内容
+    XMPPElement *timeElement = [XMPPElement elementWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",time]];
+    [message addChild:timeElement];
+    
+    XMPPElement *typeElement = [XMPPElement elementWithName:@"MSGTYPE" stringValue:[NSString stringWithFormat:@"%d",RECORD]];
+    [message addChild:typeElement];
+    // 发送消息
+    [[XmppTools sharedManager].xmppStream sendElement:message];
+    
+    
+    
+    Message *m = [Message new];
+    m.content = base64str;
+    m.msgType = RECORD;
+    m.voiceTime = [NSString stringWithFormat:@"%.2f",time];
+    m.from =  [XmppTools sharedManager].userName;
+    m.type = ME;
+    m.to = self.toUser;
+    [self.dataSource addObject:m];
+    [self reload];
+    
+}
+
 #pragma mark - 监听事件
 - (void) keyboardWillChangeFrame:(NSNotification *)note{
     CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -131,6 +263,7 @@
     [UIView animateWithDuration:duration animations:^{
         self.inputText.transform = CGAffineTransformMakeTranslation(0, transformY-64);
         CGRect f = self.table.frame;
+        NSLog(@"-------%f",transformY);
         if(transformY < 0){
             self.table.height = self.table.height+transformY;
         }else{
@@ -158,7 +291,7 @@
 - (ChatInputView*)inputText{
     if (!_inputText) {
         _inputText = [[ChatInputView alloc]initWithFrame:CGRectMake(0, self.table.bottom, DEVICEWIDTH, 50)];
-        //_inputText.delegate = self;
+        _inputText.delegate = self;
     }
     return _inputText;
 }

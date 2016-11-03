@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.table];
+    self.title = @"连接中";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChange:) name:kXMPP_CONNECTION_CHANGE object:nil];
+}
+
+- (void)connectionChange:(NSNotification*)notify{
+    self.title = [NSString stringWithFormat:@"%@",notify.object];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

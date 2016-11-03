@@ -118,16 +118,19 @@
 
 - (void)xmppStreamWillConnect:(XMPPStream *)sender {
     NSLog(@"socket正在连接...");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"连接中"];
 }
 
 - (void)xmppStream:(XMPPStream *)sender socketDidConnect:(GCDAsyncSocket *)socket {
     NSLog(@"socket连接成功...");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"消息"];
     // 连接成功之后，由客户端xmpp发送一个stream包给服务器，服务器监听来自客户端的stream包，并返回stream feature包
 }
 
 
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
     NSLog(@"️xmpp连接失败...%@",error);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"未连接"];
 }
 
 /**
@@ -313,5 +316,16 @@
 - (void)removeFriend:(NSString *)name
 {
     [self.xmppRoster removeUser:[self getJIDWithUserId:name]];
+}
+
+- (void)sendTextMsg:(NSString *)msg withId:(NSString*)toUser{
+    
+    XMPPJID *jid = [self getJIDWithUserId:toUser];
+    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:jid];
+    [message addBody:msg];
+    XMPPElement *attachment = [XMPPElement elementWithName:@"MSGTYPE" stringValue:@"0"];
+    [message addChild:attachment];
+    [self.xmppStream sendElement:message];
+    
 }
 @end

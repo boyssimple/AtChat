@@ -68,4 +68,6 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 - (void)addFriendById:(NSString*)name;
 
 - (void)removeFriend:(NSString *)name;
+
+- (void)sendTextMsg:(NSString *)msg withId:(NSString*)toUser;
 @end

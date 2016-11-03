@@ -129,6 +129,7 @@
 		295716151DCB273A00AAEE1F /* VCAddFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAddFriend.m; sourceTree = "<group>"; };
 		295716171DCB323D00AAEE1F /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
 		295716181DCB323D00AAEE1F /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
+		2957161A1DCB42EE00AAEE1F /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AtChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
 		F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -393,6 +394,7 @@
 			children = (
 				295715C11DC8906100AAEE1F /* NetContants.h */,
 				295715FD1DC9D57400AAEE1F /* Notify.h */,
+				2957161A1DCB42EE00AAEE1F /* Global.h */,
 			);
 			path = Const;
 			sourceTree = "<group>";
@@ -599,6 +601,7 @@
 				TargetAttributes = {
 					2917B4301DC886AF00B1C9E7 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = A57W3P5J93;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -832,7 +835,8 @@
 			baseConfigurationReference = F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = A57W3P5J93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AtChat/Class/Lib/SMS_SDK",
@@ -851,7 +855,8 @@
 			baseConfigurationReference = E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = A57W3P5J93;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AtChat/Class/Lib/SMS_SDK",

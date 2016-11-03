@@ -10,5 +10,6 @@
 #define Notify_h
 
 #define kXMPP_ROSTER_CHANGE @"kXMPP_ROSTER_CHANGE"
+#define kXMPP_CONNECTION_CHANGE @"kXMPP_CONNECTION_CHANGE"
 
 #endif /* Notify_h */

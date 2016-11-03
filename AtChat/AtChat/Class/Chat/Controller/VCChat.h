@@ -10,4 +10,5 @@
 
 @interface VCChat : VCBase
 @property (nonatomic, strong) NSString *toUser;
+@property (nonatomic, strong) NSURL *url;
 @end
