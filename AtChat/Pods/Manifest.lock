@@ -10,6 +10,9 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.3.0):
     - CocoaLumberjack/Default
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - KissXML (5.1.2):
     - KissXML/Core (= 5.1.2)
   - KissXML/Core (5.1.2)
@@ -179,6 +182,8 @@ PODS:
     - XMPPFramework/Core
     - XMPPFramework/CoreDataStorage
     - XMPPFramework/XEP-0203
+  - YTKKeyValueStore (0.1.2):
+    - FMDB (~> 2.0)
   - YYKit (1.0.7):
     - YYKit/no-arc (= 1.0.7)
   - YYKit/no-arc (1.0.7)
@@ -189,6 +194,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.8.1)
   - XMPPFramework (from `https://github.com/robbiehanson/XMPPFramework.git`, branch
     `master`)
+  - YTKKeyValueStore
   - YYKit
 
 EXTERNAL SOURCES:
@@ -204,11 +210,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   KissXML: 246c842586bb77110e04fb88e19376d96245c856
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   XMPPFramework: 977eef5d00c20fe9fb19c30d84a89c2d5564252d
+  YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
   YYKit: 843d1b26e20b82c695790c9a89907eaa1e99907f
 
 COCOAPODS: 0.39.0
