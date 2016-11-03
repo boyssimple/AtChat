@@ -62,12 +62,7 @@
             m.content = message.body;
             m.msgType = TEXT;
             m.from = from;
-            if (self.lastWho == 0) {
-                self.lastWho = 1;
-            }else{
-                self.lastWho = 0;
-            }
-            m.type = self.lastWho;
+            m.type = OTHER;
             
             [self.dataSource addObject:m];
             [self reload];

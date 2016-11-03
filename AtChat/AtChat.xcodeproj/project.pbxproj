@@ -49,6 +49,7 @@
 		2957160A1DC9E22100AAEE1F /* ChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716091DC9E22100AAEE1F /* ChatInputView.m */; };
 		2957160D1DC9E2CE00AAEE1F /* FaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2957160C1DC9E2CE00AAEE1F /* FaceView.m */; };
 		295716101DC9E9C400AAEE1F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 2957160F1DC9E9C400AAEE1F /* Message.m */; };
+		295716161DCB273A00AAEE1F /* VCAddFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716151DCB273A00AAEE1F /* VCAddFriend.m */; };
 		D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +124,8 @@
 		2957160C1DC9E2CE00AAEE1F /* FaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceView.m; sourceTree = "<group>"; };
 		2957160E1DC9E9C400AAEE1F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		2957160F1DC9E9C400AAEE1F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		295716141DCB273A00AAEE1F /* VCAddFriend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAddFriend.h; sourceTree = "<group>"; };
+		295716151DCB273A00AAEE1F /* VCAddFriend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAddFriend.m; sourceTree = "<group>"; };
 		A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AtChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
 		F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 			children = (
 				295715C21DC890B300AAEE1F /* VCFriends.h */,
 				295715C31DC890B300AAEE1F /* VCFriends.m */,
+				295716141DCB273A00AAEE1F /* VCAddFriend.h */,
+				295716151DCB273A00AAEE1F /* VCAddFriend.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -695,6 +700,7 @@
 				295715DE1DC89ACC00AAEE1F /* XmppTools.m in Sources */,
 				295715B61DC88FB900AAEE1F /* VCBase.m in Sources */,
 				295715BC1DC88FED00AAEE1F /* VCNavBase.m in Sources */,
+				295716161DCB273A00AAEE1F /* VCAddFriend.m in Sources */,
 				295715D71DC8965000AAEE1F /* UIImageView+SDWebImage.m in Sources */,
 				295715D31DC8962000AAEE1F /* MJChiBaoZiHeader.m in Sources */,
 				295715F91DC9B25700AAEE1F /* VCFriendsCell.m in Sources */,

@@ -9,6 +9,7 @@
 #import "VCFriends.h"
 #import "VCFriendsCell.h"
 #import "VCChat.h"
+#import "VCAddFriend.h"
 
 @interface VCFriends ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *table;
@@ -20,10 +21,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addRightBtn];
     [self.view addSubview:self.table];
     self.dataSource = [XmppTools sharedManager].contacts;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rosterChange) name:kXMPP_ROSTER_CHANGE object:nil];
 }
+
+- (void)addRightBtn{
+    UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
+    [right setFrame:CGRectMake(0, 12, 50, 15)];
+    [right setTitle:@"添加" forState:UIControlStateNormal];
+    right.titleLabel.font = [UIFont systemFontOfSize:14];
+    right.contentEdgeInsets = UIEdgeInsetsMake(0,15, 0, 0);
+    right.titleLabel.textAlignment = NSTextAlignmentRight;
+    [right addTarget:self action:@selector(addUser) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+- (void)addUser{
+    VCAddFriend *vc = [[VCAddFriend alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:TRUE];
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;

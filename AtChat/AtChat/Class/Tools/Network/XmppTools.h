@@ -64,4 +64,8 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 - (XMPPvCardAvatarModule *)avatarModule;    //头像模块;
 - (XMPPvCardTempModule *)vCardModule;       //电子名片模块
 - (NSData*)getImageData:(NSString *)userId;
+
+- (void)addFriendById:(NSString*)name;
+
+- (void)removeFriend:(NSString *)name;
 @end

@@ -216,8 +216,10 @@
 {
     //添加好友一定会订阅对方，但是接受订阅不一定要添加对方为好友
     self.receivePresence = presence;
-    
-    NSString *message = [NSString stringWithFormat:@"【%@】想加你为好友",presence.from.bare];
+    NSString *from = presence.from.bare;
+    NSRange range = [from rangeOfString:@"@"];
+    from = [from substringToIndex:range.location];
+    NSString *message = [NSString stringWithFormat:@"【%@】想加你为好友",from];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"拒绝" otherButtonTitles:@"同意", nil];
     [alertView show];
     
@@ -227,9 +229,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [self.xmppRoster rejectPresenceSubscriptionRequestFrom:_receivePresence.from];
+        [self.xmppRoster rejectPresenceSubscriptionRequestFrom:self.receivePresence.from];
     } else {
-        [self.xmppRoster acceptPresenceSubscriptionRequestFrom:_receivePresence.from andAddToRoster:YES];
+        [self.xmppRoster acceptPresenceSubscriptionRequestFrom:self.receivePresence.from andAddToRoster:YES];
     }
 }
 
@@ -300,5 +302,16 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:self.xmppRosterMemoryStorage.unsortedUsers];
     self.contacts = [array mutableCopy];
     [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_ROSTER_CHANGE object:nil];
+}
+
+
+- (void)addFriendById:(NSString*)name
+{
+    [self.xmppRoster addUser:[self getJIDWithUserId:name] withNickname:@"好友"];
+}
+
+- (void)removeFriend:(NSString *)name
+{
+    [self.xmppRoster removeUser:[self getJIDWithUserId:name]];
 }
 @end
