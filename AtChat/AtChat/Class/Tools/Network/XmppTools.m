@@ -129,7 +129,7 @@
 
 
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
-    NSLog(@"️xmpp连接失败...%@",error);
+    NSLog(@"️xmpp连接失败...%@",error.description);
     [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"未连接"];
 }
 

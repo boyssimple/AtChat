@@ -70,4 +70,6 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 - (void)removeFriend:(NSString *)name;
 
 - (void)sendTextMsg:(NSString *)msg withId:(NSString*)toUser;
+
+-(void)goOffLine;
 @end

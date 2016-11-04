@@ -58,69 +58,74 @@
 #pragma mark - Message
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
-    int type = TEXT;
-    for (XMPPElement *node in message.children) {
-        if ([node.name isEqualToString:@"MSGTYPE"]) {
-            type = node.stringValueAsInt;
+    
+    NSString *sgtype = [[message attributeForName:@"type"] stringValue];
+    if ([sgtype isEqualToString:@"chat"]) {
+        int type = TEXT;
+        for (XMPPElement *node in message.children) {
+            if ([node.name isEqualToString:@"MSGTYPE"]) {
+                type = node.stringValueAsInt;
+            }
+        }
+        
+        NSString *from = message.from.bare;
+        if ([from isEqualToString:XMPP_HOST]) {
+            from = @"系统消息";
+        }else{
+            NSRange range = [from rangeOfString:@"@"];
+            from = [from substringToIndex:range.location];//截取范围类的字符串
+        }
+        if ([self.toUser isEqualToString:from]) {
+            if (type == TEXT) {
+                Message *m = [Message new];
+                m.content = message.body;
+                m.msgType = TEXT;
+                m.from = from;
+                m.type = OTHER;
+                
+                [self.dataSource addObject:m];
+                [self reload];
+            }else if(type == IMAGE){
+                NSString *content;
+                for (XMPPElement *node in message.children) {
+                    if ([node.name isEqualToString:@"attachment"]) {
+                        content = node.stringValue;
+                        break;
+                    }
+                    
+                }
+                Message *m = [Message new];
+                m.content = content;
+                m.msgType = IMAGE;
+                m.from = from;
+                m.type = OTHER;
+                [self.dataSource addObject:m];
+                [self reload];
+            }else if(type == RECORD){
+                NSString *content;
+                NSString *time;
+                for (XMPPElement *node in message.children) {
+                    if ([node.name isEqualToString:@"attachment"]) {
+                        content = node.stringValue;
+                    }else if([node.name isEqualToString:@"time"]){
+                        time = node.stringValue;
+                    }
+                    
+                }
+                Message *m = [Message new];
+                m.voiceTime = [NSString stringWithFormat:@"%.2f",[time floatValue]];
+                m.content = content;
+                m.msgType = RECORD;
+                m.from = from;
+                m.type = OTHER;
+                [self.dataSource addObject:m];
+                [self reload];
+            }
+            
+            NSLog(@"type:--%@",message.type);
         }
     }
     
-    NSString *from = message.from.bare;
-    if ([from isEqualToString:XMPP_HOST]) {
-        from = @"系统消息";
-    }else{
-        NSRange range = [from rangeOfString:@"@"];
-        from = [from substringToIndex:range.location];//截取范围类的字符串
-    }
-    if ([self.toUser isEqualToString:from]) {
-        if (type == TEXT) {
-            Message *m = [Message new];
-            m.content = message.body;
-            m.msgType = TEXT;
-            m.from = from;
-            m.type = OTHER;
-            
-            [self.dataSource addObject:m];
-            [self reload];
-        }else if(type == IMAGE){
-            NSString *content;
-            for (XMPPElement *node in message.children) {
-                if ([node.name isEqualToString:@"attachment"]) {
-                    content = node.stringValue;
-                    break;
-                }
-                
-            }
-            Message *m = [Message new];
-            m.content = content;
-            m.msgType = IMAGE;
-            m.from = from;
-            m.type = OTHER;
-            [self.dataSource addObject:m];
-            [self reload];
-        }else if(type == RECORD){
-            NSString *content;
-            NSString *time;
-            for (XMPPElement *node in message.children) {
-                if ([node.name isEqualToString:@"attachment"]) {
-                    content = node.stringValue;
-                }else if([node.name isEqualToString:@"time"]){
-                    time = node.stringValue;
-                }
-                
-            }
-            Message *m = [Message new];
-            m.voiceTime = [NSString stringWithFormat:@"%.2f",[time floatValue]];
-            m.content = content;
-            m.msgType = RECORD;
-            m.from = from;
-            m.type = OTHER;
-            [self.dataSource addObject:m];
-            [self reload];
-        }
-        
-        NSLog(@"type:--%@",message.type);
-    }
 }
 
 - (void)reload{
