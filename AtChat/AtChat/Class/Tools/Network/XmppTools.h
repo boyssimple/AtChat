@@ -72,4 +72,6 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 - (void)sendTextMsg:(NSString *)msg withId:(NSString*)toUser;
 
 -(void)goOffLine;
+
+- (NSData*)getCurUserImageData;
 @end

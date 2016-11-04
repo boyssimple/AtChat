@@ -328,4 +328,12 @@
     [self.xmppStream sendElement:message];
     
 }
+
+
+- (NSData*)getCurUserImageData
+{
+    XMPPJID *jid = [XMPPJID jidWithString:[self idAndHost:self.userName] resource:XMPP_PLATFORM];
+    NSData *photoData = [[self avatarModule] photoDataForJID:jid];
+    return photoData;
+}
 @end

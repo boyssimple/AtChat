@@ -8,10 +8,6 @@
 
 #import "VCMain.h"
 #import "VCNavBase.h"
-#import "VCMessages.h"
-#import "VCFriends.h"
-#import "VCTimeline.h"
-#import "VCMine.h"
 
 #define kClassKey   @"rootVCClassString"
 #define kTitleKey   @"title"
@@ -36,8 +32,8 @@
                                    kImgKey    : @"TabFriendIcon",
                                    kSelImgKey : @"TabFriendIcon"},
                                  
-                                 @{kClassKey  : @"VCTimeline",
-                                   kTitleKey  : @"朋友圈",
+                                 @{kClassKey  : @"VCDiscover",
+                                   kTitleKey  : @"发现",
                                    kImgKey    : @"TabDiscoverIcon",
                                    kSelImgKey : @"TabDiscoverIcon"},
                                  
