@@ -14,3 +14,8 @@
 * [x] 发起好友请求
 * [x] 图片消息
 * [x] 语音消息
+
+
+![image](https://github.com/boyssimple/AtChat/blob/master/images/93EA0A52724FD7F8BDBFB703CD88C7D5.png)
+![image](https://github.com/boyssimple/AtChat/blob/master/images/AB4570AE3983C952363F5C80AC720205.png)
+![image](https://github.com/boyssimple/AtChat/blob/master/images/F2559ACB163803307DFD7408020B4608.png)
