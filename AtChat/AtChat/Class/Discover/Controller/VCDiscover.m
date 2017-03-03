@@ -38,11 +38,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\
-    if (indexPath.section == 0) {
-        return 40;
-    }else{
-        return 40;
-    }
+    return 40*RATIO_WIDHT320;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

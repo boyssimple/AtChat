@@ -37,9 +37,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{\
     if (indexPath.section == 0) {
-        return 70;
+        return 70*RATIO_WIDHT320;
     }else{
-        return 40;
+        return 40*RATIO_WIDHT320;
     }
 }
 

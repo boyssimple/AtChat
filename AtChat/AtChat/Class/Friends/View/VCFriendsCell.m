@@ -26,13 +26,13 @@
         [self.contentView addSubview:_ivImg];
         
         _lbName = [[UILabel alloc]init];
-        _lbName.font = [UIFont boldSystemFontOfSize:15];
+        _lbName.font = [UIFont boldSystemFontOfSize:15*RATIO_WIDHT320];
         _lbName.textColor = [UIColor blackColor];
         [self.contentView addSubview:_lbName];
         
         _status = [[UILabel alloc]init];
         _status.textColor = [UIColor blackColor];
-        _status.font = [UIFont boldSystemFontOfSize:12];
+        _status.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
         _status.text = @"[在线]";
         [self.contentView addSubview:_status];
     }
@@ -72,24 +72,24 @@
     [super layoutSubviews];
     CGRect r = self.ivImg.frame;
     r.origin.x = 15;
-    r.origin.y = 15;
-    r.size.width = 30;
-    r.size.height = 30;
+    r.origin.y = (self.height-30*RATIO_WIDHT320)/2.0;
+    r.size.width = 30*RATIO_WIDHT320;
+    r.size.height = 30*RATIO_WIDHT320;
     self.ivImg.frame = r;
     
     r = self.lbName.frame;
     r.origin.x = self.ivImg.right+15;
-    r.origin.y = (self.height-15)/2.0;
+    r.origin.y = (self.height-15*RATIO_WIDHT320)/2.0;
     r.size.width = DEVICEWIDTH-(self.ivImg.right+35);
-    r.size.height = 15;
+    r.size.height = 15*RATIO_WIDHT320;
     self.lbName.frame = r;
     
-    CGSize size = [self.status sizeThatFits:CGSizeMake(MAXFLOAT, 12)];
+    CGSize size = [self.status sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     r = self.status.frame;
     r.origin.x = self.width - 15-size.width;
-    r.origin.y = (self.height-12)/2.0;
+    r.origin.y = (self.height-12*RATIO_WIDHT320)/2.0;
     r.size.width = size.width;
-    r.size.height = 12;
+    r.size.height = 12*RATIO_WIDHT320;
     self.status.frame = r;
 }
 @end

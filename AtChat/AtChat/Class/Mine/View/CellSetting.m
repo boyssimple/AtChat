@@ -22,19 +22,19 @@
     if (self) {
         [self.contentView setBackgroundColor:[UIColor whiteColor]];
         
-        self.lbName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 15)];
-        self.lbName.font = [UIFont systemFontOfSize:12];
+        self.lbName = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 12*RATIO_WIDHT320)];
+        self.lbName.font = [UIFont systemFontOfSize:12*RATIO_WIDHT320];
         self.lbName.textColor = [UIColor blackColor];
         self.lbName.text = @"已经关闭";
         [self.contentView addSubview:self.lbName];
         
         
-        self.ivArrowRight = [[UIImageView alloc]initWithFrame:CGRectMake(DEVICEWIDTH-25, 10, 10, 10)];
+        self.ivArrowRight = [[UIImageView alloc]initWithFrame:CGRectMake(DEVICEWIDTH-25, 10, 10*RATIO_WIDHT320, 10*RATIO_WIDHT320)];
         [self.ivArrowRight setImage:[UIImage imageNamed:@"ArrowRight"]];
         [self.contentView addSubview:self.ivArrowRight];
         
         self.lbRightText = [[UILabel alloc]initWithFrame:CGRectMake(self.ivArrowRight.left-50, 0, 40, 10)];
-        self.lbRightText.font = [UIFont systemFontOfSize:10];
+        self.lbRightText.font = [UIFont systemFontOfSize:10*RATIO_WIDHT320];
         self.lbRightText.textColor = [UIColor grayColor];
         self.lbRightText.text = @"已经关闭";
         [self.contentView addSubview:self.lbRightText];
@@ -63,14 +63,14 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    CGSize ns = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 12)];
+    CGSize ns = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 12*RATIO_WIDHT320)];
     self.lbName.width = ns.width;
     if (self.type == 2) {
         self.lbName.center = self.contentView.center;
     }else{
         self.lbName.top = (self.contentView.height-self.lbName.height)/2.0;
     }
-    CGSize rs = [self.lbRightText sizeThatFits:CGSizeMake(MAXFLOAT, 10)];
+    CGSize rs = [self.lbRightText sizeThatFits:CGSizeMake(MAXFLOAT, 10*RATIO_WIDHT320)];
     self.lbRightText.width = rs.width;
     self.lbRightText.left = self.ivArrowRight.left-rs.width-10;
     self.lbRightText.top = (self.contentView.height-self.lbRightText.height)/2.0;
