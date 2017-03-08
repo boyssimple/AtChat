@@ -27,6 +27,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rosterChange) name:kXMPP_ROSTER_CHANGE object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.table reloadData];
+}
+
 - (void)addRightBtn{
     UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
     [right setFrame:CGRectMake(0, 12, 50, 15)];
@@ -65,7 +70,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
     XMPPUserMemoryStorageObject *user = [self.dataSource objectAtIndex:indexPath.row];
     VCChat *vc = [[VCChat alloc]init];
-    vc.toUser = user.jid.user;
+    vc.toUser = user.jid;
     vc.title = user.jid.user;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:TRUE];

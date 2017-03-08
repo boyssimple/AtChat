@@ -50,6 +50,8 @@
 		295716101DC9E9C400AAEE1F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 2957160F1DC9E9C400AAEE1F /* Message.m */; };
 		295716161DCB273A00AAEE1F /* VCAddFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716151DCB273A00AAEE1F /* VCAddFriend.m */; };
 		295716191DCB323D00AAEE1F /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716181DCB323D00AAEE1F /* DataStore.m */; };
+		2962120D1E6EB19A00BD5D89 /* VCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962120C1E6EB19A00BD5D89 /* VCPhoto.m */; };
+		296212131E6FA71F00BD5D89 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212121E6FA71F00BD5D89 /* Toast.m */; };
 		29CC2F651DCC2CC400120A23 /* CellMeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F621DCC2CC400120A23 /* CellMeAction.m */; };
 		29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F641DCC2CC400120A23 /* CellSetting.m */; };
 		29CC2F6B1DCC2CD400120A23 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F681DCC2CD400120A23 /* VCSetting.m */; };
@@ -154,6 +156,10 @@
 		295716171DCB323D00AAEE1F /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
 		295716181DCB323D00AAEE1F /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		2957161A1DCB42EE00AAEE1F /* Global.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
+		2962120B1E6EB19A00BD5D89 /* VCPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCPhoto.h; sourceTree = "<group>"; };
+		2962120C1E6EB19A00BD5D89 /* VCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCPhoto.m; sourceTree = "<group>"; };
+		296212111E6FA71F00BD5D89 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
+		296212121E6FA71F00BD5D89 /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
 		29CC2F611DCC2CC400120A23 /* CellMeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellMeAction.h; sourceTree = "<group>"; };
 		29CC2F621DCC2CC400120A23 /* CellMeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellMeAction.m; sourceTree = "<group>"; };
 		29CC2F631DCC2CC400120A23 /* CellSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSetting.h; sourceTree = "<group>"; };
@@ -396,6 +402,8 @@
 				29CC2F681DCC2CD400120A23 /* VCSetting.m */,
 				29CC2F691DCC2CD400120A23 /* VCQr.h */,
 				29CC2F6A1DCC2CD400120A23 /* VCQr.m */,
+				2962120B1E6EB19A00BD5D89 /* VCPhoto.h */,
+				2962120C1E6EB19A00BD5D89 /* VCPhoto.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -538,6 +546,8 @@
 			children = (
 				295715D51DC8965000AAEE1F /* UIImageView+SDWebImage.h */,
 				295715D61DC8965000AAEE1F /* UIImageView+SDWebImage.m */,
+				296212111E6FA71F00BD5D89 /* Toast.h */,
+				296212121E6FA71F00BD5D89 /* Toast.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -865,8 +875,10 @@
 				2917B4361DC886B000B1C9E7 /* main.m in Sources */,
 				29CC2F6C1DCC2CD400120A23 /* VCQr.m in Sources */,
 				29CC2F841DCC2DEC00120A23 /* CellUserImg.m in Sources */,
+				2962120D1E6EB19A00BD5D89 /* VCPhoto.m in Sources */,
 				29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */,
 				295716191DCB323D00AAEE1F /* DataStore.m in Sources */,
+				296212131E6FA71F00BD5D89 /* Toast.m in Sources */,
 				29CC2FB91DCC69FB00120A23 /* SDWebImageManager+MJ.m in Sources */,
 				295715DE1DC89ACC00AAEE1F /* XmppTools.m in Sources */,
 				295715B61DC88FB900AAEE1F /* VCBase.m in Sources */,

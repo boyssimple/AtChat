@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VCAddFriend : VCBase
-
+@property (nonatomic, strong) NSString *paramsUser;
 @end

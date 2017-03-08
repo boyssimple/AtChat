@@ -11,11 +11,11 @@
 #import "VCChatCell.h"
 #import "ChatInputView.h"
 
-@interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate>
+@interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate,XMPPStreamDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ChatInputView *inputText;
-@property (nonatomic, assign) int lastWho;
+@property (nonatomic, assign) NSInteger curIndex;
 @end
 
 @implementation VCChat
@@ -27,6 +27,7 @@
     self.dataSource = [NSMutableArray array];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[XmppTools sharedManager].xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [self reloadMessages];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -34,13 +35,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    Message *msg = [self.dataSource objectAtIndex:indexPath.row];
+    XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
     return [VCChatCell calHeight:msg];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VCChatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VCChatCell"];
-    Message *msg = [self.dataSource objectAtIndex:indexPath.row];
+    XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
     [cell loadData:msg];
     return cell;
 }
@@ -54,78 +55,61 @@
     [self hideInput];
 }
 
-
-#pragma mark - Message
-- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
-{
+/**
+ * 重新获取历史记录
+ */
+- (void)reloadMessages{
+    NSManagedObjectContext *context = [XmppTools sharedManager].messageArchivingCoreDataStorage.mainThreadManagedObjectContext;
     
-    NSString *sgtype = [[message attributeForName:@"type"] stringValue];
-    if ([sgtype isEqualToString:@"chat"]) {
-        int type = TEXT;
-        for (XMPPElement *node in message.children) {
-            if ([node.name isEqualToString:@"MSGTYPE"]) {
-                type = node.stringValueAsInt;
-            }
-        }
+    // 2.FetchRequest【查哪张表】
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"XMPPMessageArchiving_Message_CoreDataObject"];
+    //创建查询条件
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bareJidStr = %@ and streamBareJidStr = %@", self.toUser.bare, [XmppTools sharedManager].userJid.bare];
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:YES];
+    
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+//    fetchRequest.fetchOffset = 0;
+//    fetchRequest.fetchLimit = 10;
+    NSError *error = nil;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if(fetchedObjects.count > 0){
         
-        NSString *from = message.from.bare;
-        if ([from isEqualToString:XMPP_HOST]) {
-            from = @"系统消息";
-        }else{
-            NSRange range = [from rangeOfString:@"@"];
-            from = [from substringToIndex:range.location];//截取范围类的字符串
-        }
-        if ([self.toUser isEqualToString:from]) {
-            if (type == TEXT) {
-                Message *m = [Message new];
-                m.content = message.body;
-                m.msgType = TEXT;
-                m.from = from;
-                m.type = OTHER;
-                
-                [self.dataSource addObject:m];
-                [self reload];
-            }else if(type == IMAGE){
-                NSString *content;
-                for (XMPPElement *node in message.children) {
-                    if ([node.name isEqualToString:@"attachment"]) {
-                        content = node.stringValue;
-                        break;
-                    }
-                    
-                }
-                Message *m = [Message new];
-                m.content = content;
-                m.msgType = IMAGE;
-                m.from = from;
-                m.type = OTHER;
-                [self.dataSource addObject:m];
-                [self reload];
-            }else if(type == RECORD){
-                NSString *content;
-                NSString *time;
-                for (XMPPElement *node in message.children) {
-                    if ([node.name isEqualToString:@"attachment"]) {
-                        content = node.stringValue;
-                    }else if([node.name isEqualToString:@"time"]){
-                        time = node.stringValue;
-                    }
-                    
-                }
-                Message *m = [Message new];
-                m.voiceTime = [NSString stringWithFormat:@"%.2f",[time floatValue]];
-                m.content = content;
-                m.msgType = RECORD;
-                m.from = from;
-                m.type = OTHER;
-                [self.dataSource addObject:m];
-                [self reload];
+        if (self.dataSource != nil) {
+            if ([self.dataSource count] > 0) {
+                [self.dataSource removeAllObjects];
             }
+            [self.dataSource addObjectsFromArray:fetchedObjects];
             
-            NSLog(@"type:--%@",message.type);
+            [self reload];
         }
     }
+}
+
+#pragma mark - Message
+
+- (void)xmppStream:(XMPPStream *)sender didSendMessage:(XMPPMessage *)message{
     
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self reloadMessages];
+    });
+}
+
+- (void)xmppStream:(XMPPStream *)sender didFailToSendMessage:(XMPPMessage *)message error:(NSError *)error{
+    NSLog(@"%s__%d|发送失败",__func__,__LINE__);
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    if (message.body) {
+        NSLog(@"%s__%d|收到消息---%@",__func__,__LINE__,message.body);
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self reloadMessages];
+        });
+    }
 }
 
 - (void)reload{
@@ -147,15 +131,10 @@
 #pragma mark - ChatInputViewDelegate
 -(void)send:(NSString *)msg{
     if (![msg isEqualToString:@""]) {
-        [[XmppTools sharedManager] sendTextMsg:msg withId:self.toUser];
-        Message *m = [Message new];
-        m.content = msg;
-        m.msgType = TEXT;
-        m.type = ME;
-        m.to = self.toUser;
-        m.from = [XmppTools sharedManager].userName;
-        [self.dataSource addObject:m];
-        [self reload];
+        XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:self.toUser];
+        [message addAttributeWithName:@"bodyType" stringValue:[NSString stringWithFormat:@"%d",TEXT]];
+        [message addBody:msg];
+        [[XmppTools sharedManager].xmppStream sendElement:message];
     }
 }
 
@@ -185,78 +164,26 @@
 /** 发送图片 */
 - (void)sendMessageWithData:(NSData *)data bodyName:(NSString *)name
 {
-    
-    XMPPJID *jid = [[XmppTools sharedManager] getJIDWithUserId:self.toUser];
-    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:jid];
-    
-    [message addBody:name];
-    
     // 转换成base64的编码
     NSString *base64str = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    
-    // 设置节点内容
-    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
-    
-    // 包含子节点
-    [message addChild:attachment];
-    
-    XMPPElement *typeElement = [XMPPElement elementWithName:@"MSGTYPE" stringValue:[NSString stringWithFormat:@"%d",IMAGE]];
-    [message addChild:typeElement];
-    
-    // 发送消息
+    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:self.toUser];
+    [message addAttributeWithName:@"bodyType" stringValue:[NSString stringWithFormat:@"%d",IMAGE]];
+    [message addAttributeWithName:@"imgBody" stringValue:base64str];
+    [message addBody:name];
     [[XmppTools sharedManager].xmppStream sendElement:message];
-    
-    
-    
-    Message *m = [Message new];
-    m.content = base64str;
-    m.msgType = IMAGE;
-    m.from =  [XmppTools sharedManager].userName;
-    m.type = ME;
-    m.to = self.toUser;
-    [self.dataSource addObject:m];
-    [self reload];
-    
 }
 
 /** 发送录音 */
 - (void)sendRecordMessageWithData:(NSData *)data bodyName:(NSString *)name withTime:(float)time
 {
     
-    XMPPJID *jid = [[XmppTools sharedManager] getJIDWithUserId:self.toUser];
-    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:jid];
-    
-    [message addBody:name];
-    
-    // 转换成base64的编码
     NSString *base64str = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    
-    // 设置节点内容
-    XMPPElement *attachment = [XMPPElement elementWithName:@"attachment" stringValue:base64str];
-    
-    // 包含子节点
-    [message addChild:attachment];
-    
-    // 设置节点内容
-    XMPPElement *timeElement = [XMPPElement elementWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",time]];
-    [message addChild:timeElement];
-    
-    XMPPElement *typeElement = [XMPPElement elementWithName:@"MSGTYPE" stringValue:[NSString stringWithFormat:@"%d",RECORD]];
-    [message addChild:typeElement];
-    // 发送消息
+    XMPPMessage *message = [XMPPMessage messageWithType:CHATTYPE to:self.toUser];
+    [message addAttributeWithName:@"bodyType" stringValue:[NSString stringWithFormat:@"%d",RECORD]];
+    [message addAttributeWithName:@"time" stringValue:[NSString stringWithFormat:@"%f",time]];
+    [message addAttributeWithName:@"timeBody" stringValue:base64str];
+    [message addBody:name];
     [[XmppTools sharedManager].xmppStream sendElement:message];
-    
-    
-    
-    Message *m = [Message new];
-    m.content = base64str;
-    m.msgType = RECORD;
-    m.voiceTime = [NSString stringWithFormat:@"%.2f",time];
-    m.from =  [XmppTools sharedManager].userName;
-    m.type = ME;
-    m.to = self.toUser;
-    [self.dataSource addObject:m];
-    [self reload];
     
 }
 
@@ -268,7 +195,7 @@
     [UIView animateWithDuration:duration animations:^{
         self.inputText.transform = CGAffineTransformMakeTranslation(0, transformY-64);
         CGRect f = self.table.frame;
-        NSLog(@"-------%f",transformY);
+//        NSLog(@"-------%f",transformY);
         if(transformY < 0){
             self.table.height = self.table.height+transformY;
         }else{
@@ -288,6 +215,11 @@
         _table.dataSource = self;
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.backgroundColor = [UIColor clearColor];
+        
+//        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+//        _table.mj_header = header;
+//        header.lastUpdatedTimeLabel.hidden = YES;
+//        header.stateLabel.hidden = YES;
     }
     return _table;
 }

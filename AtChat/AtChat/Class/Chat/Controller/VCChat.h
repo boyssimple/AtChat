@@ -9,6 +9,6 @@
 #import "VCBase.h"
 
 @interface VCChat : VCBase
-@property (nonatomic, strong) NSString *toUser;
+@property (nonatomic, strong) XMPPJID *toUser;
 @property (nonatomic, strong) NSURL *url;
 @end

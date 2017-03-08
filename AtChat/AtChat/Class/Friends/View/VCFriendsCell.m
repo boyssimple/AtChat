@@ -10,7 +10,8 @@
 @interface VCFriendsCell()
 @property (nonatomic, strong) UIImageView *ivImg;
 @property (nonatomic, strong) UILabel *lbName;
-@property(nonatomic,strong)UILabel *status;
+@property (nonatomic, strong) UILabel *status;
+@property (nonatomic, strong) UIView  *vLine;
 @end
 @implementation VCFriendsCell
 
@@ -35,6 +36,10 @@
         _status.font = [UIFont boldSystemFontOfSize:12*RATIO_WIDHT320];
         _status.text = @"[在线]";
         [self.contentView addSubview:_status];
+        
+        _vLine = [[UIView alloc]init];
+        _vLine.backgroundColor = RGB3(229);
+        [self.contentView addSubview:_vLine];
     }
     return self;
 }
@@ -91,5 +96,12 @@
     r.size.width = size.width;
     r.size.height = 12*RATIO_WIDHT320;
     self.status.frame = r;
+    
+    r = self.vLine.frame;
+    r.origin.x = 15;
+    r.origin.y = self.height-0.5;
+    r.size.width = DEVICEWIDTH-15;
+    r.size.height = 0.5;
+    self.vLine.frame = r;
 }
 @end

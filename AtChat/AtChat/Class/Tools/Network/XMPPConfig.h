@@ -20,6 +20,7 @@
 #import "XMPPUserMemoryStorageObject.h" //遵循 XMPPUser接口
 #import "XMPPvCardAvatarModule.h"    //头像
 #import "XMPPvCardCoreDataStorage.h"
+#import "XMPPvCardTemp.h"
 
 #import "XMPPRoomCoreDataStorage.h"
 

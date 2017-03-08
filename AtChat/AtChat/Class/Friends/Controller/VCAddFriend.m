@@ -21,6 +21,9 @@
     [self.view addSubview:self.lbName];
     [self.view addSubview:self.tfText];
     [self.view addSubview:self.btnAdd];
+    if (self.paramsUser) {
+        self.tfText.text = self.paramsUser;
+    }
 }
 
 #pragma  mark - geter seter

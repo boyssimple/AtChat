@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
     ConnectToServerPurposeRegister
 };
 
-@interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate>
+@interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate,XMPPMessageArchivingStorage>
 @property (nonatomic, assign) ConnectToServerPurpose connectToServerPurpose;
 @property (nonatomic, strong) XMPPStream *xmppStream;
 
@@ -36,11 +36,14 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 @property (nonatomic, strong) XMPPAutoPing *xmppAutoPing;
 @property (nonatomic, strong) NSString *userPassword;
 @property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) XMPPJID  *userJid;
 
 
 //头像
-@property (nonatomic,strong)XMPPvCardAvatarModule *xmppAvatarModule;     //头像模块
-@property (nonatomic,strong)XMPPvCardTempModule *xmppvCardModule;        //电子身份模块
+@property (nonatomic, strong) XMPPvCardAvatarModule *xmppAvatarModule;     //头像模块
+@property (nonatomic, strong) XMPPvCardTempModule *xmppvCardModule;        //电子身份模块
+@property (nonatomic, strong) XMPPMessageArchivingCoreDataStorage *messageArchivingCoreDataStorage;//消息记录
+@property (nonatomic, strong) XMPPMessageArchiving *messageArchiving;//消息记录
 
 //好友
 @property(nonatomic,strong)NSMutableArray *contacts;

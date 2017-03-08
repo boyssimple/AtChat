@@ -8,26 +8,29 @@
 
 #import "VCMessages.h"
 #import "VCMsgesCell.h"
+#import "VCChat.h"
 
-@interface VCMessages ()<UITableViewDelegate,UITableViewDataSource>
+@interface VCMessages ()<UITableViewDelegate,UITableViewDataSource,XMPPStreamDelegate>
 @property (nonatomic, strong) UITableView *table;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 @end
 
 @implementation VCMessages
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dataSource = [NSMutableArray array];
     [self.view addSubview:self.table];
-    self.title = @"连接中";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChange:) name:kXMPP_CONNECTION_CHANGE object:nil];
+    [[XmppTools sharedManager].xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
-- (void)connectionChange:(NSNotification*)notify{
-    self.title = [NSString stringWithFormat:@"%@",notify.object];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self reloadContacts];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.dataSource.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -36,12 +39,24 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VCMsgesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VCMsgesCell"];
-    [cell updateData];
+    XMPPMessageArchiving_Contact_CoreDataObject *data = [self.dataSource objectAtIndex:indexPath.row];
+    [cell updateData:data];
+    if (indexPath.row == self.dataSource.count-1) {
+        cell.vLine.hidden = YES;
+    }else{
+        cell.vLine.hidden = NO;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+    XMPPMessageArchiving_Contact_CoreDataObject *user = [self.dataSource objectAtIndex:indexPath.row];
+    VCChat *vc = [[VCChat alloc]init];
+    vc.toUser = user.bareJid;
+    vc.title = user.bareJid.user;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:TRUE];
 }
 
 - (UITableView*)table{
@@ -50,8 +65,44 @@
         [_table registerClass:[VCMsgesCell class] forCellReuseIdentifier:@"VCMsgesCell"];
         _table.delegate = self;
         _table.dataSource = self;
+        [_table setBackgroundColor:RGB(244, 244, 244)];
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _table;
+}
+
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    if (message.body) {
+        [self reloadContacts];
+    }
+}
+
+- (void)reloadContacts{
+    NSManagedObjectContext *context = [XmppTools sharedManager].messageArchivingCoreDataStorage.mainThreadManagedObjectContext;
+    
+    // 2.FetchRequest【查哪张表】
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"XMPPMessageArchiving_Contact_CoreDataObject"];
+    //创建查询条件
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"streamBareJidStr = %@", [XmppTools sharedManager].userJid.bare];
+    [fetchRequest setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"mostRecentMessageTimestamp" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if(!error && fetchedObjects.count > 0){
+        
+        if (self.dataSource != nil) {
+            if ([self.dataSource count] > 0) {
+                [self.dataSource removeAllObjects];
+            }
+            [self.dataSource addObjectsFromArray:fetchedObjects];
+        }
+        
+        [self.table reloadData];
+    }
 }
 
 @end

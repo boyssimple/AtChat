@@ -23,12 +23,10 @@
         self.ivImg = [[UIImageView alloc]initWithFrame:CGRectZero];
         self.ivImg.layer.cornerRadius = 5;
         self.ivImg.layer.masksToBounds = TRUE;
-        self.ivImg.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:self.ivImg];
         
         self.lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         self.lbName.font = [UIFont systemFontOfSize:15*RATIO_WIDHT320];
-        self.lbName.text = @"上善若水";
         self.lbName.textColor = [UIColor blackColor];
         [self.contentView addSubview:self.lbName];
     }
@@ -47,7 +45,7 @@
     r.size.width = DEVICEWIDTH-self.ivImg.right-20;
     r.size.height = 15*RATIO_WIDHT320;
     r.origin.x = self.ivImg.right+10;
-    r.origin.y = self.ivImg.top+3;
+    r.origin.y = (self.height - r.size.height)/2.0;
     self.lbName.frame = r;
 }
 

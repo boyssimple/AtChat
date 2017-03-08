@@ -67,6 +67,11 @@
     //头像
     _xmppAvatarModule = [[XMPPvCardAvatarModule alloc] initWithvCardTempModule:_xmppvCardModule];
     [_xmppAvatarModule activate:_xmppStream];
+    
+    self.messageArchivingCoreDataStorage = [XMPPMessageArchivingCoreDataStorage sharedInstance];
+    self.messageArchiving = [[XMPPMessageArchiving alloc]initWithMessageArchivingStorage:self.messageArchivingCoreDataStorage dispatchQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 9)];
+    self.messageArchiving.clientSideMessageArchivingOnly = YES;
+    [self.messageArchiving activate:self.xmppStream];
 }
 
 /**
@@ -100,6 +105,7 @@
 //连接服务器
 - (void)connection:(NSString*)userName{
     XMPPJID *jid = [XMPPJID jidWithUser:userName domain:XMPP_HOST resource:XMPP_PLATFORM];
+    self.userJid = jid;
     [self.xmppStream setMyJID:jid];
     // 发送请求
     if ([self.xmppStream isConnected] || [self.xmppStream isConnecting]) {
@@ -117,20 +123,16 @@
 #pragma mark - XMPPStreamDelegate
 
 - (void)xmppStreamWillConnect:(XMPPStream *)sender {
-    NSLog(@"socket正在连接...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"连接中"];
+    NSLog(@"%s--%d|正在连接",__func__,__LINE__);
 }
 
 - (void)xmppStream:(XMPPStream *)sender socketDidConnect:(GCDAsyncSocket *)socket {
-    NSLog(@"socket连接成功...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"消息"];
     // 连接成功之后，由客户端xmpp发送一个stream包给服务器，服务器监听来自客户端的stream包，并返回stream feature包
+    NSLog(@"%s--%d|连接成功",__func__,__LINE__);
 }
 
-
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
-    NSLog(@"️xmpp连接失败...%@",error.description);
-    [[NSNotificationCenter defaultCenter] postNotificationName:kXMPP_CONNECTION_CHANGE object:@"未连接"];
+    NSLog(@"%s--%d|连接失败",__func__,__LINE__);
 }
 
 /**
@@ -192,22 +194,15 @@
     [self.xmppStream disconnect];
 }
 
-
-//接收消息
-- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message{
-    NSLog(@"%@-----%@----%@-----%@",message.from.user,message.body,message.type,message.to.user);
-    
-}
-
 #pragma mark - XMPPReconnectDelegate
 //重新失败时走该方法
 - (void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkConnectionFlags)connectionFlags{
-    NSLog(@"执行重连didDetectAccidentalDisconnect----%d",connectionFlags);
+    NSLog(@"%s--%d|",__func__,__LINE__);
 }
 
 //接受自动重连
 - (BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkConnectionFlags)connectionFlags{
-    NSLog(@"执行重连shouldAttemptAutoReconnect");
+    NSLog(@"%s--%d|",__func__,__LINE__);
     return TRUE;
 }
 
@@ -227,6 +222,7 @@
     [alertView show];
     
 }
+
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -336,4 +332,5 @@
     NSData *photoData = [[self avatarModule] photoDataForJID:jid];
     return photoData;
 }
+
 @end

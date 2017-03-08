@@ -21,15 +21,15 @@
     if (self) {
         [self.contentView setBackgroundColor:[UIColor whiteColor]];
         
-        self.ivIcon = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 20*RATIO_WIDHT320, 20*RATIO_WIDHT320)];
+        self.ivIcon = [[UIImageView alloc]initWithFrame:CGRectZero];
         [self.contentView addSubview:self.ivIcon];
         
-        self.lbName = [[UILabel alloc]initWithFrame:CGRectMake(self.ivIcon.right + 10, self.ivIcon.top+3, DEVICEWIDTH-self.ivIcon.right-20, 14*RATIO_WIDHT320)];
+        self.lbName = [[UILabel alloc]initWithFrame:CGRectZero];
         self.lbName.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         self.lbName.textColor = [UIColor blackColor];
         [self.contentView addSubview:self.lbName];
         
-        self.ivArrowRight = [[UIImageView alloc]initWithFrame:CGRectMake(DEVICEWIDTH-20, (self.height-10*RATIO_WIDHT320)/2.0, 10*RATIO_WIDHT320, 10*RATIO_WIDHT320)];
+        self.ivArrowRight = [[UIImageView alloc]initWithFrame:CGRectZero];
         [self.ivArrowRight setImage:[UIImage imageNamed:@"ArrowRight"]];
         [self.contentView addSubview:self.ivArrowRight];
     }
@@ -39,12 +39,31 @@
 - (void)updateData:(NSString *)title andIcon:(NSString*)icon{
     [self.ivIcon setImage:[UIImage imageNamed:icon]];
     self.lbName.text = title;
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.lbName.center = CGPointMake(self.lbName.center.x, self.contentView.center.y);
-    self.ivIcon.top = (self.height - self.ivIcon.height)/2.0;
+    CGRect r = self.ivIcon.frame;
+    r.size.width = 20*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    r.origin.x = 10;
+    r.origin.y = (self.height - r.size.height)/2.0;
+    self.ivIcon.frame = r;
+    
+    r = self.lbName.frame;
+    r.size.width = DEVICEWIDTH - self.ivIcon.right - 20;
+    r.size.height = 14*RATIO_WIDHT320;
+    r.origin.x = self.ivIcon.right + 10;
+    r.origin.y = (self.height-r.size.height)/2.0;
+    self.lbName.frame = r;
+    
+    r = self.ivArrowRight.frame;
+    r.size.width = 10*RATIO_WIDHT320;
+    r.size.height = r.size.width;
+    r.origin.x = DEVICEWIDTH - 20;
+    r.origin.y = (self.height-r.size.height)/2.0;
+    self.ivArrowRight.frame = r;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

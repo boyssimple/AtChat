@@ -91,6 +91,7 @@ static NSUInteger showTime = 60;
                 if (!error)
                 {
                     NSLog(@"验证成功");
+                    self.timer = nil;
                     VCRegFinish *vc = [[VCRegFinish alloc]init];
                     vc.phone = phone;
                     [self.navigationController pushViewController:vc animated:TRUE];

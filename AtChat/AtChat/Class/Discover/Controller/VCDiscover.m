@@ -11,6 +11,7 @@
 
 #import "VCTimeline.h"
 #import "HMScannerController.h"
+#import "VCAddFriend.h"
 
 @interface VCDiscover ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *table;
@@ -111,6 +112,10 @@
         if (indexPath.row == 0) {
             HMScannerController *scanner = [HMScannerController scannerWithCardName:[XmppTools sharedManager].userName avatar:nil completion:^(NSString *stringValue) {
                 NSLog(@"扫描到了：%@",stringValue);
+                VCAddFriend *vc = [[VCAddFriend alloc]init];
+                vc.hidesBottomBarWhenPushed = YES;
+                vc.paramsUser = stringValue;
+                [self.navigationController pushViewController:vc animated:YES];
             }];
             
             [scanner setTitleColor:[UIColor whiteColor] tintColor:[UIColor whiteColor]];

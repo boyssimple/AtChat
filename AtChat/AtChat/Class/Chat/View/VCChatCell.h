@@ -11,6 +11,6 @@
 
 @interface VCChatCell : UITableViewCell
 
--(void)loadData:(Message *)msg;
-+ (CGFloat)calHeight:(Message *)msg;
+-(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
++ (CGFloat)calHeight:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
 @end

@@ -42,6 +42,10 @@
         _lbTime.font = [UIFont systemFontOfSize:12];
         _lbTime.textColor = [UIColor grayColor];
         [self.contentView addSubview:_lbTime];
+        
+        _vLine = [[UIView alloc]init];
+        _vLine.backgroundColor = RGB3(229);
+        [self.contentView addSubview:_vLine];
     }
     return self;
 }
@@ -56,11 +60,25 @@
     self.ivImg.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)updateData{
-    self.ivImg.image = [UIImage imageNamed:@"abc"];
-    self.lbName.text = @"Sharelien";
-    self.lbTime.text = @"13:14";
-    self.lbMsg.text  = @"想好了，咱们就在一起哦";
+- (void)updateData:(XMPPMessageArchiving_Contact_CoreDataObject*)data{
+    NSData *photoData = [[XmppTools sharedManager] getImageData:data.bareJid.user];
+    
+    UIImage *headImg;
+    if (photoData) {
+        headImg = [UIImage imageWithData:photoData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.ivImg.image = headImg;
+        });
+    }
+    
+    self.lbName.text = data.bareJid.user;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *strDate = [dateFormatter stringFromDate:data.mostRecentMessageTimestamp];
+    self.lbTime.text = strDate;
+    
+    self.lbMsg.text  = data.mostRecentMessageBody;
 }
 
 - (void)layoutSubviews{
@@ -93,5 +111,12 @@
     r.size.width = self.lbTime.right - self.lbName.left;
     r.size.height = 14;
     self.lbMsg.frame = r;
+    
+    r = self.vLine.frame;
+    r.origin.x = 15;
+    r.origin.y = self.height-0.5;
+    r.size.width = DEVICEWIDTH-15;
+    r.size.height = 0.5;
+    self.vLine.frame = r;
 }
 @end

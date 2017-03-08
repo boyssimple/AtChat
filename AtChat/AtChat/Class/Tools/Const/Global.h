@@ -27,7 +27,7 @@
 
 //XMPP 聊天
 
-#define XMPP_HOST @"121.41.121.240"
+#define XMPP_HOST @"192.168.1.101"
 #define XMPP_PLATFORM @"IOS"
 #define CHATTYPE @"chat"                //消息类型chat、group
 

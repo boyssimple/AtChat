@@ -57,7 +57,7 @@
         hud.label.text = @"注册中...";
         [[XmppTools sharedManager] registerWithUser:self.phone password:password withSuccess:^{
             [self hideMsg];
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"登录成功" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             alert.delegate = self;
             [alert show];
        } withFail:^(NSString *error) {

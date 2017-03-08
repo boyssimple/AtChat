@@ -18,7 +18,7 @@
 @property(nonatomic,strong)UIView *container;
 @property (nonatomic, strong) UILabel *lbContent;   //文字消息
 @property(nonatomic,strong)UIImageView *ivImg;      //图片消息
-@property (nonatomic, strong) Message *msg;
+@property (nonatomic, strong) XMPPMessageArchiving_Message_CoreDataObject *msg;
 @end
 @implementation VCChatCell
 
@@ -34,7 +34,6 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self setBackgroundColor:[UIColor clearColor]];
     _userImg = [[UIImageView alloc]init];
-    _userImg.image= [UIImage imageNamed:@"abc"];
     [self.contentView addSubview:_userImg];
     
     _container = [[UIView alloc]init];
@@ -56,25 +55,43 @@
     
 }
 
-
--(void)loadData:(Message *)msg{
+-(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg{
     self.msg = msg;
+    NSString *user = msg.bareJid.user;
+    if (self.msg.isOutgoing) {
+        user = [XmppTools sharedManager].userName;
+    }
+    NSData *photoData = [[XmppTools sharedManager] getImageData:user];
+    
+    UIImage *headImg;
+    if (photoData) {
+        headImg = [UIImage imageWithData:photoData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.userImg.image = headImg;
+        });
+    }
+    
+    NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
     self.ivImg.hidden = YES;
     self.lbContent.hidden = YES;
-    if (msg.msgType == IMAGE) {     //图片
+    
+    if ([chatType integerValue] == IMAGE) {     //图片
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSData *data = [[NSData alloc]initWithBase64EncodedString:msg.content options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            NSString *imgBody = [msg.message attributeStringValueForName:@"imgBody"];
+            NSData *data = [[NSData alloc]initWithBase64EncodedString:imgBody options:NSDataBase64DecodingIgnoreUnknownCharacters];
             UIImage *calImage = [[UIImage alloc]initWithData:data];
             [self.ivImg setImage:calImage];
         });
         self.ivImg.hidden = NO;
-    }else if(msg.msgType == TEXT){  //文字
-        self.lbContent.text = msg.content;
+    }else if([chatType integerValue] == TEXT){  //文字
+        self.lbContent.text = msg.body;
         self.lbContent.hidden = NO;
-    }else if(msg.msgType == RECORD){  //语音
+    }else if([chatType integerValue] == RECORD){  //语音
         self.lbContent.hidden = NO;
-        self.lbContent.text = [NSString stringWithFormat:@"[语音] %@''",msg.voiceTime];
+        NSString *time = [msg.message attributeStringValueForName:@"time"];
+        self.lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
     }
+    
 }
 
 - (void)layoutSubviews{
@@ -88,8 +105,10 @@
     
     CGFloat w ,h;
     
-    if (self.msg.msgType == IMAGE) {     //图片
-        CGSize size = [VCChatCell calSize:self.msg.content];
+    NSString *chatType = [self.msg.message attributeStringValueForName:@"bodyType"];
+    if ([chatType integerValue] == IMAGE) {     //图片
+        NSString *imgBody = [self.msg.message attributeStringValueForName:@"imgBody"];
+        CGSize size = [VCChatCell calSize:imgBody];
         r = self.ivImg.frame;
         r.origin.x = 0;
         r.origin.y = 0;
@@ -100,7 +119,7 @@
         w = size.width;
         h = size.height;
         [self.container setMaskView:self.bgImg];
-    }else if(self.msg.msgType == TEXT || self.msg.msgType == RECORD){  //文字-语音
+    }else if([chatType integerValue] == TEXT || [chatType integerValue] == RECORD){  //文字-语音
         w = [self.lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
@@ -117,7 +136,7 @@
         self.lbContent.frame = r;
         h += 30;
     }
-   
+    
     r = self.bgImg.frame;
     r.origin.x = 0;
     r.origin.y = 0;
@@ -134,7 +153,8 @@
     self.container.frame = r;
     
     //消息在左右判断
-    if (self.msg.type == ME) {
+    
+    if (self.msg.isOutgoing) {
         r = self.userImg.frame;
         r.origin.x = self.width - 40;
         self.userImg.frame = r;
@@ -146,18 +166,19 @@
     }
 }
 
-+ (CGFloat)calHeight:(Message *)msg{
++ (CGFloat)calHeight:(XMPPMessageArchiving_Message_CoreDataObject *)msg{
+    NSString *chatType = [msg.message attributeStringValueForName:@"bodyType"];
     CGFloat height = 15;
     
-    
-    if (msg.msgType == IMAGE) {     //图片
-        CGSize size = [VCChatCell calSize:msg.content];
+    if ([chatType integerValue] == IMAGE) {     //图片
+        NSString *imgBody = [msg.message attributeStringValueForName:@"imgBody"];
+        CGSize size = [VCChatCell calSize:imgBody];
         height += size.height;
-    }else if(msg.msgType == TEXT){  //文字
+    }else if([chatType integerValue] == TEXT){  //文字
         UILabel *lbContent = [[UILabel alloc]init];
         lbContent.font = [UIFont systemFontOfSize:14];
         lbContent.numberOfLines = 0;
-        lbContent.text = msg.content;
+        lbContent.text = msg.body;
         
         
         CGFloat w = [lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
@@ -168,11 +189,13 @@
         }
         CGFloat h = [lbContent sizeThatFits:CGSizeMake(w-30, MAXFLOAT)].height;
         height += h + 30;
-    }else if(msg.msgType == RECORD){     //语音
+    }else if([chatType integerValue] == RECORD){     //语音
+        NSString *time = [msg.message attributeStringValueForName:@"time"];
+        
         UILabel *lbContent = [[UILabel alloc]init];
         lbContent.font = [UIFont systemFontOfSize:14];
         lbContent.numberOfLines = 0;
-        lbContent.text = [NSString stringWithFormat:@"[语音] %@''",msg.voiceTime];
+        lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
         
         
         CGFloat w = [lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
@@ -184,7 +207,6 @@
         CGFloat h = [lbContent sizeThatFits:CGSizeMake(w-30, MAXFLOAT)].height;
         height += h + 30;
     }
-    
     return height;
 }
 

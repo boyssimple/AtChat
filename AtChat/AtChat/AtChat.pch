@@ -24,5 +24,6 @@
 #import "XmppTools.h"
 #import "Notify.h"
 #import "Global.h"
+#import "Toast.h"
 
 #endif /* AtChat_pch */

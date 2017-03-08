@@ -10,6 +10,7 @@
 #import "VCQr.h"
 #import "VCSetting.h"
 
+#import "VCPhoto.h"
 #import "CellUserImg.h"
 #import "CellMeAction.h"
 
@@ -22,6 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.table];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.table reloadData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -88,8 +94,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];// 取消选中
-    
-    if (indexPath.section == 1) {
+    if(indexPath.section == 0){
+        VCPhoto *vc = [[VCPhoto alloc]init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:TRUE];
+    }else if (indexPath.section == 1) {
         VCQr *vc = [[VCQr alloc]init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:TRUE];

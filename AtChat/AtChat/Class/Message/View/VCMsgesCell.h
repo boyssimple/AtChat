@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface VCMsgesCell : UITableViewCell
+@property (nonatomic, strong) UIView  *vLine;
 + (CGFloat)calHeight;
-- (void)updateData;
+- (void)updateData:(XMPPMessageArchiving_Contact_CoreDataObject*)data;
 @end
