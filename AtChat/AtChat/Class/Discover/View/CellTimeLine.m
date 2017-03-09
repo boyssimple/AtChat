@@ -103,7 +103,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     self.menu.top = self.btnMsg.top-10;
     self.menu.left = self.btnMsg.left-self.menu.width;
     
-    self.vLine.frame = CGRectMake(0, self.lbTime.bottom+15, DEVICEWIDTH, 0.5);
+    self.vLine.frame = CGRectMake(0, self.menu.bottom+5, DEVICEWIDTH, 0.5);
 }
 
 - (void)updateData:(TimeLine*)data{
@@ -172,7 +172,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         height += s.height;
     }
     height += h;
-    return height;
+    return height+10;
 }
 
 

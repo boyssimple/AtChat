@@ -192,14 +192,15 @@
     CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGFloat transformY = keyboardFrame.origin.y - self.view.height;
+    CGFloat h = DEVICEHEIGHT - NAV_STATUS_HEIGHT - 50;
+    CGFloat hx = h +transformY-NAV_STATUS_HEIGHT;
     [UIView animateWithDuration:duration animations:^{
-        self.inputText.transform = CGAffineTransformMakeTranslation(0, transformY-64);
+        self.inputText.transform = CGAffineTransformMakeTranslation(0, transformY-NAV_STATUS_HEIGHT);
         CGRect f = self.table.frame;
-//        NSLog(@"-------%f",transformY);
         if(transformY < 0){
-            self.table.height = self.table.height+transformY;
+            f.size.height = hx;
         }else{
-            self.table.height = self.view.height-50;
+            f.size.height = h;
         }
         self.table.frame = f;
     } completion:^(BOOL finished) {

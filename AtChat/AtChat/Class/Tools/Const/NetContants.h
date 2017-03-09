@@ -10,6 +10,6 @@
 #define NetContants_h
 
 
-#define BASEURL @"http://api.haochang.tv/api/"
+#define BASEURL @"http://192.168.1.101:8180/AtChat-web/"
 
 #endif /* NetContants_h */

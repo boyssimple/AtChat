@@ -37,4 +37,11 @@
     self.lbName.text = [NSString stringWithFormat:@"%@",[XmppTools sharedManager].userName];
 }
 
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    CGSize size = [self.lbName sizeThatFits:CGSizeMake(MAXFLOAT, 15)];
+    self.lbName.left = self.ivImg.left - size.width - 15;
+    self.lbName.width = size.width;
+}
+
 @end

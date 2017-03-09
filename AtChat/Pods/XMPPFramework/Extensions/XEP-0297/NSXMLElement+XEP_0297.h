@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-#import "DDXML.h"
+@import KissXML;
 
 @class XMPPIQ;
 @class XMPPMessage;

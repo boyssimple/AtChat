@@ -12,11 +12,15 @@
 #import "TimeLine.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
+#import "VCPublishTimeLine.h"
+#import "VCNavBase.h"
+#import "TimeLineTest.h"
 
 @interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) TimeLineHeader *header;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) TimeLineTest *timeLine;
 @end
 
 @implementation VCTimeline
@@ -64,6 +68,25 @@
                         @"http://g.hiphotos.baidu.com/image/pic/item/8c1001e93901213f7606d3e653e736d12f2e95d7.jpg", nil];
     t5.images = images4;
     [self.dataSource addObject:t5];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MakePhoto"] style:UIBarButtonItemStylePlain target:self action:@selector(publishAction)];
+    [self loadData];
+}
+
+- (void)loadData{
+    [[NetRequestTool shared] requestPost:self.timeLine withSuccess:^(ApiObject *m) {
+        NSLog(@"%s__%d|",__func__,__LINE__);
+    } withFailure:^(ApiObject *m) {
+        NSLog(@"%s__%d|",__func__,__LINE__);
+    }];
+}
+
+- (void)publishAction{
+    VCPublishTimeLine *vc = [[VCPublishTimeLine alloc]init];
+    VCNavBase *nav = [[VCNavBase alloc]initWithRootViewController:vc];
+    [self presentViewController:nav animated:TRUE completion:^{
+        
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -122,5 +145,12 @@
         [_header updateData];
     }
     return _header;
+}
+
+- (TimeLineTest*)timeLine{
+    if (!_timeLine) {
+        _timeLine = [[TimeLineTest alloc]init];
+    }
+    return _timeLine;
 }
 @end

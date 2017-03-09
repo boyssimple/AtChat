@@ -2,13 +2,16 @@
 # platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 # use_frameworks!
-
 target 'AtChat' do
-pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
-pod 'SDWebImage', '~> 3.8.1'
+platform :ios, ‘8.0’
+pod 'SDWebImage' , '~> 3.8.2’
+#pod 'XMPPFramework', :git => "https://github.com/robbiehanson/XMPPFramework.git", :branch => 'master'
+use_frameworks!
+pod 'XMPPFramework', '~> 3.7.0'
 pod 'YYKit'
 pod 'MJRefresh', '~> 3.1.12'
 pod 'MBProgressHUD'
 pod 'YTKKeyValueStore'
+pod 'AFNetworking', '~> 3.0'
 end
 

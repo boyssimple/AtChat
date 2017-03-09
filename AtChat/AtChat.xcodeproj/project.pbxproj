@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E6FF53C0CCA75C2439C713B /* Pods_AtChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36405CC3D0A59FE1DB6D5B60 /* Pods_AtChat.framework */; };
 		2917B4361DC886B000B1C9E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2917B4351DC886B000B1C9E7 /* main.m */; };
 		2917B4391DC886B000B1C9E7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2917B4381DC886B000B1C9E7 /* AppDelegate.m */; };
 		2917B43C1DC886B100B1C9E7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2917B43B1DC886B100B1C9E7 /* ViewController.m */; };
@@ -52,6 +53,15 @@
 		295716191DCB323D00AAEE1F /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 295716181DCB323D00AAEE1F /* DataStore.m */; };
 		2962120D1E6EB19A00BD5D89 /* VCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962120C1E6EB19A00BD5D89 /* VCPhoto.m */; };
 		296212131E6FA71F00BD5D89 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212121E6FA71F00BD5D89 /* Toast.m */; };
+		296212281E6FDAB200BD5D89 /* VCPublishTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212271E6FDAB200BD5D89 /* VCPublishTimeLine.m */; };
+		2962122B1E6FE17400BD5D89 /* CollCellTimeLinePic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962122A1E6FE17400BD5D89 /* CollCellTimeLinePic.m */; };
+		2962122E1E6FE21000BD5D89 /* CollCellTimeLineAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962122D1E6FE21000BD5D89 /* CollCellTimeLineAdd.m */; };
+		296212311E6FEB9200BD5D89 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212301E6FEB9200BD5D89 /* Photo.m */; };
+		296212571E714F4900BD5D89 /* NetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212561E714F4900BD5D89 /* NetTool.m */; };
+		2962125A1E71501000BD5D89 /* ApiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212591E71501000BD5D89 /* ApiObject.m */; };
+		2962125D1E7152F500BD5D89 /* NetRequestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962125C1E7152F500BD5D89 /* NetRequestTool.m */; };
+		296212601E71564100BD5D89 /* DataStoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962125F1E71564100BD5D89 /* DataStoreManager.m */; };
+		296212631E715C4400BD5D89 /* TimeLineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212621E715C4400BD5D89 /* TimeLineTest.m */; };
 		29CC2F651DCC2CC400120A23 /* CellMeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F621DCC2CC400120A23 /* CellMeAction.m */; };
 		29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F641DCC2CC400120A23 /* CellSetting.m */; };
 		29CC2F6B1DCC2CD400120A23 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F681DCC2CD400120A23 /* VCSetting.m */; };
@@ -79,10 +89,10 @@
 		29CC2FB71DCC69FB00120A23 /* MJPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2FAD1DCC69FB00120A23 /* MJPhotoToolbar.m */; };
 		29CC2FB81DCC69FB00120A23 /* MJPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2FAF1DCC69FB00120A23 /* MJPhotoView.m */; };
 		29CC2FB91DCC69FB00120A23 /* SDWebImageManager+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2FB11DCC69FB00120A23 /* SDWebImageManager+MJ.m */; };
-		D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08D227E9DCB2BD1A03FAABB9 /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
 		2917B4311DC886AF00B1C9E7 /* AtChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2917B4351DC886B000B1C9E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2917B4371DC886B000B1C9E7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
@@ -160,6 +170,24 @@
 		2962120C1E6EB19A00BD5D89 /* VCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCPhoto.m; sourceTree = "<group>"; };
 		296212111E6FA71F00BD5D89 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
 		296212121E6FA71F00BD5D89 /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
+		296212261E6FDAB200BD5D89 /* VCPublishTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCPublishTimeLine.h; sourceTree = "<group>"; };
+		296212271E6FDAB200BD5D89 /* VCPublishTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCPublishTimeLine.m; sourceTree = "<group>"; };
+		296212291E6FE17400BD5D89 /* CollCellTimeLinePic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollCellTimeLinePic.h; sourceTree = "<group>"; };
+		2962122A1E6FE17400BD5D89 /* CollCellTimeLinePic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollCellTimeLinePic.m; sourceTree = "<group>"; };
+		2962122C1E6FE21000BD5D89 /* CollCellTimeLineAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollCellTimeLineAdd.h; sourceTree = "<group>"; };
+		2962122D1E6FE21000BD5D89 /* CollCellTimeLineAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollCellTimeLineAdd.m; sourceTree = "<group>"; };
+		2962122F1E6FEB9200BD5D89 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		296212301E6FEB9200BD5D89 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		296212551E714F4900BD5D89 /* NetTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetTool.h; sourceTree = "<group>"; };
+		296212561E714F4900BD5D89 /* NetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetTool.m; sourceTree = "<group>"; };
+		296212581E71501000BD5D89 /* ApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiObject.h; sourceTree = "<group>"; };
+		296212591E71501000BD5D89 /* ApiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiObject.m; sourceTree = "<group>"; };
+		2962125B1E7152F500BD5D89 /* NetRequestTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetRequestTool.h; sourceTree = "<group>"; };
+		2962125C1E7152F500BD5D89 /* NetRequestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetRequestTool.m; sourceTree = "<group>"; };
+		2962125E1E71564100BD5D89 /* DataStoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStoreManager.h; sourceTree = "<group>"; };
+		2962125F1E71564100BD5D89 /* DataStoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStoreManager.m; sourceTree = "<group>"; };
+		296212611E715C4400BD5D89 /* TimeLineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineTest.h; sourceTree = "<group>"; };
+		296212621E715C4400BD5D89 /* TimeLineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineTest.m; sourceTree = "<group>"; };
 		29CC2F611DCC2CC400120A23 /* CellMeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellMeAction.h; sourceTree = "<group>"; };
 		29CC2F621DCC2CC400120A23 /* CellMeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellMeAction.m; sourceTree = "<group>"; };
 		29CC2F631DCC2CC400120A23 /* CellSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSetting.h; sourceTree = "<group>"; };
@@ -213,9 +241,8 @@
 		29CC2FAF1DCC69FB00120A23 /* MJPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoView.m; sourceTree = "<group>"; };
 		29CC2FB01DCC69FB00120A23 /* SDWebImageManager+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDWebImageManager+MJ.h"; sourceTree = "<group>"; };
 		29CC2FB11DCC69FB00120A23 /* SDWebImageManager+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDWebImageManager+MJ.m"; sourceTree = "<group>"; };
-		A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AtChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
-		F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.debug.xcconfig"; sourceTree = "<group>"; };
+		36405CC3D0A59FE1DB6D5B60 /* Pods_AtChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AtChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A28A71D2196A408D2803971 /* Pods-AtChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AtChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-AtChat/Pods-AtChat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +266,7 @@
 				295715E51DC988A600AAEE1F /* MOBFoundationEx.framework in Frameworks */,
 				295715E61DC988A600AAEE1F /* SMS_SDK.framework in Frameworks */,
 				295715A11DC88ECF00AAEE1F /* Security.framework in Frameworks */,
-				D597DB29BB494C3D657FCBED /* libPods-AtChat.a in Frameworks */,
+				0E6FF53C0CCA75C2439C713B /* Pods_AtChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,8 +278,8 @@
 			children = (
 				2917B4331DC886AF00B1C9E7 /* AtChat */,
 				2917B4321DC886AF00B1C9E7 /* Products */,
-				B5E8190A6AE543800228B4E9 /* Pods */,
 				D601C9B7944CCF2E80ECF41C /* Frameworks */,
+				D16EA01BAEFB8030D8E3EE10 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -468,6 +495,8 @@
 			children = (
 				295716171DCB323D00AAEE1F /* DataStore.h */,
 				295716181DCB323D00AAEE1F /* DataStore.m */,
+				2962125E1E71564100BD5D89 /* DataStoreManager.h */,
+				2962125F1E71564100BD5D89 /* DataStoreManager.m */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -485,6 +514,12 @@
 				295715DB1DC89ACC00AAEE1F /* XMPPConfig.h */,
 				295715DC1DC89ACC00AAEE1F /* XmppTools.h */,
 				295715DD1DC89ACC00AAEE1F /* XmppTools.m */,
+				296212551E714F4900BD5D89 /* NetTool.h */,
+				296212561E714F4900BD5D89 /* NetTool.m */,
+				296212581E71501000BD5D89 /* ApiObject.h */,
+				296212591E71501000BD5D89 /* ApiObject.m */,
+				2962125B1E7152F500BD5D89 /* NetRequestTool.h */,
+				2962125C1E7152F500BD5D89 /* NetRequestTool.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -640,6 +675,8 @@
 				29CC2F8D1DCC666C00120A23 /* VCDiscover.m */,
 				29CC2F8F1DCC667800120A23 /* VCTimeline.h */,
 				29CC2F901DCC667800120A23 /* VCTimeline.m */,
+				296212261E6FDAB200BD5D89 /* VCPublishTimeLine.h */,
+				296212271E6FDAB200BD5D89 /* VCPublishTimeLine.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -649,6 +686,10 @@
 			children = (
 				29CC2F9E1DCC66C100120A23 /* TimeLine.h */,
 				29CC2F9F1DCC66C100120A23 /* TimeLine.m */,
+				2962122F1E6FEB9200BD5D89 /* Photo.h */,
+				296212301E6FEB9200BD5D89 /* Photo.m */,
+				296212611E715C4400BD5D89 /* TimeLineTest.h */,
+				296212621E715C4400BD5D89 /* TimeLineTest.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -664,6 +705,10 @@
 				29CC2F971DCC66B700120A23 /* TimeLineMenu.m */,
 				29CC2F981DCC66B700120A23 /* CellDiscover.h */,
 				29CC2F991DCC66B700120A23 /* CellDiscover.m */,
+				296212291E6FE17400BD5D89 /* CollCellTimeLinePic.h */,
+				2962122A1E6FE17400BD5D89 /* CollCellTimeLinePic.m */,
+				2962122C1E6FE21000BD5D89 /* CollCellTimeLineAdd.h */,
+				2962122D1E6FE21000BD5D89 /* CollCellTimeLineAdd.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -691,11 +736,11 @@
 			path = MJPhotoBrowser;
 			sourceTree = "<group>";
 		};
-		B5E8190A6AE543800228B4E9 /* Pods */ = {
+		D16EA01BAEFB8030D8E3EE10 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */,
-				E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */,
+				08D227E9DCB2BD1A03FAABB9 /* Pods-AtChat.debug.xcconfig */,
+				7A28A71D2196A408D2803971 /* Pods-AtChat.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -716,7 +761,7 @@
 				295715A41DC88EE000AAEE1F /* CoreGraphics.framework */,
 				295715A21DC88ED900AAEE1F /* CoreLocation.framework */,
 				295715A01DC88ECF00AAEE1F /* Security.framework */,
-				A3C637443D498CD7AE8A1BD7 /* libPods-AtChat.a */,
+				36405CC3D0A59FE1DB6D5B60 /* Pods_AtChat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -728,12 +773,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2917B4481DC886B100B1C9E7 /* Build configuration list for PBXNativeTarget "AtChat" */;
 			buildPhases = (
-				2569FA6EE20628E7EEC62983 /* Check Pods Manifest.lock */,
+				F2CBA1B5DCF24BF990A4D1EE /* [CP] Check Pods Manifest.lock */,
 				2917B42D1DC886AF00B1C9E7 /* Sources */,
 				2917B42E1DC886AF00B1C9E7 /* Frameworks */,
 				2917B42F1DC886AF00B1C9E7 /* Resources */,
-				8334C3B394F84F794D999BA4 /* Embed Pods Frameworks */,
-				58B0168A9B55490F6D2F784C /* Copy Pods Resources */,
+				9DD8B95E9EA1F0D16E027E45 /* [CP] Embed Pods Frameworks */,
+				A34C562E82960EEBB099AEC7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -756,6 +801,7 @@
 					2917B4301DC886AF00B1C9E7 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = A57W3P5J93;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -793,29 +839,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2569FA6EE20628E7EEC62983 /* Check Pods Manifest.lock */ = {
+		9DD8B95E9EA1F0D16E027E45 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AtChat/Pods-AtChat-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		58B0168A9B55490F6D2F784C /* Copy Pods Resources */ = {
+		A34C562E82960EEBB099AEC7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,19 +869,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AtChat/Pods-AtChat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8334C3B394F84F794D999BA4 /* Embed Pods Frameworks */ = {
+		F2CBA1B5DCF24BF990A4D1EE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AtChat/Pods-AtChat-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -850,20 +896,25 @@
 				295715F61DC99EDF00AAEE1F /* VCMsgesCell.m in Sources */,
 				29CC2F8E1DCC666C00120A23 /* VCDiscover.m in Sources */,
 				295715D01DC8923800AAEE1F /* VCLogin.m in Sources */,
+				296212281E6FDAB200BD5D89 /* VCPublishTimeLine.m in Sources */,
 				29CC2F9C1DCC66B700120A23 /* TimeLineMenu.m in Sources */,
+				296212601E71564100BD5D89 /* DataStoreManager.m in Sources */,
 				295715C71DC890C000AAEE1F /* VCMessages.m in Sources */,
 				295716071DC9E1D300AAEE1F /* VCChatCell.m in Sources */,
 				29CC2F9B1DCC66B700120A23 /* TimeLineHeader.m in Sources */,
 				29CC2FB31DCC69FB00120A23 /* MJPhoto.m in Sources */,
+				2962125D1E7152F500BD5D89 /* NetRequestTool.m in Sources */,
 				29CC2F6B1DCC2CD400120A23 /* VCSetting.m in Sources */,
 				29CC2FB81DCC69FB00120A23 /* MJPhotoView.m in Sources */,
 				2917B43C1DC886B100B1C9E7 /* ViewController.m in Sources */,
 				295716101DC9E9C400AAEE1F /* Message.m in Sources */,
 				295715BB1DC88FED00AAEE1F /* VCMain.m in Sources */,
 				29CC2F7E1DCC2D1700120A23 /* HMScannerBorder.m in Sources */,
+				2962122B1E6FE17400BD5D89 /* CollCellTimeLinePic.m in Sources */,
 				29CC2FB71DCC69FB00120A23 /* MJPhotoToolbar.m in Sources */,
 				295715C41DC890B300AAEE1F /* VCFriends.m in Sources */,
 				29CC2F7D1DCC2D1700120A23 /* HMScanner.m in Sources */,
+				2962125A1E71501000BD5D89 /* ApiObject.m in Sources */,
 				29CC2FA01DCC66C100120A23 /* TimeLine.m in Sources */,
 				29CC2F651DCC2CC400120A23 /* CellMeAction.m in Sources */,
 				29CC2FB51DCC69FB00120A23 /* MJPhotoLoadingView.m in Sources */,
@@ -871,6 +922,7 @@
 				2917B4391DC886B000B1C9E7 /* AppDelegate.m in Sources */,
 				295716041DC9D80C00AAEE1F /* VCChat.m in Sources */,
 				29CC2F9D1DCC66B700120A23 /* CellDiscover.m in Sources */,
+				296212311E6FEB9200BD5D89 /* Photo.m in Sources */,
 				2957160D1DC9E2CE00AAEE1F /* FaceView.m in Sources */,
 				2917B4361DC886B000B1C9E7 /* main.m in Sources */,
 				29CC2F6C1DCC2CD400120A23 /* VCQr.m in Sources */,
@@ -879,6 +931,7 @@
 				29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */,
 				295716191DCB323D00AAEE1F /* DataStore.m in Sources */,
 				296212131E6FA71F00BD5D89 /* Toast.m in Sources */,
+				2962122E1E6FE21000BD5D89 /* CollCellTimeLineAdd.m in Sources */,
 				29CC2FB91DCC69FB00120A23 /* SDWebImageManager+MJ.m in Sources */,
 				295715DE1DC89ACC00AAEE1F /* XmppTools.m in Sources */,
 				295715B61DC88FB900AAEE1F /* VCBase.m in Sources */,
@@ -887,12 +940,14 @@
 				29CC2FB21DCC69FB00120A23 /* MBProgressHUD+Add.m in Sources */,
 				29CC2F7B1DCC2D1700120A23 /* HMScanerCardViewController.m in Sources */,
 				295716161DCB273A00AAEE1F /* VCAddFriend.m in Sources */,
+				296212571E714F4900BD5D89 /* NetTool.m in Sources */,
 				29CC2F9A1DCC66B700120A23 /* CellTimeLine.m in Sources */,
 				295715D71DC8965000AAEE1F /* UIImageView+SDWebImage.m in Sources */,
 				295715D31DC8962000AAEE1F /* MJChiBaoZiHeader.m in Sources */,
 				295715F91DC9B25700AAEE1F /* VCFriendsCell.m in Sources */,
 				29CC2FB61DCC69FB00120A23 /* MJPhotoProgressView.m in Sources */,
 				29CC2FB41DCC69FB00120A23 /* MJPhotoBrowser.m in Sources */,
+				296212631E715C4400BD5D89 /* TimeLineTest.m in Sources */,
 				29CC2F911DCC667800120A23 /* VCTimeline.m in Sources */,
 				29CC2F811DCC2D1700120A23 /* HMScannerViewController.m in Sources */,
 				295715CA1DC890C900AAEE1F /* VCMine.m in Sources */,
@@ -1014,7 +1069,7 @@
 		};
 		2917B4491DC886B100B1C9E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2EB7AF99A4661A6362AF83D /* Pods-AtChat.debug.xcconfig */;
+			baseConfigurationReference = 08D227E9DCB2BD1A03FAABB9 /* Pods-AtChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1029,12 +1084,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.AtChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		2917B44A1DC886B100B1C9E7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E253EB9512BD1BA9649BA42A /* Pods-AtChat.release.xcconfig */;
+			baseConfigurationReference = 7A28A71D2196A408D2803971 /* Pods-AtChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1049,6 +1105,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pentaq.AtChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

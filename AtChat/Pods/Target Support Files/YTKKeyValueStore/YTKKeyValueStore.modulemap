@@ -1,0 +1,6 @@
+framework module YTKKeyValueStore {
+  umbrella header "YTKKeyValueStore-umbrella.h"
+
+  export *
+  module * { export * }
+}

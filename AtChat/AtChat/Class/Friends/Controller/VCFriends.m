@@ -33,15 +33,7 @@
 }
 
 - (void)addRightBtn{
-    UIButton *right = [UIButton buttonWithType:UIButtonTypeCustom];
-    [right setFrame:CGRectMake(0, 12, 50, 15)];
-    [right setTitle:@"添加" forState:UIControlStateNormal];
-    right.titleLabel.font = [UIFont systemFontOfSize:14];
-    right.contentEdgeInsets = UIEdgeInsetsMake(0,15, 0, 0);
-    right.titleLabel.textAlignment = NSTextAlignmentRight;
-    [right addTarget:self action:@selector(addUser) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:right];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addUser)];
 }
 
 - (void)addUser{

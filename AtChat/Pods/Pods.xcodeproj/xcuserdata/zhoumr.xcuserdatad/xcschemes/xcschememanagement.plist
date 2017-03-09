@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CocoaAsyncSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>10837430BF1E238DD22952FFF3494070</key>
+		<key>251BAD17812F7EBF6532EACF66F941C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>12E2BC28C62976C425F4B71C2723F0B1</key>
+		<key>282369515D7B0F06BC2B2393F980E6B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>16FC1D244DA40BCB065B1E9F75F4F8DD</key>
+		<key>2C72E770A7F0D58235FF3BFD5DC584D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2B7193E7BC69AD3FC0E1A3F0B38E8E77</key>
+		<key>416B388906DEFAC81F0676F277AC9058</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3653DC878D85D543DA41E3B5B7021FDA</key>
+		<key>41FA54D12162DAD51D02FC58A2CD5034</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59D07CDEB502F184FDC4324E87DE40FE</key>
+		<key>48AC901CDAEE9039F7253E7D0224F577</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<key>740A4E3B8DEC94DE6F30F5105441E3D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7357678A2A86832A117C86ABCE258FBE</key>
+		<key>AC0D2D2B4EE7C873431AB3502859CA60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F12FB4A63E20F601CFB2E64A65B57C1</key>
+		<key>BE8E07A90DCF82EF1FCAECCD10D2BA0D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B32BCE8088319B63DCD6BA8488784966</key>
+		<key>CF671F7E57B92905F1CC91D036D6B4A7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<key>E14A62900910444707A5504D25EC98DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4B8C70379FF442A4FEB6759B3B7F9B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

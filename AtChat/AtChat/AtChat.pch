@@ -25,5 +25,8 @@
 #import "Notify.h"
 #import "Global.h"
 #import "Toast.h"
+#import "ApiObject.h"
+#import "NetRequestTool.h"
+#import "AFNetWorking.h"
 
 #endif /* AtChat_pch */
