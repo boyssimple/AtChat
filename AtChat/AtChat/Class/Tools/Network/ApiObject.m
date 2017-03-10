@@ -10,15 +10,33 @@
 
 @implementation ApiObject
 
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _args = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
 - (NSString*)netRequstUrl{
     NSAssert(NO, @"subClass must implement the method: netRequstUrl");
     return @"";
 }
 
-- (NSString*)cacheIdentifier{
+- (NSMutableDictionary *)getArgs {
+    NSTimeInterval t = [[NSDate date] timeIntervalSince1970];
+    [_args setObject:@(t) forKey:@"timestamp"];
+    return _args;
+}
+
+- (NSString*)cacheIdentifierOfTable{
+    return @"";
+}
+
+- (NSString*)cacheItemIdentifier{
     if(self.isCache)
     {
-        NSAssert(NO, @"subClass must implement the method: -cacheIdentifier");
+        NSAssert(NO, @"subClass must implement the method: -cacheItemIdentifier");
     }
     return @"";
 }

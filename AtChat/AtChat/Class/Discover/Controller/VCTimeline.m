@@ -29,6 +29,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.table];
     self.dataSource = [[NSMutableArray alloc]init];
+    /*
     TimeLine *t1 = [[TimeLine alloc]init];
     NSArray *images = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg",
                        @"http://e.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbedef57ab457ff0f736afc31ff9.jpg", nil];
@@ -68,17 +69,35 @@
                         @"http://g.hiphotos.baidu.com/image/pic/item/8c1001e93901213f7606d3e653e736d12f2e95d7.jpg", nil];
     t5.images = images4;
     [self.dataSource addObject:t5];
-    
+    */
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MakePhoto"] style:UIBarButtonItemStylePlain target:self action:@selector(publishAction)];
+    [self loadNewData];
+}
+
+
+- (void)loadNewData{
+    self.timeLine.isLoadLocalCache = YES;
     [self loadData];
 }
 
 - (void)loadData{
+    __weak typeof(self) weakself = self;
     [[NetRequestTool shared] requestPost:self.timeLine withSuccess:^(ApiObject *m) {
         NSLog(@"%s__%d|",__func__,__LINE__);
+        TimeLineTest *t = (TimeLineTest*)m;
+        [weakself.dataSource removeAllObjects];
+        [weakself.dataSource addObjectsFromArray:t.datas];
+        [weakself.table reloadData];
+        [weakself.table.mj_header endRefreshing];
     } withFailure:^(ApiObject *m) {
         NSLog(@"%s__%d|",__func__,__LINE__);
+        [weakself.table.mj_header endRefreshing];
     }];
+}
+
+- (void)refresh{
+    self.timeLine.isLoadLocalCache = NO;
+    [self loadData];
 }
 
 - (void)publishAction{
@@ -96,7 +115,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    TimeLine *line = [self.dataSource objectAtIndex:indexPath.row];
+    TimeLineData *line = [self.dataSource objectAtIndex:indexPath.row];
     return [CellTimeLine calHeight:line];
 }
 
@@ -108,19 +127,32 @@
         cell = [[CellTimeLine alloc]init];
         cell.delegate = self;
     }
-    TimeLine *line = [self.dataSource objectAtIndex:indexPath.row];
+    cell.index = indexPath;
+    TimeLineData *line = [self.dataSource objectAtIndex:indexPath.row];
     [cell updateData:line];
     return cell;
 }
 
 #pragma mark - CellTimeLineDelegate
 
-- (void)selectImg:(UIImageView *)ivImg{
-    MJPhoto *photo = [[MJPhoto alloc] init];
-    photo.srcImageView = ivImg;
+- (void)selectImg:(NSArray*)images withIndex:(NSInteger)index withIndexPath:(NSIndexPath*)indexPath{
+    TimeLineData *line = [self.dataSource objectAtIndex:indexPath.row];
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSInteger i=0; i<images.count; i++) {
+        UIView *v = images[i];
+        if ([v isKindOfClass:[UIImageView class]]) {
+            MJPhoto *photo = [[MJPhoto alloc] init];
+            photo.srcImageView = (UIImageView*)v;
+            if (line.images.count > i) {
+                NSString *url = line.images[i];
+                photo.url = [NSURL URLWithString:url];
+            }
+            [arr addObject:photo];
+        }
+    }
     MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    browser.currentPhotoIndex = 0;
-    browser.photos = @[photo];
+    browser.currentPhotoIndex = index;
+    browser.photos = arr;
     [browser show];
 }
 
@@ -135,6 +167,12 @@
         _table.contentInset = UIEdgeInsetsMake(-64, 0, 0, 0);
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.tableHeaderView = self.header;
+        _table.showsVerticalScrollIndicator = NO;
+        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+        _table.mj_header = header;
+        header.lastUpdatedTimeLabel.hidden = YES;
+        header.stateLabel.hidden = YES;
+        
     }
     return _table;
 }
@@ -150,6 +188,10 @@
 - (TimeLineTest*)timeLine{
     if (!_timeLine) {
         _timeLine = [[TimeLineTest alloc]init];
+        _timeLine.isCache = YES;
+        _timeLine.isReset = TRUE;
+        _timeLine.inMethod = @"list";
+        _timeLine.isLoadLocalCache = YES;
     }
     return _timeLine;
 }

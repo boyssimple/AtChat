@@ -51,7 +51,7 @@
         }
     }else{
         
-        [self POST:[obj netRequstUrl] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self POST:[obj netRequstUrl] parameters:[obj getArgs] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"返回值\n------------------%@----------------------------⌵\n%@\n-----------------------------------------------------------------^\n\n",[obj netRequstUrl],[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
             if([obj respondsToSelector:@selector(parseObj:)]){
                 id json = [self parseJson:responseObject];
@@ -87,6 +87,53 @@
 
 -(void)requestGet:(ApiObject*)obj withSuccess:(void (^)(ApiObject *m))success withFailure:(void(^)(ApiObject *m))failure{
 
+}
+
+/**
+ * 上传图片
+ */
+-(void)startMultiPartUploadTaskWithURL:(NSString *)url imagesArray:(NSArray *)images parametersDict:(NSDictionary *)parameters compressionRatio:(float)ratio succeedBlock:(void (^)(NSDictionary *dict))success failedBlock:(void (^)(NSError *error))failure{
+    if (images.count == 0) {
+        NSLog(@"图片数组计数为零");
+        return;
+    }
+    for (int i = 0; i < images.count; i++) {
+        if (![images[i] isKindOfClass:[UIImage class]]) {
+            NSLog(@"images中第%d个元素不是UIImage对象",i+1);
+        }
+    }
+    
+    [self POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        int i = 0;
+        //根据当前系统时间生成图片名称
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyyMMddhhmmsss"];
+        
+        NSDate *date = [NSDate date];
+        NSString *dateString = [formatter stringFromDate:date];
+        for (UIImage *image in images) {
+            NSString *fileName = [NSString stringWithFormat:@"%@%d.png",dateString,i++];
+            NSLog(@"图片:%@",fileName);
+            NSData *imageData;
+            if (ratio > 0.0f && ratio < 1.0f) {
+                imageData = UIImageJPEGRepresentation(image, ratio);
+            }else{
+                imageData = UIImageJPEGRepresentation(image, 1.0f);
+            }
+            [formData appendPartWithFileData:imageData name:@"upload" fileName:fileName mimeType:@"image/jpg/png/jpeg"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString * newStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        
+        NSLog(@"5959595959=%@=",newStr);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (error) {
+            NSLog(@"5959595959=上传失败");
+        }
+    }];
 }
 
 - (id)parseJson:(id)data

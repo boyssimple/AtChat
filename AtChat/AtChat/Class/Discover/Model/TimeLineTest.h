@@ -7,7 +7,15 @@
 //
 
 #import "ApiObject.h"
-
+@interface TimeLineData : NSObject
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSArray  *images;
+@property (nonatomic, strong) NSString  *time;
+- (void)parseObj:(NSDictionary *)obj;
+@end
 @interface TimeLineTest : ApiObject
-
+@property (nonatomic, strong) NSString *inMethod;
+@property (nonatomic, strong) NSMutableArray *datas;
 @end

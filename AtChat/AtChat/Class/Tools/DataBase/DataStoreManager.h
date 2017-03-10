@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataStore.h"
 
-@interface DataStoreManager : NSObject
+@interface DataStoreManager : DataStore
 + (DataStoreManager*)defatultDataStore;
 - (id)loadCacheData:(ApiObject*)obj;
 - (void)resetAndCacheData:(id)json withTableIdentifier:(ApiObject*)identifier;

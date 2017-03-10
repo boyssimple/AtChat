@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TimeLine.h"
+#import "TimeLineTest.h"
 @protocol CellTimeLineDelegate;
 @interface CellTimeLine : UITableViewCell{
     BOOL isShowing;
 }
-- (void)updateData:(TimeLine*)data;
-+ (CGFloat)calHeight:(TimeLine*)data;
+- (void)updateData:(TimeLineData*)data;
++ (CGFloat)calHeight:(TimeLineData*)data;
+@property (nonatomic, strong) NSIndexPath *index;
 @property (nonatomic, assign) id<CellTimeLineDelegate> delegate;
 @end
 
 @protocol CellTimeLineDelegate <NSObject>
 
 @optional
-- (void)selectImg:(UIImageView*)ivImg;
+- (void)selectImg:(NSArray*)images withIndex:(NSInteger)index withIndexPath:(NSIndexPath*)indexPath;
 
 @end

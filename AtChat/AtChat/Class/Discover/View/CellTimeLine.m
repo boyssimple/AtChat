@@ -91,6 +91,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         UIView *v = ((UIView *)subs.lastObject);
         self.vImages.height = v.top + v.height;
     }else{
+        self.vImages.top = self.lbContent.bottom;
         self.vImages.height = 0;
     }
     
@@ -106,8 +107,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     self.vLine.frame = CGRectMake(0, self.menu.bottom+5, DEVICEWIDTH, 0.5);
 }
 
-- (void)updateData:(TimeLine*)data{
-    [self.ivImg setImage:[UIImage imageNamed:@"img.jpg"]];
+- (void)updateData:(TimeLineData*)data{
+    [self.ivImg downloadImage:data.url];
     self.lbName.text = data.name;
     self.lbContent.text = data.content;
     self.lbTime.text = data.time;
@@ -133,6 +134,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
         }
         
         UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(x, y, width, height)];
+        img.tag = 100+n;
         [img downloadImage:url];
         [self.vImages addSubview:img];
         img.userInteractionEnabled = TRUE;
@@ -146,7 +148,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     }
 }
 
-+ (CGFloat)calHeight:(TimeLine*)data{
++ (CGFloat)calHeight:(TimeLineData*)data{
     CGFloat height = 86.5;
     UILabel *lbContent = [[UILabel alloc]init];
     lbContent.font = [UIFont systemFontOfSize:14];
@@ -251,8 +253,8 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
 }
 
 - (void)clickImg:(UIGestureRecognizer*)ges{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(selectImg:)]) {
-        [self.delegate selectImg:(UIImageView*)ges.view];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectImg:withIndex: withIndexPath:)]) {
+        [self.delegate selectImg:[ges.view superview].subviews withIndex:[ges.view tag]-100 withIndexPath:self.index];
     }
 }
 

@@ -44,6 +44,20 @@
 
 - (void)sendAction{
     [self.view endEditing:YES];
+    NSString *content = [self.tvText.text stringByTrim];
+    NSDictionary *params = @{@"method":@"publish",@"name":[XmppTools sharedManager].userName,@"url":@"https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/imgad/pic/item/0ff41bd5ad6eddc4c301bc7931dbb6fd53663349.jpg",@"content":content};
+    NSMutableArray *array = [NSMutableArray array];
+    for (Photo *p in self.dataSource) {
+        if (p.type == TIMELINETYPEPHOTO) {
+            [array addObject:p.img];
+        }
+    }
+    [[NetRequestTool shared] startMultiPartUploadTaskWithURL:@"apiMobile" imagesArray:array parametersDict:params compressionRatio:0.5 succeedBlock:^(NSDictionary *dict) {
+        
+    } failedBlock:^(NSError *error) {
+        
+    }];
+    [self cancelAction];
 }
 
 - (CGFloat)calHeight{
@@ -95,7 +109,7 @@
     }
 }
 
-- (void)textViewDidChange:(UITextView *)textView{
+- (void)textViewDidEndEditing:(UITextView *)textView{
     if([textView.text isEqualToString:@""]){
         textView.text = @"这一刻的想法...";
         textView.textColor = RGB3(229);

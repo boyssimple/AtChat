@@ -19,7 +19,6 @@
         [self addSubview:_ivBg];
         
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectMake(DEVICEWIDTH-60, _ivBg.bottom-35, 50, 50)];
-        [_ivImg setImage:[UIImage imageNamed:@"img.jpg"]];
         _ivImg.layer.borderColor = [UIColor whiteColor].CGColor;
         _ivImg.layer.borderWidth = 2;
         [self addSubview:_ivImg];
@@ -35,6 +34,15 @@
 
 - (void)updateData{
     self.lbName.text = [NSString stringWithFormat:@"%@",[XmppTools sharedManager].userName];
+    NSData *photoData = [[XmppTools sharedManager] getCurUserImageData];
+    
+    UIImage *headImg;
+    if (photoData) {
+        headImg = [UIImage imageWithData:photoData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.ivImg.image = headImg;
+        });
+    }
 }
 
 - (void)layoutSubviews{
