@@ -16,7 +16,10 @@
     if (self) {
         _ivBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 250)];
         [_ivBg setImage:[UIImage imageNamed:@"img.jpg"]];
+        _ivBg.userInteractionEnabled = YES;
         [self addSubview:_ivBg];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerAction)];
+        [_ivBg addGestureRecognizer:tap];
         
         _ivImg = [[UIImageView alloc]initWithFrame:CGRectMake(DEVICEWIDTH-60, _ivBg.bottom-35, 50, 50)];
         _ivImg.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -31,6 +34,11 @@
     return self;
 }
 
+- (void)headerAction{
+    if ([self.delegate respondsToSelector:@selector(headerAction)]) {
+        [self.delegate headerAction];
+    }
+}
 
 - (void)updateData{
     self.lbName.text = [NSString stringWithFormat:@"%@",[XmppTools sharedManager].userName];

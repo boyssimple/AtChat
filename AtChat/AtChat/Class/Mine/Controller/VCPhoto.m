@@ -8,10 +8,12 @@
 
 #import "VCPhoto.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ActionSheet.h"
 
-@interface VCPhoto ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XMPPvCardTempModuleDelegate>
+@interface VCPhoto ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,XMPPvCardTempModuleDelegate,ActionSheetDelegate>
 @property (nonatomic, strong) UIImageView *ivImg;
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
+@property (nonatomic,strong) UIImagePickerController *picker;
 @end
 
 @implementation VCPhoto
@@ -37,17 +39,13 @@
 }
 
 - (void)operationAction{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                              delegate:self
-                                                     cancelButtonTitle:NSLocalizedString(@"取消", nil)
-                                                destructiveButtonTitle:@"拍照"
-                                                     otherButtonTitles:@"从手机相册选择",@"保存图片",nil];
-    actionSheet.tag = 1;
-    [actionSheet showInView:self.view];
+    ActionSheet *action = [[ActionSheet alloc]initWithActions:@[@{@"name":@"拍照"},@{@"name":@"从手机相册选择"},@{@"name":@"保存图片"}]];
+    action.delegate = self;
+    [action show];
 }
 
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+#pragma mark - ActionSheetDelegate
+- (void)actionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         self.operation = OPERATIONIMAGEMAKEPHOTO;
         [self takePicture];
@@ -61,9 +59,7 @@
 
 //选择图片
 - (void)selectImg{
-    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-    picker.delegate = self;
-    [self presentViewController:picker animated:YES completion:nil];
+    [self presentViewController:self.picker animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -82,14 +78,15 @@
         }
     }else{
         
-        image = info[UIImagePickerControllerOriginalImage];
+        image = info[UIImagePickerControllerEditedImage];
     }
     if (image) {
         [self upload:image];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
     
 }
+
 
 /**
  * 上传头像
@@ -184,7 +181,7 @@
  */
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     
-    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -208,5 +205,16 @@
         _imagePicker.delegate=self;
     }
     return _imagePicker;
+}
+
+- (UIImagePickerController*)picker{
+    if (!_picker) {
+        _picker = [[UIImagePickerController alloc]init];
+        // 允许编辑
+        _picker.allowsEditing=YES;
+        // 设置代理，检测操作
+        _picker.delegate=self;
+    }
+    return _picker;
 }
 @end

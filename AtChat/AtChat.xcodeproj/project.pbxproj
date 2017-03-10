@@ -62,6 +62,7 @@
 		2962125D1E7152F500BD5D89 /* NetRequestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962125C1E7152F500BD5D89 /* NetRequestTool.m */; };
 		296212601E71564100BD5D89 /* DataStoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2962125F1E71564100BD5D89 /* DataStoreManager.m */; };
 		296212631E715C4400BD5D89 /* TimeLineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212621E715C4400BD5D89 /* TimeLineTest.m */; };
+		296212661E72933000BD5D89 /* ActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 296212651E72933000BD5D89 /* ActionSheet.m */; };
 		29CC2F651DCC2CC400120A23 /* CellMeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F621DCC2CC400120A23 /* CellMeAction.m */; };
 		29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F641DCC2CC400120A23 /* CellSetting.m */; };
 		29CC2F6B1DCC2CD400120A23 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F681DCC2CD400120A23 /* VCSetting.m */; };
@@ -188,6 +189,9 @@
 		2962125F1E71564100BD5D89 /* DataStoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStoreManager.m; sourceTree = "<group>"; };
 		296212611E715C4400BD5D89 /* TimeLineTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineTest.h; sourceTree = "<group>"; };
 		296212621E715C4400BD5D89 /* TimeLineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineTest.m; sourceTree = "<group>"; };
+		296212641E72933000BD5D89 /* ActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheet.h; sourceTree = "<group>"; };
+		296212651E72933000BD5D89 /* ActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheet.m; sourceTree = "<group>"; };
+		296212671E72A18100BD5D89 /* AtChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AtChat.entitlements; sourceTree = "<group>"; };
 		29CC2F611DCC2CC400120A23 /* CellMeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellMeAction.h; sourceTree = "<group>"; };
 		29CC2F621DCC2CC400120A23 /* CellMeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellMeAction.m; sourceTree = "<group>"; };
 		29CC2F631DCC2CC400120A23 /* CellSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSetting.h; sourceTree = "<group>"; };
@@ -294,6 +298,7 @@
 		2917B4331DC886AF00B1C9E7 /* AtChat */ = {
 			isa = PBXGroup;
 			children = (
+				296212671E72A18100BD5D89 /* AtChat.entitlements */,
 				295715871DC88C7200AAEE1F /* Class */,
 				2917B4341DC886B000B1C9E7 /* Supporting Files */,
 			);
@@ -535,6 +540,8 @@
 				295715BA1DC88FED00AAEE1F /* VCNavBase.m */,
 				295715D11DC8962000AAEE1F /* MJChiBaoZiHeader.h */,
 				295715D21DC8962000AAEE1F /* MJChiBaoZiHeader.m */,
+				296212641E72933000BD5D89 /* ActionSheet.h */,
+				296212651E72933000BD5D89 /* ActionSheet.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -803,6 +810,11 @@
 						DevelopmentTeam = A57W3P5J93;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -946,6 +958,7 @@
 				295715D31DC8962000AAEE1F /* MJChiBaoZiHeader.m in Sources */,
 				295715F91DC9B25700AAEE1F /* VCFriendsCell.m in Sources */,
 				29CC2FB61DCC69FB00120A23 /* MJPhotoProgressView.m in Sources */,
+				296212661E72933000BD5D89 /* ActionSheet.m in Sources */,
 				29CC2FB41DCC69FB00120A23 /* MJPhotoBrowser.m in Sources */,
 				296212631E715C4400BD5D89 /* TimeLineTest.m in Sources */,
 				29CC2F911DCC667800120A23 /* VCTimeline.m in Sources */,

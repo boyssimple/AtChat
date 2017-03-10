@@ -42,6 +42,7 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VCChatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VCChatCell"];
     XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
+    NSLog(@"%s__%d|%@",__func__,__LINE__,msg.body);
     [cell loadData:msg];
     return cell;
 }

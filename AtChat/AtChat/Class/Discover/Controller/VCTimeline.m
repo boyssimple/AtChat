@@ -15,8 +15,9 @@
 #import "VCPublishTimeLine.h"
 #import "VCNavBase.h"
 #import "TimeLineTest.h"
+#import "ActionSheet.h"
 
-@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource,TimeLineHeaderDelegate,ActionSheetDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) TimeLineHeader *header;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -155,7 +156,19 @@
     browser.photos = arr;
     [browser show];
 }
+#pragma mark - TimeLineHeaderDelegate
+- (void)headerAction{
+    ActionSheet *sheet = [[ActionSheet alloc]initWithActions:@[@{@"name":@"更新相册封面"}]];
+    sheet.delegate = self;
+    [sheet show];
+}
 
+#pragma mark - ActionSheetDelegate
+- (void)actionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        
+    }
+}
 
 #pragma mark - geter seter
 
@@ -180,6 +193,7 @@
 - (TimeLineHeader*)header{
     if (!_header) {
         _header = [[TimeLineHeader alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, 290)];
+        _header.delegate = self;
         [_header updateData];
     }
     return _header;

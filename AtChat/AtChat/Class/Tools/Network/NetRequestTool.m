@@ -48,41 +48,46 @@
                 success(obj);
             }
             return;
+        }else{
+            [self loadData:obj withSuccess:success withFailure:failure];
         }
     }else{
-        
-        [self POST:[obj netRequstUrl] parameters:[obj getArgs] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"返回值\n------------------%@----------------------------⌵\n%@\n-----------------------------------------------------------------^\n\n",[obj netRequstUrl],[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
-            if([obj respondsToSelector:@selector(parseObj:)]){
-                id json = [self parseJson:responseObject];
-                if (json) {
-                    [obj parseObj:json];
-                    if(obj.isCache){
-                        if (obj.isReset) {
-                            [[DataStoreManager defatultDataStore] resetAndCacheData:json withTableIdentifier:obj];
-                        }else{
-                            [[DataStoreManager defatultDataStore] cacheData:json withTableIdentifier:obj];
-                        }
-                    }
-                    if (obj.status) {
-                        if(success){
-                            success(obj);
-                        }
+        [self loadData:obj withSuccess:success withFailure:failure];
+    }
+}
+
+- (void)loadData:(ApiObject*)obj withSuccess:(void (^)(ApiObject *m))success withFailure:(void(^)(ApiObject *m))failure{
+    [self POST:[obj netRequstUrl] parameters:[obj getArgs] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"返回值\n------------------%@----------------------------⌵\n%@\n-----------------------------------------------------------------^\n\n",[obj netRequstUrl],[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        if([obj respondsToSelector:@selector(parseObj:)]){
+            id json = [self parseJson:responseObject];
+            if (json) {
+                [obj parseObj:json];
+                if(obj.isCache){
+                    if (obj.isReset) {
+                        [[DataStoreManager defatultDataStore] resetAndCacheData:json withTableIdentifier:obj];
                     }else{
-                        if (failure) {
-                            failure(obj);
-                        }
+                        [[DataStoreManager defatultDataStore] cacheData:json withTableIdentifier:obj];
+                    }
+                }
+                if (obj.status) {
+                    if(success){
+                        success(obj);
+                    }
+                }else{
+                    if (failure) {
+                        failure(obj);
                     }
                 }
             }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@",error);  //这里打印错误信息
-            obj.message = @"网络状况异常";
-            if (failure) {
-                failure(obj);
-            }
-        }];
-    }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);  //这里打印错误信息
+        obj.message = @"网络状况异常";
+        if (failure) {
+            failure(obj);
+        }
+    }];
 }
 
 -(void)requestGet:(ApiObject*)obj withSuccess:(void (^)(ApiObject *m))success withFailure:(void(^)(ApiObject *m))failure{
