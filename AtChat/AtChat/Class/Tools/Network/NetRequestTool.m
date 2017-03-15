@@ -131,12 +131,16 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString * newStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
-        
+        if(success){
+            success(nil);
+        }
         NSLog(@"5959595959=%@=",newStr);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (error) {
             NSLog(@"5959595959=上传失败");
+            if (failure) {
+                failure(error);
+            }
         }
     }];
 }

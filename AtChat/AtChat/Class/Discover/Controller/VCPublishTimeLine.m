@@ -46,6 +46,8 @@
     [self.view endEditing:YES];
     NSString *content = [self.tvText.text stringByTrim];
     if (content) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"发布中...";
         NSDictionary *params = @{@"method":@"publish",@"name":[XmppTools sharedManager].userName,@"url":@"https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/imgad/pic/item/0ff41bd5ad6eddc4c301bc7931dbb6fd53663349.jpg",@"content":content};
         NSMutableArray *array = [NSMutableArray array];
         for (Photo *p in self.dataSource) {
@@ -54,12 +56,14 @@
             }
         }
         [[NetRequestTool shared] startMultiPartUploadTaskWithURL:@"apiMobile" imagesArray:array parametersDict:params compressionRatio:0.5 succeedBlock:^(NSDictionary *dict) {
-            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self cancelAction];
+            [Toast show:self.view withMsg:@"发布成功"];
         } failedBlock:^(NSError *error) {
-            
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [Toast show:self.view withMsg:@"发布失败"];
         }];
     }
-    [self cancelAction];
 }
 
 - (CGFloat)calHeight{
