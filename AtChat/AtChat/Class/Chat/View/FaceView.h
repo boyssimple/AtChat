@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol FaceViewDelegate;
 @interface FaceView : UIView
+@property (nonatomic, weak) id<FaceViewDelegate> delegate;
+@end
+
+@protocol FaceViewDelegate <NSObject>
+
+- (void)selectFaceVoiw:(NSString*)face;
+- (void)sendActionWithBtn;
 
 @end

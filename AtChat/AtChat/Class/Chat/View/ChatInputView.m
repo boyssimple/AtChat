@@ -36,7 +36,9 @@
         [self.recordImg addTarget:self action:@selector(recordKeyboardChange) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.recordImg];
         
-        
+        faceView = [[FaceView alloc]initWithFrame:CGRectMake(0, 50, self.width, 200)];
+        faceView.delegate = self;
+        [self addSubview:faceView];
         
         inputText = [UITextView new];
         inputText.frame = CGRectMake(self.recordImg.right+5, self.recordImg.top, self.width-(self.recordImg.right+5)-75, 30);
@@ -64,7 +66,7 @@
         [faceImg setImage:[UIImage imageNamed:@"ChatFaceIcon"]];
         faceImg.frame = CGRectMake(inputText.right+5, self.recordImg.top, 30, 30);
         faceImg.userInteractionEnabled = TRUE;
-        UITapGestureRecognizer *faceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showFace)];
+        UITapGestureRecognizer *faceTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showFaceAction)];
         [faceImg addGestureRecognizer:faceTap];
         [self addSubview:faceImg];
         
@@ -100,9 +102,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return
         //在这里做你响应return键的代码
-        NSString *msg = inputText.text;
-        inputText.text = @"";
-        [self sendMsg:msg];
+        [self send];
         return NO; //这里返回NO，就代表return键值失效，即页面上按下return，不会出现换行，如果为yes，则输入页面会换行
     }
     
@@ -114,29 +114,27 @@
     [self hideFaceAnimation];
 }
 
--(void)showFace{
-    [inputText endEditing:YES];
-    if (faceView == nil) {
-        faceView = [[FaceView alloc]initWithFrame:CGRectMake(0, 50, self.width, 200)];
-        //faceView.delegate = self;
-        [self addSubview:faceView];
+-(void)showFaceAction{
+    if (!showFace) {
+        [inputText endEditing:YES];
+        [self showFaceAnimation];
     }
-    [self showFaceAnimation];
 }
 
 -(void)showFaceAnimation{
-    if (!showFace) {
-        [self setKeyboard];
-        CGRect f = self.frame;
-        f.size.height += faceView.height;
-        self.frame = f;
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.transform = CGAffineTransformMakeTranslation(0, -faceView.height);
-        }completion:^(BOOL finished) {
-            showFace = TRUE;
-        }];
+    [self setKeyboard];
+    CGRect f = self.frame;
+    f.size.height += faceView.height;
+    self.frame = f;
+
+    if ([self.delegate respondsToSelector:@selector(handleHeight:)]) {
+        [self.delegate handleHeight:faceView.height];
     }
+    [UIView animateWithDuration:0.3 animations:^{
+        self.transform = CGAffineTransformMakeTranslation(0, -faceView.height);
+    }completion:^(BOOL finished) {
+        showFace = TRUE;
+    }];
     
 }
 
@@ -272,10 +270,21 @@
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    showFace = FALSE;
+    if(showFace){
+        [self hideFaceAnimation];
+    }
     return  TRUE;
 }
 
+
+#pragma mark - FaceViewDelegate
+- (void)selectFaceVoiw:(NSString *)face{
+    inputText.text = [NSString stringWithFormat:@"%@%@",inputText.text,face];
+}
+
+- (void)sendActionWithBtn{
+    [self send];
+}
 
 - (NSURL*)url{
     if (!_url) {

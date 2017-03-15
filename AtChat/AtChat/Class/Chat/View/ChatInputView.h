@@ -18,9 +18,12 @@
 -(void)send:(NSString *)msg;
 -(void)recordFinish:(NSURL *)url withTime:(float)time;
 -(void)selectImg;
+
+//显示表情时应该处理高
+- (void)handleHeight:(CGFloat)height;
 @end
 
-@interface ChatInputView : UIView<UITextViewDelegate>
+@interface ChatInputView : UIView<UITextViewDelegate,FaceViewDelegate>
 {
     UITextView *inputText;
     FaceView *faceView;
@@ -38,4 +41,5 @@
 //录音
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
+
 @end

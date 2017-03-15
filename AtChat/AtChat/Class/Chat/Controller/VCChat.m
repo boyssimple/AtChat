@@ -127,6 +127,7 @@
 
 - (void)hideInput{
     [self.inputText hide];
+    [self resetHeight];
 }
 
 #pragma mark - ChatInputViewDelegate
@@ -204,6 +205,24 @@
             f.size.height = h;
         }
         self.table.frame = f;
+    } completion:^(BOOL finished) {
+        [self scrollToBottom];
+    }];
+}
+
+- (void)handleHeight:(CGFloat)height{
+    CGFloat y = DEVICEHEIGHT - NAV_STATUS_HEIGHT - self.inputText.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.table.height = y;
+    } completion:^(BOOL finished) {
+        [self scrollToBottom];
+    }];
+}
+
+- (void)resetHeight{
+    CGFloat height = DEVICEHEIGHT-NAV_STATUS_HEIGHT-self.inputText.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.table.height = height;
     } completion:^(BOOL finished) {
         [self scrollToBottom];
     }];

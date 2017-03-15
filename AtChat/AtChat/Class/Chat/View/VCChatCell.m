@@ -7,6 +7,7 @@
 //
 
 #import "VCChatCell.h"
+#import "MLEmojiLabel.h"
 
 #define kMaxContainerWidth 220.f
 #define MaxChatImageViewWidh 200.f
@@ -16,7 +17,7 @@
 @property(nonatomic,strong)UIImageView *userImg;
 @property(nonatomic,strong)UIImageView *bgImg;
 @property(nonatomic,strong)UIView *container;
-@property (nonatomic, strong) UILabel *lbContent;   //文字消息
+@property (nonatomic, strong) MLEmojiLabel *lbContent;   //文字消息
 @property(nonatomic,strong)UIImageView *ivImg;      //图片消息
 @property (nonatomic, strong) XMPPMessageArchiving_Message_CoreDataObject *msg;
 @end
@@ -42,9 +43,15 @@
     _bgImg= [[UIImageView alloc]init];
     [_container addSubview:_bgImg];
     
-    _lbContent = [[UILabel alloc]init];
-    _lbContent.font = [UIFont systemFontOfSize:14];
+    _lbContent = [MLEmojiLabel new];
+    _lbContent.font = FONT(14);
     _lbContent.numberOfLines = 0;
+    _lbContent.isNeedAtAndPoundSign = YES;
+    _lbContent.disableEmoji = NO;
+    _lbContent.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    //下面是自定义表情正则和图像plist的例子
+    _lbContent.customEmojiRegex = @"\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]";
+    _lbContent.customEmojiPlistName = @"expressionImage_custom";
     _lbContent.textColor = [UIColor blackColor];
     _lbContent.hidden = YES;
     [_container addSubview:_lbContent];
@@ -175,19 +182,24 @@
         CGSize size = [VCChatCell calSize:imgBody];
         height += size.height;
     }else if([chatType integerValue] == TEXT){  //文字
-        UILabel *lbContent = [[UILabel alloc]init];
-        lbContent.font = [UIFont systemFontOfSize:14];
-        lbContent.numberOfLines = 0;
-        lbContent.text = msg.body;
+        MLEmojiLabel *text = [MLEmojiLabel new];
+        text.font = FONT(14);
+        text.numberOfLines = 0;
+        text.isNeedAtAndPoundSign = YES;
+        text.disableEmoji = NO;
+        text.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        //下面是自定义表情正则和图像plist的例子
+        text.customEmojiRegex = @"\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]";
+        text.customEmojiPlistName = @"expressionImage_custom";
+        [text setText: msg.body];
         
-        
-        CGFloat w = [lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
+        CGFloat w = [text sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
         }else{
             w += 30;
         }
-        CGFloat h = [lbContent sizeThatFits:CGSizeMake(w-30, MAXFLOAT)].height;
+        CGFloat h = [text sizeThatFits:CGSizeMake(w-30, MAXFLOAT)].height;
         height += h + 30;
     }else if([chatType integerValue] == RECORD){     //语音
         NSString *time = [msg.message attributeStringValueForName:@"time"];

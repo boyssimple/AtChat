@@ -25,6 +25,10 @@
 #define BASE_COLOR RGB(4, 175, 255)
 #define randomColor RGB(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 
+
+#pragma mark --------- 字体大小
+#define FONT(size) [UIFont systemFontOfSize:size]
+
 //XMPP 聊天
 
 #define XMPP_HOST @"192.168.1.101"
