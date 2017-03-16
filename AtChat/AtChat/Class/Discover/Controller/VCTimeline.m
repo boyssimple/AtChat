@@ -17,7 +17,7 @@
 #import "TimeLineTest.h"
 #import "ActionSheet.h"
 
-@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource,TimeLineHeaderDelegate,ActionSheetDelegate>
+@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource,TimeLineHeaderDelegate,ActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) TimeLineHeader *header;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -109,6 +109,33 @@
     }];
 }
 
+//选择图片
+- (void)selectImg{
+    UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self uploadImage:image];
+}
+
+- (void)uploadImage:(UIImage *)image{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"处理中...";
+    [[NetRequestTool shared] startMultiPartUploadTaskWithURL:@"apiMobileUpload" imagesArray:@[image] parametersDict:nil compressionRatio:0.3 succeedBlock:^(NSDictionary *dict) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [Toast show:self.view withMsg:@"上传成功"];
+    } failedBlock:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [Toast show:self.view withMsg:@"上传失败"];
+    }];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -166,7 +193,7 @@
 #pragma mark - ActionSheetDelegate
 - (void)actionSheetClickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-        
+        [self selectImg];
     }
 }
 

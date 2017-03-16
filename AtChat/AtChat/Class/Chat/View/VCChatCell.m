@@ -44,7 +44,7 @@
     [_container addSubview:_bgImg];
     
     _lbContent = [MLEmojiLabel new];
-    _lbContent.font = FONT(14);
+    _lbContent.font = FONT(14*RATIO_WIDHT320);
     _lbContent.numberOfLines = 0;
     _lbContent.isNeedAtAndPoundSign = YES;
     _lbContent.disableEmoji = NO;
@@ -106,8 +106,8 @@
     CGRect r = self.userImg.frame;
     r.origin.x = 10;
     r.origin.y = 15;
-    r.size.width = 30;
-    r.size.height = 30;
+    r.size.width = 30*RATIO_WIDHT320;
+    r.size.height = r.size.width;
     self.userImg.frame = r;
     
     CGFloat w ,h;
@@ -127,7 +127,7 @@
         h = size.height;
         [self.container setMaskView:self.bgImg];
     }else if([chatType integerValue] == TEXT || [chatType integerValue] == RECORD){  //文字-语音
-        w = [self.lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
+        w = [self.lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
         }else{
@@ -163,7 +163,7 @@
     
     if (self.msg.isOutgoing) {
         r = self.userImg.frame;
-        r.origin.x = self.width - 40;
+        r.origin.x = self.width - 10-self.userImg.width;
         self.userImg.frame = r;
         
         r = self.container.frame;
@@ -183,7 +183,7 @@
         height += size.height;
     }else if([chatType integerValue] == TEXT){  //文字
         MLEmojiLabel *text = [MLEmojiLabel new];
-        text.font = FONT(14);
+        text.font = FONT(14*RATIO_WIDHT320);
         text.numberOfLines = 0;
         text.isNeedAtAndPoundSign = YES;
         text.disableEmoji = NO;
@@ -193,24 +193,24 @@
         text.customEmojiPlistName = @"expressionImage_custom";
         [text setText: msg.body];
         
-        CGFloat w = [text sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
+        CGFloat w = [text sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
         }else{
             w += 30;
         }
-        CGFloat h = [text sizeThatFits:CGSizeMake(w-30, MAXFLOAT)].height;
+        CGFloat h = [text sizeThatFits:CGSizeMake(w-30, MAXFLOAT*RATIO_WIDHT320)].height;
         height += h + 30;
     }else if([chatType integerValue] == RECORD){     //语音
         NSString *time = [msg.message attributeStringValueForName:@"time"];
         
         UILabel *lbContent = [[UILabel alloc]init];
-        lbContent.font = [UIFont systemFontOfSize:14];
+        lbContent.font = [UIFont systemFontOfSize:14*RATIO_WIDHT320];
         lbContent.numberOfLines = 0;
         lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
         
         
-        CGFloat w = [lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14)].width;
+        CGFloat w = [lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
         }else{

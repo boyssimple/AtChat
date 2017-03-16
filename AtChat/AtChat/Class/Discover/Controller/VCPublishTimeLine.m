@@ -55,7 +55,7 @@
                 [array addObject:p.img];
             }
         }
-        [[NetRequestTool shared] startMultiPartUploadTaskWithURL:@"apiMobile" imagesArray:array parametersDict:params compressionRatio:0.5 succeedBlock:^(NSDictionary *dict) {
+        [[NetRequestTool shared] startMultiPartUploadTaskWithURL:@"apiMobile" imagesArray:array parametersDict:params compressionRatio:0.3 succeedBlock:^(NSDictionary *dict) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self cancelAction];
             [Toast show:self.view withMsg:@"发布成功"];
@@ -154,9 +154,10 @@
 
 - (UITextView*)tvText{
     if(!_tvText){
-        _tvText = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, DEVICEWIDTH-20, 50)];
+        _tvText = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, DEVICEWIDTH-20, 70*RATIO_WIDHT320)];
         _tvText.delegate = self;
         _tvText.text = @"这一刻的想法...";
+        _tvText.font = FONT(14*RATIO_WIDHT320);
         _tvText.textColor = RGB3(229);
     }
     return _tvText;
