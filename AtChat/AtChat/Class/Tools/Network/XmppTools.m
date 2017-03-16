@@ -7,6 +7,8 @@
 //
 
 #import "XmppTools.h"
+#import "VCLogin.h"
+#import "VCNavBase.h"
 
 @implementation XmppTools
 
@@ -132,7 +134,14 @@
 }
 
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
-    NSLog(@"%s--%d|连接失败",__func__,__LINE__);
+    if(error && error.code == 7){
+        NSLog(@"%s--%d|异地登录|%@",__func__,__LINE__,error);
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"该帐号在其他设备登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alertView.tag = 101;
+        [alertView show];
+    }
+    NSLog(@"%s--%d|连接失败|%@",__func__,__LINE__,error);
+    
 }
 
 /**
@@ -206,8 +215,6 @@
     return TRUE;
 }
 
-
-
 #pragma mark ===== 好友模块 委托=======
 /** 收到出席订阅请求（代表对方想添加自己为好友) */
 - (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence
@@ -219,6 +226,7 @@
     from = [from substringToIndex:range.location];
     NSString *message = [NSString stringWithFormat:@"【%@】想加你为好友",from];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:@"拒绝" otherButtonTitles:@"同意", nil];
+    alertView.tag = 100;
     [alertView show];
     
 }
@@ -227,10 +235,21 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [self.xmppRoster rejectPresenceSubscriptionRequestFrom:self.receivePresence.from];
-    } else {
-        [self.xmppRoster acceptPresenceSubscriptionRequestFrom:self.receivePresence.from andAddToRoster:YES];
+    if (alertView.tag == 100) {
+        if (buttonIndex == 0) {
+            [self.xmppRoster rejectPresenceSubscriptionRequestFrom:self.receivePresence.from];
+        } else {
+            [self.xmppRoster acceptPresenceSubscriptionRequestFrom:self.receivePresence.from andAddToRoster:YES];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 101) {
+        VCLogin *vc = [[VCLogin alloc]init];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
+        window.rootViewController = nvc;
     }
 }
 
@@ -331,6 +350,26 @@
     XMPPJID *jid = [XMPPJID jidWithString:[self idAndHost:self.userName] resource:XMPP_PLATFORM];
     NSData *photoData = [[self avatarModule] photoDataForJID:jid];
     return photoData;
+}
+
+/**
+ * 更改密码  ------ 暂时未修改成功
+ */
+- (void)changePassworduseWord:(NSString *)checkPassword withUser:(NSString*)userName
+{
+    NSXMLElement *query = [NSXMLElement elementWithName:@"query" xmlns:@"jabber:iq:register"];
+    NSXMLElement *msgXml = [NSXMLElement elementWithName:@"iq"];
+    [msgXml addAttributeWithName:@"type" stringValue:@"set"];
+    [msgXml addAttributeWithName:@"to" stringValue:XMPP_HOST];//serverip];
+    [msgXml addAttributeWithName:@"id" stringValue:@"change1"];
+    DDXMLNode *username=[DDXMLNode elementWithName:@"username" stringValue:userName];//不带@后缀
+    DDXMLNode *password=[DDXMLNode elementWithName:@"password" stringValue:checkPassword];//要改的密码
+    [query addChild:username];
+    [query addChild:password];
+    [msgXml addChild:query];
+    NSLog(@"%@",msgXml);
+    [self.xmppStream connectWithTimeout:XMPPStreamTimeoutNone error:nil];
+    [self.xmppStream sendElement:msgXml];
 }
 
 @end

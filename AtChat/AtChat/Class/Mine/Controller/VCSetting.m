@@ -37,11 +37,13 @@
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-            VCLogin *vc = [[VCLogin alloc]init];
             
+            VCLogin *vc = [[VCLogin alloc]init];
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
             VCNavBase *nvc = [[VCNavBase alloc]initWithRootViewController:vc];
             window.rootViewController = nvc;
+            
+            
         });
     }
 }

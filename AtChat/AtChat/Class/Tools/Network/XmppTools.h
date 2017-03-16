@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
     ConnectToServerPurposeRegister
 };
 
-@interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate,XMPPMessageArchivingStorage>
+@interface XmppTools : NSObject<XMPPStreamDelegate,XMPPRosterDelegate,XMPPRosterMemoryStorageDelegate,XMPPReconnectDelegate,UIAlertViewDelegate,XMPPRoomDelegate>
 @property (nonatomic, assign) ConnectToServerPurpose connectToServerPurpose;
 @property (nonatomic, strong) XMPPStream *xmppStream;
 
@@ -77,4 +77,7 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 -(void)goOffLine;
 
 - (NSData*)getCurUserImageData;
+
+//更改密码
+- (void)changePassworduseWord:(NSString *)checkPassword withUser:(NSString*)userName;
 @end

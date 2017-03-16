@@ -9,6 +9,7 @@
 #import "VCLogin.h"
 #import "VCMain.h"
 #import "VCRegister.h"
+#import "VCForgotPwd.h"
 
 @interface VCLogin ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIView *vPhone;
@@ -94,7 +95,8 @@
 
 
 - (void)forgotAction{
-    
+    VCForgotPwd *vc = [[VCForgotPwd alloc]init];
+    [self.navigationController pushViewController:vc animated:TRUE];
 }
 
 #pragma mark - Getter Setter
