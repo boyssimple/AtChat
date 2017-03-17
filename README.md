@@ -20,7 +20,7 @@
 * [x] 用户头像上传
 * [x] 朋友圈
 * [x] 发朋友圈
-
+* [x] 异地登录退出
 ## 项目截图
 
 ![image](https://github.com/boyssimple/AtChat/blob/master/images/001.png)
