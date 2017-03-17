@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    BOOL loginFlag = [user boolForKey:@"loginFlag"];
     NSString *userName = [user objectForKey:@"userName"];
     NSString *userPassword = [user objectForKey:@"userPassword"];
     //注册MOB短信验证
@@ -32,13 +33,20 @@
     
     self.window= [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    if (userName != nil && userPassword != nil) {
-        [self autoLogin:userName withPwd:userPassword];
-        VCMain *vc = [[VCMain alloc]init];
-        self.window.rootViewController = vc;
+    
+    if (!loginFlag) {
+        if (userName != nil && userPassword != nil) {
+            [self autoLogin:userName withPwd:userPassword];
+            VCMain *vc = [[VCMain alloc]init];
+            self.window.rootViewController = vc;
+        }else{
+            [self showLogin];
+        }
     }else{
         [self showLogin];
     }
+    
+    
     return YES;
 }
 

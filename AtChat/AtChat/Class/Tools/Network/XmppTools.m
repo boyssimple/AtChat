@@ -135,6 +135,11 @@
 
 - (void)xmppStreamDidDisconnect:(XMPPStream *)sender withError:(NSError *)error {
     if(error && error.code == 7){
+        [self goOffLine];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@(TRUE) forKey:@"loginFlag"];
+        [userDefaults synchronize];
         NSLog(@"%s--%d|异地登录|%@",__func__,__LINE__,error);
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"该帐号在其他设备登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         alertView.tag = 101;

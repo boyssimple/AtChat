@@ -112,12 +112,14 @@
 -(void)hide{
     [inputText endEditing:TRUE];
     [self hideFaceAnimation];
+    self.isOpend = FALSE;
 }
 
 -(void)showFaceAction{
     if (!showFace) {
         [inputText endEditing:YES];
         [self showFaceAnimation];
+        self.isOpend = TRUE;
     }
 }
 
@@ -223,8 +225,10 @@
     if (isKeyboard) {
         [self setKeyboard];
         [inputText becomeFirstResponder];
+        self.isOpend = TRUE;
     }else{
         [self setRecord];
+        self.isOpend = FALSE;
     }
 }
 

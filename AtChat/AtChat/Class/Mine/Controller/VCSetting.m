@@ -34,6 +34,10 @@
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = @"退出登录...";
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@(TRUE) forKey:@"loginFlag"];
+        [userDefaults synchronize];
+        
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [MBProgressHUD hideHUDForView:self.view animated:YES];

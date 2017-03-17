@@ -13,7 +13,7 @@
 #define MaxChatImageViewWidh 200.f
 #define MaxChatImageViewHeight 300.f
 
-@interface VCChatCell()
+@interface VCChatCell()<MLEmojiLabelDelegate>
 @property(nonatomic,strong)UIImageView *userImg;
 @property(nonatomic,strong)UIImageView *bgImg;
 @property(nonatomic,strong)UIView *container;
@@ -48,6 +48,7 @@
     _lbContent.numberOfLines = 0;
     _lbContent.isNeedAtAndPoundSign = YES;
     _lbContent.disableEmoji = NO;
+    _lbContent.delegate = self;
     _lbContent.textInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     //下面是自定义表情正则和图像plist的例子
     _lbContent.customEmojiRegex = @"\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]";
@@ -99,6 +100,16 @@
         self.lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
     }
     
+}
+
+#pragma  mark - MLEmojiLabelDelegate
+- (void)mlEmojiLabel:(MLEmojiLabel*)emojiLabel didSelectLink:(NSString*)link withType:(MLEmojiLabelLinkType)type{
+    if (type == MLEmojiLabelLinkTypeURL) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+    }else if(type == MLEmojiLabelLinkTypePhoneNumber){
+        NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"tel:%@",link];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
 }
 
 - (void)layoutSubviews{

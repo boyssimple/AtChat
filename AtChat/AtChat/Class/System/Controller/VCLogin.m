@@ -74,6 +74,7 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:phone forKey:@"userName"];
             [userDefaults setObject:password forKey:@"userPassword"];
+            [userDefaults setObject:@(FALSE) forKey:@"loginFlag"];
             [userDefaults synchronize];
             
             [MBProgressHUD hideHUDForView:self.view animated:YES];

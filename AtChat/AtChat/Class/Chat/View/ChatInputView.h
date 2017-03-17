@@ -33,7 +33,7 @@
 }
 
 -(void)hide;
-
+@property (nonatomic, assign) BOOL isOpend;
 @property(nonatomic,assign)id<ChatInputDelegate>delegate;
 @property (nonatomic, strong) UIButton *recordImg;
 @property (nonatomic, strong) UIButton *btnRecord;

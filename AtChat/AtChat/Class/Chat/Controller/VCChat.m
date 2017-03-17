@@ -48,12 +48,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self hideInput];
-    
+    if (self.inputText.isOpend) {
+        [self hideInput];
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self hideInput];
+    if (self.inputText.isOpend) {
+        [self hideInput];
+    }
 }
 
 /**
@@ -130,6 +133,12 @@
     [self resetHeight];
 }
 
+- (void)dismiss{
+    if (self.inputText.isOpend) {
+        [self hideInput];
+    }
+}
+
 #pragma mark - ChatInputViewDelegate
 -(void)send:(NSString *)msg{
     if (![msg isEqualToString:@""]) {
@@ -196,13 +205,20 @@
     CGFloat transformY = keyboardFrame.origin.y - self.view.height;
     CGFloat h = DEVICEHEIGHT - NAV_STATUS_HEIGHT - 50;
     CGFloat hx = h +transformY-NAV_STATUS_HEIGHT;
+    if(transformY < 0){
+        self.inputText.isOpend = TRUE;
+    }else{
+        self.inputText.isOpend = FALSE;
+    }
     [UIView animateWithDuration:duration animations:^{
         self.inputText.transform = CGAffineTransformMakeTranslation(0, transformY-NAV_STATUS_HEIGHT);
         CGRect f = self.table.frame;
         if(transformY < 0){
             f.size.height = hx;
+            self.inputText.isOpend = TRUE;
         }else{
             f.size.height = h;
+            self.inputText.isOpend = FALSE;
         }
         self.table.frame = f;
     } completion:^(BOOL finished) {
@@ -236,6 +252,8 @@
         _table.dataSource = self;
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.backgroundColor = [UIColor clearColor];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
+        [_table addGestureRecognizer:tap];
         
 //        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
 //        _table.mj_header = header;
