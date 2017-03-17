@@ -17,7 +17,9 @@
 #import "TimeLineTest.h"
 #import "ActionSheet.h"
 
-@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource,TimeLineHeaderDelegate,ActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface VCTimeline ()<CellTimeLineDelegate,UITableViewDelegate,UITableViewDataSource,TimeLineHeaderDelegate,
+    ActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) TimeLineHeader *header;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -30,57 +32,22 @@
     [super viewDidLoad];
     [self.view addSubview:self.table];
     self.dataSource = [[NSMutableArray alloc]init];
-    /*
-    TimeLine *t1 = [[TimeLine alloc]init];
-    NSArray *images = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg",
-                       @"http://e.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbedef57ab457ff0f736afc31ff9.jpg", nil];
-    t1.images = images;
-    [self.dataSource addObject:t1];
-    
-    TimeLine *t2 = [[TimeLine alloc]init];
-    NSArray *images1 = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg",
-                        @"http://e.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbedef57ab457ff0f736afc31ff9.jpg", nil];
-    t2.images = images1;
-    [self.dataSource addObject:t2];
-    
-    
-    TimeLine *t3 = [[TimeLine alloc]init];
-    NSArray *images2 = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg",
-                        @"http://e.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbedef57ab457ff0f736afc31ff9.jpg",
-                        @"http://f.hiphotos.baidu.com/image/pic/item/503d269759ee3d6dd0bd1af144166d224f4ade95.jpg",
-                        @"http://h.hiphotos.baidu.com/image/pic/item/faedab64034f78f0b00507c97e310a55b3191cf9.jpg", nil];
-    t3.images = images2;
-    [self.dataSource addObject:t3];
-    
-    
-    TimeLine *t4 = [[TimeLine alloc]init];
-    NSArray *images3 = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg", nil];
-    t4.images = images3;
-    [self.dataSource addObject:t4];
-    
-    
-    TimeLine *t5 = [[TimeLine alloc]init];
-    NSArray *images4 = [[NSArray alloc]initWithObjects:@"http://photocdn.sohu.com/20151124/mp43786429_1448294862260_4.jpeg",
-                        @"http://e.hiphotos.baidu.com/image/pic/item/5bafa40f4bfbfbedef57ab457ff0f736afc31ff9.jpg",
-                        @"http://f.hiphotos.baidu.com/image/pic/item/503d269759ee3d6dd0bd1af144166d224f4ade95.jpg",
-                        @"http://h.hiphotos.baidu.com/image/pic/item/faedab64034f78f0b00507c97e310a55b3191cf9.jpg",
-                        @"http://e.hiphotos.baidu.com/image/pic/item/0df3d7ca7bcb0a46660716036c63f6246b60afe7.jpg",
-                        @"http://b.hiphotos.baidu.com/image/pic/item/91529822720e0cf346d2d3c10d46f21fbe09aae7.jpg",
-                        @"http://h.hiphotos.baidu.com/image/pic/item/0b46f21fbe096b63613cc36a0b338744ebf8ace7.jpg",
-                        @"http://g.hiphotos.baidu.com/image/pic/item/8c1001e93901213f7606d3e653e736d12f2e95d7.jpg", nil];
-    t5.images = images4;
-    [self.dataSource addObject:t5];
-    */
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MakePhoto"] style:UIBarButtonItemStylePlain target:self action:@selector(publishAction)];
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"MakePhoto"] style:UIBarButtonItemStylePlain target:self action:@selector(publishAction)];
+    self.navigationItem.rightBarButtonItem = rightBtn;
     [self loadNewData];
 }
 
-
+/**
+ * 加载新数据
+ */
 - (void)loadNewData{
     self.timeLine.isLoadLocalCache = YES;
     [self loadData];
 }
 
+/**
+ * 加载数据
+ */
 - (void)loadData{
     __weak typeof(self) weakself = self;
     [[NetRequestTool shared] requestPost:self.timeLine withSuccess:^(ApiObject *m) {
@@ -96,11 +63,17 @@
     }];
 }
 
+/**
+ * 刷新
+ */
 - (void)refresh{
     self.timeLine.isLoadLocalCache = NO;
     [self loadData];
 }
 
+/**
+ * 跳转到朋友圈发布
+ */
 - (void)publishAction{
     VCPublishTimeLine *vc = [[VCPublishTimeLine alloc]init];
     VCNavBase *nav = [[VCNavBase alloc]initWithRootViewController:vc];
@@ -116,14 +89,10 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self uploadImage:image];
-}
 
+/**
+ * 上传相册封面
+ */
 - (void)uploadImage:(UIImage *)image{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"处理中...";
@@ -137,7 +106,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
 }
@@ -183,6 +151,7 @@
     browser.photos = arr;
     [browser show];
 }
+
 #pragma mark - TimeLineHeaderDelegate
 - (void)headerAction{
     ActionSheet *sheet = [[ActionSheet alloc]initWithActions:@[@{@"name":@"更新相册封面"}]];
@@ -195,6 +164,15 @@
     if (buttonIndex == 0) {
         [self selectImg];
     }
+}
+
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self uploadImage:image];
 }
 
 #pragma mark - geter seter
