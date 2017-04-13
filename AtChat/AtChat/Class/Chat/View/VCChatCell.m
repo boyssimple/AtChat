@@ -58,7 +58,6 @@
     _lbContent.customEmojiPlistName = @"expressionImage_custom";
     _lbContent.textColor = [UIColor blackColor];
     _lbContent.hidden = YES;
-    _lbContent.backgroundColor = [UIColor redColor];
     [_container addSubview:_lbContent];
     
     _ivImg = [[UIImageView alloc]init];
@@ -71,7 +70,7 @@
             [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image];
         }
     }];
-//    [_ivImg addGestureRecognizer:tap];
+    [_ivImg addGestureRecognizer:tap];
     
 }
 
