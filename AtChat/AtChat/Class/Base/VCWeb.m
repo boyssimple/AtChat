@@ -17,8 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.url) {
-        _web = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT)];
+        _web = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, DEVICEWIDTH, DEVICEHEIGHT-NAV_STATUS_HEIGHT)];
         [_web loadRequest:[[NSURLRequest alloc]initWithURL:self.url]];
+        [self.view addSubview:_web];
     }
 }
 

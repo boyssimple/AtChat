@@ -43,6 +43,7 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VCChatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VCChatCell"];
     cell.delegate = self;
+    cell.index = indexPath;
     XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
     NSLog(@"%s__%d|%@",__func__,__LINE__,msg.body);
     [cell loadData:msg];
@@ -247,13 +248,13 @@
 }
 
 #pragma mark - VCChatCellDelegate
-- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withImage:(UIImage*)img{
+- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withIndex:(NSIndexPath *)index{
     if (type == 0) {
-        [[UIApplication sharedApplication] openURL:url];
-    }else if(type == 1){
         VCWeb *vc = [[VCWeb alloc]init];
         vc.url = url;
         [self.navigationController pushViewController:vc animated:YES];
+    }else if(type == 1){
+        [[UIApplication sharedApplication] openURL:url];
     }else if(type == 2){
         NSLog(@"打开图片");
     }
@@ -268,8 +269,6 @@
         _table.dataSource = self;
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.backgroundColor = [UIColor clearColor];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dismiss)];
-        [_table addGestureRecognizer:tap];
         
 //        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
 //        _table.mj_header = header;

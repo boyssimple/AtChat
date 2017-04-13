@@ -8,6 +8,8 @@
 
 #import "VCChatCell.h"
 #import "MLEmojiLabel.h"
+# import "MJPhoto.h"
+# import "MJPhotoBrowser.h"
 
 #define kMaxContainerWidth 220.f
 #define MaxChatImageViewWidh 200.f
@@ -66,9 +68,17 @@
     [_container addSubview:_ivImg];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:)]) {
-            [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image];
-        }
+//        if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:withIndex:)]) {
+//            [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image withIndex:self.index];
+//        }
+        
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = nil;
+        photo.srcImageView = self.ivImg;
+        MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+        browser.currentPhotoIndex = 0;
+        browser.photos = @[photo];
+        [browser show];
     }];
     [_ivImg addGestureRecognizer:tap];
     
@@ -122,14 +132,14 @@
 
 #pragma  mark - MLEmojiLabelDelegate
 - (void)mlEmojiLabel:(MLEmojiLabel*)emojiLabel didSelectLink:(NSString*)link withType:(MLEmojiLabelLinkType)type{
-    if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:)]) {
+    if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl: withIndex:)]) {
         if (type == MLEmojiLabelLinkTypeURL) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
-//          [self.delegate chat:self didSelectWithType:0 withUrl:[NSURL URLWithString:link] withImage:nil];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+            [self.delegate chat:self didSelectWithType:0 withUrl:[NSURL URLWithString:link] withIndex:self.index];
         }else if(type == MLEmojiLabelLinkTypePhoneNumber){
             NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"tel:%@",link];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-//          [self.delegate chat:self didSelectWithType:1 withUrl:[NSURL URLWithString:str] withImage:nil];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            [self.delegate chat:self didSelectWithType:1 withUrl:[NSURL URLWithString:str] withIndex:self.index];
         }
     }
 }

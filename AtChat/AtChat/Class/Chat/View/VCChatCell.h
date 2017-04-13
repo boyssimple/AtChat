@@ -13,12 +13,13 @@
 
 @interface VCChatCell : UITableViewCell
 @property (nonatomic, weak) id<VCChatCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *index;
 -(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
 + (CGFloat)calHeight:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
 @end
 
 @protocol VCChatCellDelegate <NSObject>
 
-- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withImage:(UIImage*)img;
+- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withIndex:(NSIndexPath*)index;
 
 @end
