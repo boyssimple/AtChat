@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Message.h"
 
-@interface VCChatCell : UITableViewCell
+@protocol VCChatCellDelegate;
 
+@interface VCChatCell : UITableViewCell
+@property (nonatomic, weak) id<VCChatCellDelegate> delegate;
 -(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
 + (CGFloat)calHeight:(XMPPMessageArchiving_Message_CoreDataObject *)msg;
+@end
+
+@protocol VCChatCellDelegate <NSObject>
+
+- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withImage:(UIImage*)img;
+
 @end

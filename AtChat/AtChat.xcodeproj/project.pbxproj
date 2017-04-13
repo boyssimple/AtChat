@@ -85,6 +85,7 @@
 		29AFBBD71E79338A003BE021 /* expression_custom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29AFBBD51E79338A003BE021 /* expression_custom.plist */; };
 		29AFBBD81E79338A003BE021 /* expressionImage_custom.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29AFBBD61E79338A003BE021 /* expressionImage_custom.plist */; };
 		29AFBBDB1E7A728A003BE021 /* VCForgotPwd.m in Sources */ = {isa = PBXBuildFile; fileRef = 29AFBBDA1E7A728A003BE021 /* VCForgotPwd.m */; };
+		29B19C901E9F70C800CA07AB /* VCWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B19C8F1E9F70C800CA07AB /* VCWeb.m */; };
 		29CC2F651DCC2CC400120A23 /* CellMeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F621DCC2CC400120A23 /* CellMeAction.m */; };
 		29CC2F661DCC2CC400120A23 /* CellSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F641DCC2CC400120A23 /* CellSetting.m */; };
 		29CC2F6B1DCC2CD400120A23 /* VCSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 29CC2F681DCC2CD400120A23 /* VCSetting.m */; };
@@ -252,6 +253,8 @@
 		29AFBBD61E79338A003BE021 /* expressionImage_custom.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = expressionImage_custom.plist; sourceTree = "<group>"; };
 		29AFBBD91E7A728A003BE021 /* VCForgotPwd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCForgotPwd.h; sourceTree = "<group>"; };
 		29AFBBDA1E7A728A003BE021 /* VCForgotPwd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCForgotPwd.m; sourceTree = "<group>"; };
+		29B19C8E1E9F70C800CA07AB /* VCWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCWeb.h; sourceTree = "<group>"; };
+		29B19C8F1E9F70C800CA07AB /* VCWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCWeb.m; sourceTree = "<group>"; };
 		29CC2F611DCC2CC400120A23 /* CellMeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellMeAction.h; sourceTree = "<group>"; };
 		29CC2F621DCC2CC400120A23 /* CellMeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellMeAction.m; sourceTree = "<group>"; };
 		29CC2F631DCC2CC400120A23 /* CellSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSetting.h; sourceTree = "<group>"; };
@@ -605,6 +608,8 @@
 				295715D21DC8962000AAEE1F /* MJChiBaoZiHeader.m */,
 				296212641E72933000BD5D89 /* ActionSheet.h */,
 				296212651E72933000BD5D89 /* ActionSheet.m */,
+				29B19C8E1E9F70C800CA07AB /* VCWeb.h */,
+				29B19C8F1E9F70C800CA07AB /* VCWeb.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1123,6 +1128,7 @@
 				295715B61DC88FB900AAEE1F /* VCBase.m in Sources */,
 				295715BC1DC88FED00AAEE1F /* VCNavBase.m in Sources */,
 				29CC2F7F1DCC2D1700120A23 /* HMScannerController.m in Sources */,
+				29B19C901E9F70C800CA07AB /* VCWeb.m in Sources */,
 				29CC2FB21DCC69FB00120A23 /* MBProgressHUD+Add.m in Sources */,
 				29CC2F7B1DCC2D1700120A23 /* HMScanerCardViewController.m in Sources */,
 				295716161DCB273A00AAEE1F /* VCAddFriend.m in Sources */,

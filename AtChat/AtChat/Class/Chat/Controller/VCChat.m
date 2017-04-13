@@ -10,8 +10,9 @@
 #import "Message.h"
 #import "VCChatCell.h"
 #import "ChatInputView.h"
+#import "VCWeb.h"
 
-@interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate,XMPPStreamDelegate>
+@interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate,XMPPStreamDelegate,VCChatCellDelegate>
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) ChatInputView *inputText;
@@ -41,6 +42,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     VCChatCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VCChatCell"];
+    cell.delegate = self;
     XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
     NSLog(@"%s__%d|%@",__func__,__LINE__,msg.body);
     [cell loadData:msg];
@@ -243,6 +245,20 @@
         [self scrollToBottom];
     }];
 }
+
+#pragma mark - VCChatCellDelegate
+- (void)chat:(VCChatCell*)cell didSelectWithType:(NSInteger)type withUrl:(NSURL*)url withImage:(UIImage*)img{
+    if (type == 0) {
+        [[UIApplication sharedApplication] openURL:url];
+    }else if(type == 1){
+        VCWeb *vc = [[VCWeb alloc]init];
+        vc.url = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if(type == 2){
+        NSLog(@"打开图片");
+    }
+}
+
 
 - (UITableView*)table{
     if (!_table) {

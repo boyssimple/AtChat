@@ -13,10 +13,11 @@
 #define MaxChatImageViewWidh 200.f
 #define MaxChatImageViewHeight 300.f
 
-@interface VCChatCell()<MLEmojiLabelDelegate>
+@interface VCChatCell()<MLEmojiLabelDelegate,UIGestureRecognizerDelegate>
 @property(nonatomic,strong)UIImageView *userImg;
-@property(nonatomic,strong)UIImageView *bgImg;
 @property(nonatomic,strong)UIView *container;
+@property(nonatomic,strong)UIImageView *containerImageView;
+@property(nonatomic,strong)UIImageView *maskViewImage;
 @property (nonatomic, strong) MLEmojiLabel *lbContent;   //文字消息
 @property(nonatomic,strong)UIImageView *ivImg;      //图片消息
 @property (nonatomic, strong) XMPPMessageArchiving_Message_CoreDataObject *msg;
@@ -40,8 +41,10 @@
     _container = [[UIView alloc]init];
     [self.contentView addSubview:_container];
     //消息背景
-    _bgImg= [[UIImageView alloc]init];
-    [_container addSubview:_bgImg];
+    _containerImageView = [[UIImageView alloc]init];
+    [_container addSubview:_containerImageView];
+    
+    _maskViewImage = [[UIImageView alloc]init];
     
     _lbContent = [MLEmojiLabel new];
     _lbContent.font = FONT(14*RATIO_WIDHT320);
@@ -55,13 +58,23 @@
     _lbContent.customEmojiPlistName = @"expressionImage_custom";
     _lbContent.textColor = [UIColor blackColor];
     _lbContent.hidden = YES;
+    _lbContent.backgroundColor = [UIColor redColor];
     [_container addSubview:_lbContent];
     
     _ivImg = [[UIImageView alloc]init];
     _ivImg.hidden = YES;
+    _ivImg.userInteractionEnabled = YES;
     [_container addSubview:_ivImg];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:)]) {
+            [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image];
+        }
+    }];
+//    [_ivImg addGestureRecognizer:tap];
+    
 }
+
 
 -(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg{
     self.msg = msg;
@@ -100,17 +113,33 @@
         self.lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
     }
     
+    if(self.msg.outgoing){
+        self.containerImageView.image = [self stretchImage:@"SenderTextNodeBkg"];
+    }else{
+        self.containerImageView.image = [self stretchImage:@"ReceiverTextNodeBkg"];
+    }
+    self.maskViewImage.image = self.containerImageView.image;
 }
 
 #pragma  mark - MLEmojiLabelDelegate
 - (void)mlEmojiLabel:(MLEmojiLabel*)emojiLabel didSelectLink:(NSString*)link withType:(MLEmojiLabelLinkType)type{
-    if (type == MLEmojiLabelLinkTypeURL) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
-    }else if(type == MLEmojiLabelLinkTypePhoneNumber){
-        NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"tel:%@",link];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:)]) {
+        if (type == MLEmojiLabelLinkTypeURL) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+//          [self.delegate chat:self didSelectWithType:0 withUrl:[NSURL URLWithString:link] withImage:nil];
+        }else if(type == MLEmojiLabelLinkTypePhoneNumber){
+            NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"tel:%@",link];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//          [self.delegate chat:self didSelectWithType:1 withUrl:[NSURL URLWithString:str] withImage:nil];
+        }
     }
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return ![self.lbContent containslinkAtPoint:[touch locationInView:self.lbContent]];
+}
+
 
 - (void)layoutSubviews{
     [super layoutSubviews];
@@ -136,8 +165,10 @@
         
         w = size.width;
         h = size.height;
-        [self.container setMaskView:self.bgImg];
+        //        [self.container setMaskView:self.maskViewImage];
+        self.container.layer.mask = self.maskViewImage.layer;
     }else if([chatType integerValue] == TEXT || [chatType integerValue] == RECORD){  //文字-语音
+        [self.container.layer.mask removeFromSuperlayer];
         w = [self.lbContent sizeThatFits:CGSizeMake(MAXFLOAT, 14*RATIO_WIDHT320)].width;
         if (w > kMaxContainerWidth) {
             w = kMaxContainerWidth;
@@ -155,13 +186,13 @@
         h += 30;
     }
     
-    r = self.bgImg.frame;
+    r = self.containerImageView.frame;
     r.origin.x = 0;
     r.origin.y = 0;
     r.size.width = w;
     r.size.height = h;
-    self.bgImg.frame = r;
-    self.bgImg.image = [self stretchImage:@"ReceiverTextNodeBkg"];
+    self.containerImageView.frame = r;
+    self.maskViewImage.frame = r;
     
     r = self.container.frame;
     r.origin.x = self.userImg.right+15;
@@ -180,7 +211,6 @@
         r = self.container.frame;
         r.origin.x = self.userImg.left - r.size.width - 15;
         self.container.frame = r;
-        self.bgImg.image = [self stretchImage:@"SenderTextNodeBkg"];
     }
 }
 
