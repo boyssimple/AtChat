@@ -122,7 +122,7 @@
         self.lbContent.text = [NSString stringWithFormat:@"[语音] %@''",time];
     }
     
-    if(self.msg.outgoing){
+    if(self.msg.isOutgoing){
         self.containerImageView.image = [self stretchImage:@"SenderTextNodeBkg"];
     }else{
         self.containerImageView.image = [self stretchImage:@"ReceiverTextNodeBkg"];
