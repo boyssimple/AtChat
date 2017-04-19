@@ -14,6 +14,7 @@
 * [x] 发起好友请求
 * [x] 图片消息
 * [x] 语音消息
+* [x] 视频语音聊天(采用WebRtc)
 * [x] 聊天历史记录
 * [x] 最近联系人
 * [x] 二维码添加好友
@@ -21,6 +22,10 @@
 * [x] 朋友圈
 * [x] 发朋友圈
 * [x] 异地登录退出
+
+说明：
+由于webrtc.a包太大，没有上传上来，请到百度云盘下载：https://pan.baidu.com/s/1jIaB6w2
+
 ## 项目截图
 
 ![image](https://github.com/boyssimple/AtChat/blob/master/images/001.png)
