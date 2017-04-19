@@ -9,6 +9,10 @@
 #import "XmppTools.h"
 #import "VCLogin.h"
 #import "VCNavBase.h"
+#import "WebRTCClient.h"
+
+#define kWebRTCNotification     @"kWebRTCNotification"
+NSString *const  kReceivedSinalingMessageNotification = @"kReceivedSinalingMessageNotification";
 
 @implementation XmppTools
 
@@ -81,13 +85,13 @@
  *  @prarm userName 用户名
  *  @prarm userPwd  密码
  */
-- (void)loginWithUser:(NSString*)userName withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock{
+- (void)loginWithUser:(XMPPJID*)jid withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock{
     self.connectToServerPurpose = ConnectToServerPurposeLogin;
     self.successBlack = sblock;
     self.failureBlack = fblock;
     self.userPassword = userPwd;
-    self.userName = userName;
-    [self connection:userName];
+    self.userJid = jid;
+    [self connection];
 }
 
 /**
@@ -95,20 +99,19 @@
  *  @prarm userName 用户名
  *  @prarm userPwd  密码
  */
-- (void)registerWithUser:(NSString *)userName password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock
+- (void)registerWithUser:(XMPPJID *)jid password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock
 {
     self.connectToServerPurpose = ConnectToServerPurposeRegister;
     self.successBlack = sblock;
     self.failureBlack = fblock;
     self.userPassword = password;
-    [self connection:userName];
+    self.userJid = jid;
+    [self connection];
 }
 
 //连接服务器
-- (void)connection:(NSString*)userName{
-    XMPPJID *jid = [XMPPJID jidWithUser:userName domain:XMPP_HOST resource:XMPP_PLATFORM];
-    self.userJid = jid;
-    [self.xmppStream setMyJID:jid];
+- (void)connection{
+    [self.xmppStream setMyJID:self.userJid];
     // 发送请求
     if ([self.xmppStream isConnected] || [self.xmppStream isConnecting]) {
         // 先发送下线状态
@@ -197,6 +200,24 @@
  */
 - (void)xmppStream:(XMPPStream *)sender didNotRegister:(NSXMLElement *)error{
     self.failureBlack(error.description);
+}
+
+#pragma mark - Message
+- (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
+{
+    //    NSLog(@"%s--%@",__FUNCTION__, message);
+    //XEP--0136 已经用coreData实现了数据的接收和保存
+    NSData *data = [message.body dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    if ([dict objectForKey:@"roomId"]) {
+        //        NSLog(@"roomId:%@",[dict objectForKey:@"roomId"]);
+        //        [[WebRTCClient sharedInstance] showRTCViewByRemoteName:message.from.full isVideo:YES isCaller:NO];
+    } else if ([dict objectForKey:@"sdp"] || dict[@"type"]){
+        [WebRTCClient sharedInstance].myJID = self.xmppStream.myJID.full;
+        [WebRTCClient sharedInstance].remoteJID = message.from.full;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kReceivedSinalingMessageNotification object:dict];
+    }
+    
 }
 
 -(void)goOffLine{
@@ -298,10 +319,9 @@
     return baseStr;
 }
 
-- (NSData*)getImageData:(NSString *)userId;
+- (NSData*)getImageData:(XMPPJID *)userId;
 {
-    XMPPJID *jid = [XMPPJID jidWithString:[self idAndHost:userId] resource:XMPP_PLATFORM];
-    NSData *photoData = [[self avatarModule] photoDataForJID:jid];
+    NSData *photoData = [[self avatarModule] photoDataForJID:userId];
     return photoData;
 }
 

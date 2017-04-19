@@ -21,7 +21,7 @@
     self.title = @"我的二维码";
     [self.view addSubview:self.imageView];
     
-    [HMScannerController cardImageWithCardName:[XmppTools sharedManager].userName avatar:nil scale:0.2 completion:^(UIImage *image) {
+    [HMScannerController cardImageWithCardName:[XmppTools sharedManager].userJid.user avatar:nil scale:0.2 completion:^(UIImage *image) {
         self.imageView.image = image;
     }];
 }

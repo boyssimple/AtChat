@@ -61,7 +61,7 @@
 }
 
 - (void)updateData:(XMPPMessageArchiving_Contact_CoreDataObject*)data{
-    NSData *photoData = [[XmppTools sharedManager] getImageData:data.bareJid.user];
+    NSData *photoData = [[XmppTools sharedManager] getImageData:data.bareJid];
     
     UIImage *headImg;
     if (photoData) {

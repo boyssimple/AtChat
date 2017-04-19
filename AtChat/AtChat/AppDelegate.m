@@ -51,9 +51,9 @@
 }
 
 - (void)autoLogin:(NSString*)phone withPwd:(NSString*)password{
-    [[XmppTools sharedManager] loginWithUser:phone withPwd:password withSuccess:^{
+    [[XmppClient shareClient] login:phone password:password success:^{
         
-    } withFail:^(NSString *error) {
+    } failure:^(NSString *error) {
         [self showLogin];
     }];
 }

@@ -11,6 +11,7 @@
 #import "VCChatCell.h"
 #import "ChatInputView.h"
 #import "VCWeb.h"
+#import "WebRTCClient.h"
 
 @interface VCChat ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ChatInputDelegate,XMPPStreamDelegate,VCChatCellDelegate>
 @property (nonatomic, strong) UITableView *table;
@@ -29,7 +30,37 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[XmppTools sharedManager].xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [self reloadMessages];
+    
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"语音" style:UIBarButtonItemStylePlain target:self action:@selector(audioAction)];
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"视频" style:UIBarButtonItemStylePlain target:self action:@selector(videoAction)];
+    self.navigationItem.rightBarButtonItems = @[item2];
 }
+
+
+- (void)audioAction
+{
+    NSLog(@"%s",__func__);
+    //    [self startCommunication:NO];
+}
+
+
+- (void)videoAction
+{
+    NSLog(@"%s",__func__);
+    [self startCommunication:YES];
+}
+
+- (void)startCommunication:(BOOL)isVideo
+{
+    WebRTCClient *client = [WebRTCClient sharedInstance];
+    [client startEngine];
+    client.myJID = [XmppTools sharedManager].userJid.full;
+    client.remoteJID = self.toUser.full;
+    
+    [client showRTCViewByRemoteName:self.toUser.full isVideo:isVideo isCaller:YES];
+    
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count;
@@ -45,7 +76,7 @@
     cell.delegate = self;
     cell.index = indexPath;
     XMPPMessageArchiving_Message_CoreDataObject *msg = [self.dataSource objectAtIndex:indexPath.row];
-    NSLog(@"%s__%d|%@",__func__,__LINE__,msg.body);
+    NSLog(@"%s__%d|%@",__func__,__LINE__,msg);
     [cell loadData:msg];
     return cell;
 }
@@ -73,12 +104,12 @@
     //创建查询条件
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bareJidStr = %@ and streamBareJidStr = %@", self.toUser.bare, [XmppTools sharedManager].userJid.bare];
     [fetchRequest setPredicate:predicate];
-
+    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:YES];
     
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-//    fetchRequest.fetchOffset = 0;
-//    fetchRequest.fetchLimit = 10;
+    //    fetchRequest.fetchOffset = 0;
+    //    fetchRequest.fetchLimit = 10;
     NSError *error = nil;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if(fetchedObjects.count > 0){
@@ -270,10 +301,10 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.backgroundColor = [UIColor clearColor];
         
-//        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
-//        _table.mj_header = header;
-//        header.lastUpdatedTimeLabel.hidden = YES;
-//        header.stateLabel.hidden = YES;
+        //        MJChiBaoZiHeader *header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+        //        _table.mj_header = header;
+        //        header.lastUpdatedTimeLabel.hidden = YES;
+        //        header.stateLabel.hidden = YES;
     }
     return _table;
 }

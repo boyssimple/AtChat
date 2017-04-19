@@ -22,6 +22,7 @@
 #import "XMPPConfig.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "XmppTools.h"
+#import "XmppClient.h"
 #import "Notify.h"
 #import "Global.h"
 #import "Toast.h"

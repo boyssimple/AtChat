@@ -55,16 +55,16 @@
         //登录
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = @"注册中...";
-        [[XmppTools sharedManager] registerWithUser:self.phone password:password withSuccess:^{
+        [[XmppClient shareClient] registerUser:self.phone password:password success:^{
             [self hideMsg];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册成功" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
             alert.delegate = self;
             [alert show];
-       } withFail:^(NSString *error) {
-           [self hideMsg];
-           UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册失败" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-           [alert show];
-       }];
+        } failture:^(NSString *error) {
+            [self hideMsg];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"注册失败" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+            [alert show];
+        }];
     }
 }
 

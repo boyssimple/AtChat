@@ -69,7 +69,7 @@
         //登录
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = @"登录中...";
-        [[XmppTools sharedManager] loginWithUser:phone withPwd:password withSuccess:^{
+        [[XmppClient shareClient] login:phone password:password success:^{
             //存储沙盒
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:phone forKey:@"userName"];
@@ -81,7 +81,7 @@
             VCMain *vc = [[VCMain alloc]init];
             UIWindow *window = [UIApplication sharedApplication].keyWindow;
             window.rootViewController = vc;
-        } withFail:^(NSString *error) {
+        } failure:^(NSString *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"用户名或密码错误" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
             [alert show];

@@ -28,7 +28,7 @@
 }
 
 - (void)loadData{
-    NSData *photoData = [[XmppTools sharedManager] getImageData:[XmppTools sharedManager].userJid.user];
+    NSData *photoData = [[XmppTools sharedManager] getImageData:[XmppTools sharedManager].userJid];
     
     UIImage *headImg;
     if (photoData) {

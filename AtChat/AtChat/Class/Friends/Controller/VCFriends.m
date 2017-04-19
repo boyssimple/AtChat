@@ -77,41 +77,41 @@
 }
 
 /*
-//返回索引数组
--(NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-    
-    return self.indexs;
-}
-
-//返回每个索引的内容
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    
-    return [self.indexs objectAtIndex:section];
-}
-
-
-//返回section的个数
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return [self.indexs count];
-}
-
-//响应点击索引时的委托方法
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
-    
-    NSInteger count = 0;
-    
-    for (NSString *character in self.indexs) {
-        
-        if ([[character uppercaseString] hasPrefix:title]) {
-            return count;
-        }
-        
-        count++;
-    }
-    
-    return  0;
-}
+ //返回索引数组
+ -(NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+ 
+ return self.indexs;
+ }
+ 
+ //返回每个索引的内容
+ -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+ 
+ return [self.indexs objectAtIndex:section];
+ }
+ 
+ 
+ //返回section的个数
+ -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+ 
+ return [self.indexs count];
+ }
+ 
+ //响应点击索引时的委托方法
+ -(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+ 
+ NSInteger count = 0;
+ 
+ for (NSString *character in self.indexs) {
+ 
+ if ([[character uppercaseString] hasPrefix:title]) {
+ return count;
+ }
+ 
+ count++;
+ }
+ 
+ return  0;
+ }
  */
 
 - (UITableView*)table{

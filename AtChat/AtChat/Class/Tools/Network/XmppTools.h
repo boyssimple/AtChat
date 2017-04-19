@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+UIKIT_EXTERN NSString *const  kReceivedSinalingMessageNotification;
 
 typedef void(^SuccessBlock)(void);
 typedef void(^FailureBlock)(NSString *error);
@@ -54,9 +55,9 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 + (instancetype)sharedManager;
 
 //登录方法
-- (void)loginWithUser:(NSString*)userName withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
+- (void)loginWithUser:(XMPPJID*)jid withPwd:(NSString*)userPwd withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
 //注册方法
-- (void)registerWithUser:(NSString *)userName password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
+- (void)registerWithUser:(XMPPJID *)jid password:(NSString *)password withSuccess:(SuccessBlock)sblock withFail:(FailureBlock)fblock;
 
 //根据userid返回   xmppjid
 - (XMPPJID*)getJIDWithUserId:(NSString *)userId;
@@ -66,7 +67,7 @@ typedef NS_ENUM(NSInteger, ConnectToServerPurpose)
 
 - (XMPPvCardAvatarModule *)avatarModule;    //头像模块;
 - (XMPPvCardTempModule *)vCardModule;       //电子名片模块
-- (NSData*)getImageData:(NSString *)userId;
+- (NSData*)getImageData:(XMPPJID *)userId;
 
 - (void)addFriendById:(NSString*)name;
 

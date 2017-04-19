@@ -68,7 +68,7 @@
             cell = [[CellUserImg alloc]init];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        [cell updateData:[XmppTools sharedManager].userName];
+        [cell updateData:[XmppTools sharedManager].userJid];
         return cell;
         
     }else if (indexPath.section == 1){

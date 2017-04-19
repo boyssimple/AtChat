@@ -49,7 +49,7 @@
     self.lbName.frame = r;
 }
 
--(void)updateData:(NSString*)userId{
+-(void)updateData:(XMPPJID*)userId{
     NSData *photoData = [[XmppTools sharedManager] getImageData:userId];
     
     UIImage *headImg;
@@ -59,12 +59,12 @@
             self.ivImg.image = headImg;
         });
     }
-    self.lbName.text = userId;
+    self.lbName.text = userId.user;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

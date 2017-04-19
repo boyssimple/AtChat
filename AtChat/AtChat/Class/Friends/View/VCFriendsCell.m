@@ -62,7 +62,7 @@
     }else{
         self.status.text = @"[离线]";
     }
-    NSData *photoData = [[XmppTools sharedManager] getImageData:user.jid.user];
+    NSData *photoData = [[XmppTools sharedManager] getImageData:user.jid];
     
     UIImage *headImg;
     if (photoData) {

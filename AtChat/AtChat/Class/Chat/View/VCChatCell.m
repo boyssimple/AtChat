@@ -68,9 +68,9 @@
     [_container addSubview:_ivImg];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-//        if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:withIndex:)]) {
-//            [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image withIndex:self.index];
-//        }
+        //        if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl:withImage:withIndex:)]) {
+        //            [self.delegate chat:self didSelectWithType:2 withUrl:nil withImage:self.ivImg.image withIndex:self.index];
+        //        }
         
         MJPhoto *photo = [[MJPhoto alloc] init];
         photo.url = nil;
@@ -87,9 +87,9 @@
 
 -(void)loadData:(XMPPMessageArchiving_Message_CoreDataObject *)msg{
     self.msg = msg;
-    NSString *user = msg.bareJid.user;
+    XMPPJID *user = msg.bareJid;
     if (self.msg.isOutgoing) {
-        user = [XmppTools sharedManager].userName;
+        user = [XmppTools sharedManager].userJid;
     }
     NSData *photoData = [[XmppTools sharedManager] getImageData:user];
     
@@ -134,11 +134,11 @@
 - (void)mlEmojiLabel:(MLEmojiLabel*)emojiLabel didSelectLink:(NSString*)link withType:(MLEmojiLabelLinkType)type{
     if ([self.delegate respondsToSelector:@selector(chat:didSelectWithType:withUrl: withIndex:)]) {
         if (type == MLEmojiLabelLinkTypeURL) {
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+            //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
             [self.delegate chat:self didSelectWithType:0 withUrl:[NSURL URLWithString:link] withIndex:self.index];
         }else if(type == MLEmojiLabelLinkTypePhoneNumber){
             NSMutableString * str = [[NSMutableString alloc] initWithFormat:@"tel:%@",link];
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
             [self.delegate chat:self didSelectWithType:1 withUrl:[NSURL URLWithString:str] withIndex:self.index];
         }
     }
