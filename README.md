@@ -1,5 +1,5 @@
 # AtChat
-基于XMPP聊天APP-IOS(OC)项目
+基于XMPP聊天APP-IOS(OC)项目，支持文字、语音、表情、视频语音等聊天功能。
 
 ## 安装说明
 1. pod isntall
