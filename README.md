@@ -25,6 +25,7 @@
 
 说明：
 由于webrtc.a包太大，没有上传上来，请到百度云盘下载：https://pan.baidu.com/s/1jIaB6w2
+将libWebRTC.a放到lib/WebRTC下就可以了
 
 ## 项目截图
 
