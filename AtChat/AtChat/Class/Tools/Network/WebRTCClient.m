@@ -160,6 +160,18 @@ static WebRTCClient *instance = nil;
  */
 - (void)initRTCSetting
 {
+    
+    self.peerConnectionFactory = [[RTCPeerConnectionFactory alloc] init];
+    NSArray *mandatoryConstraints = @[[[RTCPair alloc] initWithKey:@"OfferToReceiveAudio" value:@"true"],
+                                      [[RTCPair alloc] initWithKey:@"OfferToReceiveVideo" value:@"true"]
+                                      ];
+    NSArray *optionalConstraints = @[[[RTCPair alloc] initWithKey:@"DtlsSrtpKeyAgreement" value:@"false"]];
+    self.pcConstraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:mandatoryConstraints optionalConstraints:optionalConstraints];
+    
+    
+    //set RTCVideoSource's(localVideoSource) constraints
+    self.videoConstraints = [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil optionalConstraints:nil];
+    
     self.peerConnection = [self.peerConnectionFactory peerConnectionWithICEServers:_ICEServers constraints:self.pcConstraints delegate:self];
     
     //设置 local media stream
